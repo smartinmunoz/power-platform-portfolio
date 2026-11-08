@@ -62,6 +62,17 @@ Primary records appear before their associated records.
 
 Power Automate manages the creation and relationships of these records in SharePoint. This logic is not handled by the initial Excel-reading Office Script.
 
+### Sequential Record Processing
+
+The "Apply to each" loop processes Excel records sequentially, with concurrency limited to one iteration at a time.
+
+This preserves the original record order and ensures that each primary record (T) is created before its associated records (B).
+
+Power Automate stores the SharePoint ID of the most recently created primary record in a variable. Subsequent associated records use this identifier to establish the correct relationship.
+
+Sequential execution prevents race conditions and incorrect associations caused by parallel processing.
+  
+
 ## Permission Management
 
 Before accessing and processing the file, FL02 changes the validators' permissions from collaboration to read-only.
