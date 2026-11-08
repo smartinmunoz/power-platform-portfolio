@@ -118,4 +118,33 @@ A separate scheduled workflow (FL03) handles cleanup of temporary files older th
 This document describes a generic demonstration architecture.
 
 No corporate URLs, real identifiers, personal data, proprietary scripts or internal configurations are included.
+
+## Excel Export Generation
+
+After the validated source workbook has been processed, the flow generates an Excel file for an external application.
+
+### Process
+
+1. Retrieve the predefined Excel export template.
+2. Create a new workbook from the template.
+3. Prepare the source records as a JSON array.
+4. Execute the `populate-export-template.ts` Office Script against the newly created workbook.
+5. Write the selected fields into the predefined destination columns, starting at row 15.
+6. Return the number of records written.
+
+### Demonstration Files
+
+- `sample-data/sample-records.xlsx`: Sample source data.
+- `sample-data/export-template.xlsx`: Excel template with predefined headers.
+- `office-scripts/process-records.ts`: Extracts source records.
+- `office-scripts/populate-export-template.ts`: Populates the export workbook.
+
+### Implementation Notes
+
+The demonstration uses fictional records and a simplified four-column mapping.
+
+The export workbook is generated before the flow starts creating records in the SharePoint destination list.
+
+In the production architecture, Power Automate manages file creation and orchestration, while Office Scripts performs the Excel data transformations.
+  
   
