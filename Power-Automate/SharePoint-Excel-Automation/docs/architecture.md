@@ -46,7 +46,9 @@ flowchart TD
     N --> O
     O --> P
     Q --> P
-    J -.-> R
+    S["Scheduled: Daily"]
+    S --> R
+
 ```
 
 ## Main Components
