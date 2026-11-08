@@ -79,12 +79,17 @@ Before accessing and processing the file, FL02 changes the validators' permissio
 
 This prevents those users from editing the file during processing.
 
+
 ## Processing Status
 
-- Validated: The file has been manually reviewed and approved for processing.
-- Processed: The automated processing has completed successfully.
+- **Validated (Validat):** The file has been manually reviewed and approved for processing.
+- **Processed (Tractat):** The file has entered the automated processing stage.
 
-The workflow updates the status to Processed only after successful completion.
+The workflow changes the file status to "Processed" before executing the main data processing operations.
+
+This status does not guarantee that processing has completed successfully.
+
+Processing errors are tracked separately within the workflow.
 
 ## Temporary Files
 
