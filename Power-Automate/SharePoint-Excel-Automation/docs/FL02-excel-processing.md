@@ -31,10 +31,6 @@ This additional condition was introduced as a
 safeguard during testing to prevent unintended
 processing executions.
 
-
-## Main Process
-
-
 ## Main Process
 
 1. Trigger the workflow only when the SharePoint file status is "Validated", using a trigger condition.
