@@ -1,12 +1,9 @@
-function main(workbook: ExcelScript.Workbook): {
-    totalRecords: number;
-    primaryRecords: number;
-    associatedRecords: number;
-} {
+
+function main(workbook: ExcelScript.Workbook): string {
     const sheet = workbook.getWorksheet("Input");
 
     if (!sheet) {
-        throw new Error("Worksheet 'Input' was not found.");
+        throw new Error("Worksheet 'Input' not found.");
     }
 
     const usedRange = sheet.getUsedRange();
@@ -17,42 +14,37 @@ function main(workbook: ExcelScript.Workbook): {
 
     const values = usedRange.getValues();
 
-    const headers = values[0].map(value => String(value));
-    const typeIndex = headers.indexOf("RecordType");
-
-    if (typeIndex === -1) {
-        throw new Error("Column 'RecordType' was not found.");
+    if (values.length < 2) {
+        return JSON.stringify([]);
     }
 
-    let primaryRecords = 0;
-    let associatedRecords = 0;
+    const headers = values[0].map(value =>
+        String(value).trim()
+    );
+
+    const records: { [key: string]: string | number | boolean }[] = [];
 
     for (let i = 1; i < values.length; i++) {
-        const recordType = String(values[i][typeIndex])
-            .trim()
-            .toUpperCase();
+        const row = values[i];
 
-        if (recordType === "T") {
-            primaryRecords++;
-        } else if (recordType === "B") {
-            associatedRecords++;
+        const isEmpty = row.every(value =>
+            value === "" || value === null
+        );
+
+        if (isEmpty) {
+            continue;
         }
-    }
-    let resultsSheet = workbook.getWorksheet("Results");
 
-    if (!resultsSheet) {
-        resultsSheet = workbook.addWorksheet("Results");
+        const record: { [key: string]: string | number | boolean } = {};
+
+        for (let j = 0; j < headers.length; j++) {
+            if (headers[j] !== "") {
+                record[headers[j]] = row[j];
+            }
+        }
+
+        records.push(record);
     }
 
-    resultsSheet.getRange("A1:B4").setValues([
-        ["Metric", "Value"],
-        ["Total Records", primaryRecords + associatedRecords],
-        ["Primary Records (T)", primaryRecords],
-        ["Associated Records (B)", associatedRecords]
-    ]);
-    return {
-        totalRecords: primaryRecords + associatedRecords,
-        primaryRecords,
-        associatedRecords
-    };
+    return JSON.stringify(records);
 }
