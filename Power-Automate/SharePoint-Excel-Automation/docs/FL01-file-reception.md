@@ -17,7 +17,7 @@ The workflow starts when a new item containing an Excel attachment is created in
 1. Detect the newly created SharePoint list item.
 2. Retrieve the attached Excel file.
 3. Create a copy in a protected document library.
-4. Configure access permissions for the protected copy.
+4. Configure access permissions for the protected copy. 
 5. Create a second copy in a validation document library.
 6. Configure permissions for the users authorized to review and validate the file.
 7. Update the relevant SharePoint metadata and processing information.
