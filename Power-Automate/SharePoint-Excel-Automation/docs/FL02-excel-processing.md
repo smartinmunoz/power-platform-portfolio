@@ -7,21 +7,49 @@ This workflow processes manually validated Excel files, generates the required o
 
 It also manages document permissions to prevent validators from modifying the Excel file during processing.
 
+
 ## Trigger
 
-SharePoint - When an item or file is modified.
+SharePoint - When a file is created or modified
+(properties only).
 
-The workflow starts when an authorized validator changes the file status to "Validated".
+The workflow uses the following trigger condition:
+
+```text
+@equals(triggerBody()?['Estat']?['Value'], 'Validat')
+```
+
+Only events where the file status is "Validated"
+are allowed to start the workflow.
+
+## Additional Processing Check
+
+Before entering the main processing block,
+the workflow checks the validation status again.
+
+This additional condition was introduced as a
+safeguard during testing to prevent unintended
+processing executions.
+
 
 ## Main Process
 
-1. Detect the validated file.
-2. Change validators' permissions from Edit/Contribute to Read before processing begins.
-3. Read the Excel data using Office Scripts.
-4. Generate the required output files, including a file prepared for import into an external application.
-5. Create records in the target SharePoint list.
-6. Process primary and associated records according to their reference codes and relationships.
-7. When processing completes successfully, update the file status to "Processed".
+
+## Main Process
+
+1. Trigger the workflow only when the SharePoint file status is "Validated", using a trigger condition.
+2. Initialize error-tracking variables and the last primary record identifier.
+3. Break permission inheritance and change validators' permissions from Edit/Contribute to Read.
+4. Update the file status to "Processed" before starting the main data processing operations.
+5. Perform an additional validation-status check to prevent unintended processing during testing.
+6. If the condition is met, retrieve the validated Excel file and create a temporary working copy.
+7. Execute Office Scripts to extract the Excel records and check the script result.
+8. Generate the required output Excel files, including the file prepared for import into an external application.
+9. Process the extracted records in Power Automate, distinguishing primary (T) and associated (B) records and managing their relationships.
+10. Create the corresponding records in the target SharePoint list.
+
+**Note:** In the current implementation, the "Processed" status is assigned before the main processing operations. It does not confirm successful completion.
+  
 
 ## Record Processing
 
