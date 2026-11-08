@@ -1,41 +1,57 @@
 
-# FL02 - Excel Processing and Data Transformation
+# FL02 - Excel Processing and Record Creation
 
 ## Overview
 
-This workflow demonstrates the processing of previously reviewed Excel files using Power Automate, Office Scripts and SharePoint Online.
+This workflow processes manually validated Excel files, generates the required output files and creates related records in SharePoint Online.
 
-It generates structured output files and creates related records in a SharePoint list.
+It also manages document permissions to prevent validators from modifying the Excel file during processing.
 
 ## Trigger
 
 SharePoint - When an item or file is modified.
 
-The workflow processes an Excel file after a user has manually reviewed it and updated its metadata status to "Validated".
-
-Data verification and the review of mandatory fields are performed by a person before the workflow begins processing.
+The workflow starts when an authorized validator changes the file status to "Validated".
 
 ## Main Process
 
-1. Detect the metadata change indicating that the file has been validated.
-2. Access the corresponding Excel file.
-3. Process and transform the Excel data using Office Scripts.
-4. Generate the required output files.
-5. Create records in a SharePoint list.
-6. Identify primary and associated records using the input data.
-7. Establish relationships between related records using reference codes.
-8. Prepare the transformed Excel file for import into an external application.
+1. Detect the validated file.
+2. Change validators' permissions from Edit/Contribute to Read before processing begins.
+3. Read the Excel data using Office Scripts.
+4. Generate the required output files, including a file prepared for import into an external application.
+5. Create records in the target SharePoint list.
+6. Process primary and associated records according to their reference codes and relationships.
+7. When processing completes successfully, update the file status to "Processed".
 
-## Record Relationships
+## Record Processing
 
-The input data distinguishes between two record types:
+The source Excel identifies two types of records:
 
 - T: Primary record
 - B: Associated record
 
 Primary records appear before their associated records.
 
-The demonstration implementation will use fictional records and generic reference codes.
+Power Automate manages the creation and relationships of these records in SharePoint. This logic is not handled by the initial Excel-reading Office Script.
+
+## Permission Management
+
+Before accessing and processing the file, FL02 changes the validators' permissions from collaboration to read-only.
+
+This prevents those users from editing the file during processing.
+
+## Processing Status
+
+- Validated: The file has been manually reviewed and approved for processing.
+- Processed: The automated processing has completed successfully.
+
+The workflow updates the status to Processed only after successful completion.
+
+## Temporary Files
+
+Office Scripts may leave temporary Excel files locked for a period of time.
+
+A separate scheduled workflow (FL03) handles cleanup of temporary files older than 8 hours.
 
 ## Technologies
 
@@ -44,20 +60,23 @@ The demonstration implementation will use fictional records and generic referenc
 - Excel Online (Business)
 - Office Scripts
 - TypeScript
+- SharePoint permission management
 
 ## Technical Skills Demonstrated
 
-- Metadata-driven workflow execution
-- Excel data transformation
+- Metadata-driven automation
+- Document lifecycle management
+- Permission changes before processing
 - Office Scripts integration
-- Structured file generation
-- SharePoint list operations
+- Excel data extraction
+- Output file generation
+- SharePoint record creation
 - Related-record processing
-- Data preparation for external systems
+- Workflow orchestration
 
 ## Security
 
-This document describes a demonstration architecture.
+This document describes a generic demonstration architecture.
 
-No real personal data, corporate configurations, proprietary scripts or internal integration details are included.
+No corporate URLs, real identifiers, personal data, proprietary scripts or internal configurations are included.
   
