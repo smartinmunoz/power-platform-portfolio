@@ -1,13 +1,29 @@
+
 # Sample Data
 
-This folder contains fictional Excel datasets for testing the automation pipeline.
+This folder contains fictional Excel files used to test the Office Scripts demonstration.
 
-## Planned files
+## Available Files
 
-- input-sample.xlsx: Example input file
-- output-sample.xlsx: Expected transformed output
-- validation-errors.xlsx: Example with invalid records
+### sample-records.xlsx
 
-All data is synthetic and created exclusively for demonstration purposes.
+Sample input workbook containing fictional family records.
+
+- Worksheet: `Input`
+- Includes primary (T) and associated (B) records.
+- Used to test `process-records.ts`.
+
+### export-template.xlsx
+
+Predefined Excel template for exporting selected records.
+
+- Worksheet: `Export`
+- Contains predefined column headers.
+- Data is written starting at cell B15.
+- Used to test `populate-export-template.ts`.
+
+## Security
+
+All sample records are fictional.
 
 No real personal, customer or corporate data is included.
