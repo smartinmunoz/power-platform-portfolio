@@ -124,14 +124,16 @@ No corporate URLs, real identifiers, personal data, proprietary scripts or inter
 
 After the validated source workbook has been processed, the flow generates an Excel file for an external application.
 
+
 ### Process
 
-1. Retrieve the predefined Excel export template.
-2. Create a new workbook from the template.
-3. Prepare the source records as a JSON array.
-4. Execute the `populate-export-template.ts` Office Script against the newly created workbook.
-5. Write the selected fields into the predefined destination columns, starting at row 15.
-6. Return the number of records written.
+1. Power Automate retrieves the predefined Excel template.
+2. Power Automate creates a new workbook by copying the template.
+3. Power Automate passes the records extracted by the first Office Script to the second Office Script as a JSON string.
+4. The `populate-export-template.ts` Office Script runs against the newly created workbook.
+5. The script writes the selected fields into the predefined destination cells, starting at row 15, while preserving the template headers.
+6. The script returns the number of records written to Power Automate.
+7. After generating the required output files, Power Automate continues with the creation of SharePoint list records.
 
 ### Demonstration Files
 
