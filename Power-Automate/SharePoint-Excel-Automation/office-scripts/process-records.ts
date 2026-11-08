@@ -1,4 +1,3 @@
-
 function main(workbook: ExcelScript.Workbook): {
   totalRecords: number;
   primaryRecords: number;
@@ -10,14 +9,15 @@ function main(workbook: ExcelScript.Workbook): {
     throw new Error("Worksheet 'Input' was not found.");
   }
 
-  const table = sheet.getTable("InputRecords");
+  const usedRange = sheet.getUsedRange();
 
-  if (!table) {
-    throw new Error("Table 'InputRecords' was not found.");
+  if (!usedRange) {
+    throw new Error("The worksheet is empty.");
   }
 
-  const values = table.getRangeBetweenHeaderAndTotal().getValues();
-  const headers = table.getHeaderRowRange().getValues()[0];
+  const values = usedRange.getValues();
+
+  const headers = values[0].map(value => String(value));
   const typeIndex = headers.indexOf("RecordType");
 
   if (typeIndex === -1) {
@@ -27,8 +27,10 @@ function main(workbook: ExcelScript.Workbook): {
   let primaryRecords = 0;
   let associatedRecords = 0;
 
-  for (const row of values) {
-    const recordType = String(row[typeIndex]).trim().toUpperCase();
+  for (let i = 1; i < values.length; i++) {
+    const recordType = String(values[i][typeIndex])
+      .trim()
+      .toUpperCase();
 
     if (recordType === "T") {
       primaryRecords++;
@@ -38,7 +40,7 @@ function main(workbook: ExcelScript.Workbook): {
   }
 
   return {
-    totalRecords: values.length,
+    totalRecords: primaryRecords + associatedRecords,
     primaryRecords,
     associatedRecords
   };
