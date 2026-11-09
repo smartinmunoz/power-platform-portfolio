@@ -1,0 +1,540 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/row-formatting.schema.json",
+  "commandBarProps": {
+    "commands": [
+      {
+        "key": "editInGridView",
+        "hide": false,
+        "text": "Editar en cuadrícula",
+        "iconName": "EditTable",
+        "primary": true,
+        "position": 0,
+        "sectionType": "Primary"
+      },
+      {
+        "key": "open",
+        "hide": false,
+        "text": "Abrir",
+        "iconName": "OpenFile",
+        "position": 1,
+        "sectionType": "Primary"
+      },
+      {
+        "key": "openInOfficeClient",
+        "hide": false,
+        "text": "Abrir en aplicación",
+        "iconName": "OpenInNewWindow",
+        "position": 2,
+        "sectionType": "Primary"
+      },
+      {
+        "key": "openInOfficeOnline",
+        "hide": true
+      },
+      {
+        "key": "previewFileCommand",
+        "hide": true
+      },
+      {
+        "key": "openInImmersiveReader",
+        "hide": true
+      },
+      {
+        "key": "openInExplorer",
+        "hide": true
+      },
+      {
+        "key": "openWithExplorer",
+        "hide": true
+      },
+      {
+        "key": "openInFileExplorer",
+        "hide": true
+      },
+      {
+        "key": "openInFileExplorerCommand",
+        "hide": true
+      },
+      {
+        "key": "viewInFileExplorer",
+        "hide": true
+      },
+      {
+        "key": "viewInFileExplorerCommand",
+        "hide": true
+      },
+      {
+        "key": "ViewInFileExplorer",
+        "hide": true
+      },
+      {
+        "key": "ViewInFileExplorerCommand",
+        "hide": true
+      },
+      {
+        "key": "viewInExplorer",
+        "hide": true
+      },
+      {
+        "key": "viewInExplorerCommand",
+        "hide": true
+      },
+      {
+        "key": "explorerView",
+        "hide": true
+      },
+      {
+        "key": "explorerViewCommand",
+        "hide": true
+      },
+      {
+        "key": "new",
+        "hide": true
+      },
+      {
+        "key": "newComposite",
+        "hide": true
+      },
+      {
+        "key": "newCommand",
+        "hide": true
+      },
+      {
+        "key": "newMenu",
+        "hide": true
+      },
+      {
+        "key": "newMenuCommand",
+        "hide": true
+      },
+      {
+        "key": "addNew",
+        "hide": true
+      },
+      {
+        "key": "addNewCommand",
+        "hide": true
+      },
+      {
+        "key": "createNew",
+        "hide": true
+      },
+      {
+        "key": "createNewCommand",
+        "hide": true
+      },
+      {
+        "key": "newFolder",
+        "hide": true
+      },
+      {
+        "key": "newWordDocument",
+        "hide": true
+      },
+      {
+        "key": "newExcelWorkbook",
+        "hide": true
+      },
+      {
+        "key": "newPowerPointPresentation",
+        "hide": true
+      },
+      {
+        "key": "newOneNoteNotebook",
+        "hide": true
+      },
+      {
+        "key": "newFormsForExcel",
+        "hide": true
+      },
+      {
+        "key": "newVisioDrawing",
+        "hide": true
+      },
+      {
+        "key": "newLink",
+        "hide": true
+      },
+      {
+        "key": "editNewMenu",
+        "hide": true
+      },
+      {
+        "key": "upload",
+        "hide": true
+      },
+      {
+        "key": "UploadCommand",
+        "hide": true
+      },
+      {
+        "key": "uploadFile",
+        "hide": true
+      },
+      {
+        "key": "uploadFolder",
+        "hide": true
+      },
+      {
+        "key": "uploadTemplate",
+        "hide": true
+      },
+      {
+        "key": "addTemplate",
+        "hide": true
+      },
+      {
+        "key": "share",
+        "hide": true
+      },
+      {
+        "key": "copyLink",
+        "hide": true
+      },
+      {
+        "key": "download",
+        "hide": true
+      },
+      {
+        "key": "rename",
+        "hide": true
+      },
+      {
+        "key": "copyTo",
+        "hide": true
+      },
+      {
+        "key": "moveTo",
+        "hide": true
+      },
+      {
+        "key": "delete",
+        "hide": true
+      },
+      {
+        "key": "edit",
+        "hide": true
+      },
+      {
+        "key": "comment",
+        "hide": true
+      },
+      {
+        "key": "copyPath",
+        "hide": true
+      },
+      {
+        "key": "details",
+        "hide": true
+      },
+      {
+        "key": "infoPane",
+        "hide": true
+      },
+      {
+        "key": "properties",
+        "hide": true
+      },
+      {
+        "key": "propertiesCommand",
+        "hide": true
+      },
+      {
+        "key": "versionHistory",
+        "hide": true
+      },
+      {
+        "key": "versionHistoryCommand",
+        "hide": true
+      },
+      {
+        "key": "checkOut",
+        "hide": true
+      },
+      {
+        "key": "checkIn",
+        "hide": true
+      },
+      {
+        "key": "undoCheckOut",
+        "hide": true
+      },
+      {
+        "key": "discardCheckOut",
+        "hide": true
+      },
+      {
+        "key": "pinItem",
+        "hide": true
+      },
+      {
+        "key": "pinItemCommand",
+        "hide": true
+      },
+      {
+        "key": "unpinItem",
+        "hide": true
+      },
+      {
+        "key": "sync",
+        "hide": true
+      },
+      {
+        "key": "syncCommand",
+        "hide": true
+      },
+      {
+        "key": "addShortcut",
+        "hide": true
+      },
+      {
+        "key": "addShortcutToOneDriveCommand",
+        "hide": true
+      },
+      {
+        "key": "stasherContextMenuCommand",
+        "hide": true
+      },
+      {
+        "key": "stasherCommand.myFiles",
+        "hide": true
+      },
+      {
+        "key": "stasherCommand.otherLocations",
+        "hide": true
+      },
+      {
+        "key": "pinToQuickAccess",
+        "hide": true
+      },
+      {
+        "key": "PinToQuickAccessCommand",
+        "hide": true
+      },
+      {
+        "key": "unpinFromQuickAccess",
+        "hide": true
+      },
+      {
+        "key": "automate",
+        "hide": true
+      },
+      {
+        "key": "automateCreateRule",
+        "hide": true
+      },
+      {
+        "key": "automateManageRules",
+        "hide": true
+      },
+      {
+        "key": "powerAutomate",
+        "hide": true
+      },
+      {
+        "key": "powerAutomateCreateFlow",
+        "hide": true
+      },
+      {
+        "key": "powerAutomateSeeFlows",
+        "hide": true
+      },
+      {
+        "key": "powerAutomateConfigureFlows",
+        "hide": true
+      },
+      {
+        "key": "microsoftFlow",
+        "hide": true
+      },
+      {
+        "key": "msFlow",
+        "hide": true
+      },
+      {
+        "key": "workflow",
+        "hide": true
+      },
+      {
+        "key": "workflows",
+        "hide": true
+      },
+      {
+        "key": "Workflow",
+        "hide": true
+      },
+      {
+        "key": "Workflows",
+        "hide": true
+      },
+      {
+        "key": "workflowCommand",
+        "hide": true
+      },
+      {
+        "key": "workflowsCommand",
+        "hide": true
+      },
+      {
+        "key": "WorkflowCommand",
+        "hide": true
+      },
+      {
+        "key": "WorkflowsCommand",
+        "hide": true
+      },
+      {
+        "key": "aiBuilder",
+        "hide": true
+      },
+      {
+        "key": "aiBuilderCreate",
+        "hide": true
+      },
+      {
+        "key": "aiBuilderGoto",
+        "hide": true
+      },
+      {
+        "key": "classifyAndExtract",
+        "hide": true
+      },
+      {
+        "key": "viewDocumentUnderstandingModels",
+        "hide": true
+      },
+      {
+        "key": "createCopilot",
+        "hide": true
+      },
+      {
+        "key": "aiActions",
+        "hide": true
+      },
+      {
+        "key": "AIActions",
+        "hide": true
+      },
+      {
+        "key": "aiActionsCommand",
+        "hide": true
+      },
+      {
+        "key": "AIActionsCommand",
+        "hide": true
+      },
+      {
+        "key": "copilot",
+        "hide": true
+      },
+      {
+        "key": "copilotCommand",
+        "hide": true
+      },
+      {
+        "key": "copilotActions",
+        "hide": true
+      },
+      {
+        "key": "CopilotActions",
+        "hide": true
+      },
+      {
+        "key": "copilotActionsCommand",
+        "hide": true
+      },
+      {
+        "key": "CopilotActionsCommand",
+        "hide": true
+      },
+      {
+        "key": "knowledgeAgent",
+        "hide": true
+      },
+      {
+        "key": "knowledgeAgentCommand",
+        "hide": true
+      },
+      {
+        "key": "KnowledgeAgentCommand",
+        "hide": true
+      },
+      {
+        "key": "integrate",
+        "hide": true
+      },
+      {
+        "key": "powerApps",
+        "hide": true
+      },
+      {
+        "key": "powerAppsCreateApp",
+        "hide": true
+      },
+      {
+        "key": "powerAppsSeeAllApps",
+        "hide": true
+      },
+      {
+        "key": "powerAppsCustomizeForms",
+        "hide": true
+      },
+      {
+        "key": "powerBI",
+        "hide": true
+      },
+      {
+        "key": "powerBIVisualizeList",
+        "hide": true
+      },
+      {
+        "key": "export",
+        "hide": true
+      },
+      {
+        "key": "exportExcel",
+        "hide": true
+      },
+      {
+        "key": "exportCSV",
+        "hide": true
+      },
+      {
+        "key": "alertMe",
+        "hide": true
+      },
+      {
+        "key": "manageAlert",
+        "hide": true
+      },
+      {
+        "key": "manageForms",
+        "hide": true
+      },
+      {
+        "key": "favoriteCommand",
+        "hide": true
+      },
+      {
+        "key": "PublishCommand",
+        "hide": true
+      },
+      {
+        "key": "complianceDetails",
+        "hide": true
+      },
+      {
+        "key": "requestSignOff",
+        "hide": true
+      },
+      {
+        "key": "setAlert",
+        "hide": true
+      },
+      {
+        "key": "more",
+        "hide": true
+      }
+    ]
+  }
+}
