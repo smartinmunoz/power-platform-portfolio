@@ -10,30 +10,29 @@ All names, identifiers and data are fictional.
 
 ### Workflow Diagram
 
+### Workflow Diagram
 
+```mermaid
 flowchart TD
-    A["Nuevo elemento en lista SharePoint"]
-    B["Romper herencia de permisos"]
-    C["Conceder acceso al elemento"]
-    D["Asignar permisos de lectura a grupo A"]
-    E["Asignar permisos de lectura a grupo B"]
-    F["Obtener adjuntos"]
-    G["Obtener contenido del adjunto"]
-    H["Crear archivo original"]
-    I["Romper herencia de permisos del archivo"]
-    J["Asignar lectura al grupo A"]
-    K["Asignar lectura al grupo B"]
-    L["Actualizar propiedades del archivo"]
-    M["Obtener propiedades del archivo original"]
-    N["Actualizar estado de la solicitud"]
-    O["Actualizar resultado del archivo original"]
-    P["Crear archivo para validacion"]
-    Q["Actualizar propiedades del archivo para validacion"]
-    R["Finalizar"]
+    A["Nuevo elemento en SharePoint"] --> B["Romper herencia de permisos"]
+    B --> C["Conceder acceso"]
+    C --> D["Asignar lectura al grupo A"]
+    D --> E["Asignar lectura al grupo B"]
+    E --> F["Obtener adjuntos"]
+    F --> G["Obtener contenido del adjunto"]
+    G --> H["Crear archivo original"]
+    H --> I["Romper permisos del archivo"]
+    I --> J["Asignar lectura al grupo A"]
+    J --> K["Asignar lectura al grupo B"]
+    K --> L["Actualizar propiedades"]
+    L --> M["Obtener propiedades del original"]
+    M --> N["Actualizar estado de solicitud"]
+    N --> O["Actualizar resultado del original"]
+    O --> P["Crear archivo para validacion"]
+    P --> Q["Actualizar archivo para validacion"]
+    Q --> R["Finalizar"]
+```
 
-    A --> B --> C --> D --> E --> F --> G --> H
-    H --> I --> J --> K --> L --> M --> N --> O
-    O --> P --> Q --> R
 
 **Trigger:** When an item is created in `SolicitudesDemo`.
 
