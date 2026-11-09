@@ -22,12 +22,13 @@ A collection of Power Platform automation projects focused on SharePoint integra
 
 All published examples use fictional data and are intended for technical demonstration purposes.
 
+
 ### Power Automate | SharePoint & Excel Automation
 
-| Project | Description | Documentation |
-|---|---|---|
-| **FL01 - SharePoint & Excel Automation** | Demonstrates a SharePoint and Excel workflow with document processing, validation, and permission management. | [View FL01](Power-Automate/SharePoint-Excel-Automation/flows/FL01-demo/README.md) |
-| **FL03 - Temporary File Cleanup** | Scheduled cleanup of temporary SharePoint files older than 8 hours, including diagnostic handling for deletion failures. | [View FL03](Power-Automate/SharePoint-Excel-Automation/flows/FL03-demo/README.md) |
+A collection of automation workflows focused on SharePoint integration, Excel processing, document management, and scheduled maintenance.
+
+[Explore the SharePoint & Excel Automation project](Power-Automate/SharePoint-Excel-Automation/)
+
 
 ### Technical Focus
 
