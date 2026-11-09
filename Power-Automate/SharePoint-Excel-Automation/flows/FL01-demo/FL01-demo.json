@@ -1,0 +1,91 @@
+{
+  "name": "FL01-Recepcion-Archivos-Demo",
+  "description": "Recepcion y distribucion de archivos Excel en SharePoint",
+  "version": "1.0",
+  "type": "demonstration",
+  "trigger": {
+    "type": "SharePoint",
+    "event": "When an item is created",
+    "site": "https://contoso.sharepoint.com/sites/DemoSite",
+    "list": "SolicitudesDemo"
+  },
+  "actions": [
+    {
+      "name": "ObtenerAdjuntos",
+      "type": "SharePoint",
+      "operation": "Get attachments"
+    },
+    {
+      "name": "ObtenerContenidoAdjunto",
+      "type": "SharePoint",
+      "operation": "Get attachment content"
+    },
+    {
+      "name": "CopiarArchivoEntrada",
+      "type": "SharePoint",
+      "operation": "Create file",
+      "destination": "DocumentosEntradaDemo"
+    },
+    {
+      "name": "CopiarArchivoValidacion",
+      "type": "SharePoint",
+      "operation": "Create file",
+      "destination": "DocumentosValidacionDemo"
+    }
+  ],
+  "attachmentHandling": {
+    "condition": "HasAttachments equals true",
+    "ifFalse": "End without processing",
+    "ifTrue": {
+      "loop": "Apply to each attachment",
+      "filter": "Only .xlsx files",
+      "operations": [
+        "Get attachment content",
+        "Create file in DocumentosEntradaDemo",
+        "Create file in DocumentosValidacionDemo"
+      ]
+    }
+  },
+  "permissions": {
+    "DocumentosEntradaDemo": {
+      "access": "Restricted",
+      "groups": [
+        "AdministradoresDemo"
+      ],
+      "permission": "Edit"
+    },
+    "DocumentosValidacionDemo": {
+      "access": "Restricted",
+      "groups": [
+        "AdministradoresDemo",
+        "ValidadoresDemo"
+      ],
+      "permission": "Edit"
+    }
+  },
+  "documentMetadata": {
+    "SolicitudID": "ID del elemento de SolicitudesDemo",
+    "NombreArchivo": "Nombre original del adjunto",
+    "EstadoValidacion": "Pendiente",
+    "FechaRecepcion": "Fecha de creacion de la solicitud",
+    "Origen": "SolicitudesDemo"
+  },
+  "errorHandling": {
+    "strategy": "Try-Catch",
+    "successStatus": "Completado",
+    "errorStatus": "Error",
+    "skippedStatus": "Omitido",
+    "logFields": [
+      "SolicitudID",
+      "NombreArchivo",
+      "Estado",
+      "FechaProcesamiento",
+      "MensajeError"
+    ],
+    "onError": [
+      "Registrar el error",
+      "Conservar informacion del archivo",
+      "Notificar al administrador"
+    ]
+  }
+}
