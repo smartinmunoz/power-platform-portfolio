@@ -90,6 +90,36 @@ SharePoint permissions, metadata updates and attachment processing must be imple
 - No credentials or connection identifiers.
 - No corporate solution exports.
 
+## Technical Highlights
+
+This conceptual workflow demonstrates the design of a SharePoint-based document automation process using Microsoft Power Automate.
+
+### SharePoint Permission Management
+- Break permission inheritance on SharePoint list items and original documents.
+- Assign read-only access to the item creator.
+- Apply different access levels to original and validation documents.
+- Use SharePoint groups to manage document permissions.
+
+### Document Automation
+- Trigger a workflow when a new SharePoint list item is created.
+- Retrieve attachments and their content.
+- Create documents in separate SharePoint libraries.
+- Support a document validation process.
+
+### Metadata and Process Tracking
+- Update SharePoint list item properties.
+- Retrieve and update document metadata.
+- Record processing information across different stages.
+- Maintain traceability between requests and related documents.
+
+### Architecture and Documentation
+- Document workflow architecture using Mermaid diagrams.
+- Describe workflow components using structured JSON.
+- Separate conceptual design from executable Power Automate definitions.
+- Use fictional resources to demonstrate technical concepts without exposing corporate information.
+
+**Implementation note:** This repository contains a conceptual demonstration. The workflow has not been deployed or tested as an executable solution in the demonstration environment.
+
 ## Technologies
 
 - Microsoft Power Automate
