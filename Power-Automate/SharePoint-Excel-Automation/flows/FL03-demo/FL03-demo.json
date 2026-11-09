@@ -1,0 +1,58 @@
+{
+  "name": "FL03-Temporary-File-Cleanup-Demo",
+  "description": "Scheduled cleanup of temporary SharePoint files older than 8 hours",
+  "version": "1.0",
+  "type": "demonstration",
+  "trigger": {
+    "schedule": "Periodic execution",
+    "frequency": "Not specified",
+    "type": "Recurrence"
+  },
+  "sharePoint": {
+    "site": "https://contoso.sharepoint.com/sites/DemoSite",
+    "library": "TemporaryFilesDemo"
+  },
+  "retentionPolicy": {
+    "condition": "File age greater than 8 hours",
+    "comparison": "Older than",
+    "thresholdHours": 8
+  },
+  "actions": [
+    {
+      "operation": "Get files",
+      "type": "SharePoint",
+      "name": "GetTemporaryFiles"
+    },
+    {
+      "operation": "Filter array",
+      "condition": "Files older than 8 hours",
+      "type": "DataOperation",
+      "name": "FilterOldFiles"
+    },
+    {
+      "operation": "Apply to each",
+      "actions": [
+        {
+          "operation": "Delete file",
+          "fileIdentifier": "Current item identifier",
+          "type": "SharePoint",
+          "name": "DeleteOldTemporaryFile"
+        },
+        {
+          "operation": "Compose",
+          "runAfter": [
+            "Failed",
+            "Skipped"
+          ],
+          "message": "Unable to delete temporary file. Check whether it remains locked by Excel Online.",
+          "type": "DataOperation",
+          "name": "ComposeDeletionFailureMessage"
+        }
+      ],
+      "input": "Filtered files",
+      "type": "Control",
+      "name": "ProcessTemporaryFiles"
+    }
+  ],
+  "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
+}
