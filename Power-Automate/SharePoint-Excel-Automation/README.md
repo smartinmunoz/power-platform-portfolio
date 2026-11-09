@@ -71,17 +71,29 @@ This project includes Power Automate workflows, Office Scripts, and sample Excel
 | FL04 | Processing logs, execution tracking, and error reporting | Planned | Coming soon |
 | FL05 | Dynamic SharePoint record-level permissions | Planned | Coming soon |
 
+
 ### Office Scripts
 
 Office Scripts support Excel data extraction, transformation, validation, and output generation.
 
-[Explore Office Scripts](office-scripts/)
+| Script | Purpose | Source Code |
+|---|---|---|
+| process-records.ts | Processes structured Excel records for automation workflows. | [View Script](office-scripts/process-records.ts) |
+| populate-export-template.ts | Populates an Excel export template with processed data. | [View Script](office-scripts/populate-export-template.ts) |
+
+[Explore all Office Scripts](office-scripts/)
 
 ### Sample Excel Files
 
 Fictional Excel datasets and templates used to demonstrate the automation process.
 
-[Explore Sample Data](sample-data/)
+| File | Purpose | Download |
+|---|---|---|
+| sample-records.xlsx | Sample structured records used as input data. | [View File](sample-data/sample-records.xlsx) |
+| export-template.xlsx | Excel template for generated output files. | [View File](sample-data/export-template.xlsx) |
+
+[Explore all Sample Data](sample-data/)
+
 
 ### Technical Documentation
 
