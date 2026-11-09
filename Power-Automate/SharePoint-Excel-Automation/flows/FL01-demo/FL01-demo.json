@@ -69,23 +69,5 @@
     "EstadoValidacion": "Pendiente",
     "FechaRecepcion": "Fecha de creacion de la solicitud",
     "Origen": "SolicitudesDemo"
-  },
-  "errorHandling": {
-    "strategy": "Try-Catch",
-    "successStatus": "Completado",
-    "errorStatus": "Error",
-    "skippedStatus": "Omitido",
-    "logFields": [
-      "SolicitudID",
-      "NombreArchivo",
-      "Estado",
-      "FechaProcesamiento",
-      "MensajeError"
-    ],
-    "onError": [
-      "Registrar el error",
-      "Conservar informacion del archivo",
-      "Notificar al administrador"
-    ]
   }
 }
