@@ -56,6 +56,20 @@ Once validated, the system automatically:
 - Configuration-driven access control.
 - Scheduled cleanup of temporary files.
 
+## Available Workflow Demonstrations
+
+The following workflows include technical documentation, architecture diagrams, and conceptual JSON representations.
+
+| Flow | Description | Status | Documentation |
+|---|---|---|---|
+| FL01 | SharePoint and Excel document preparation, validation, and permissions | Documented | [View FL01](flows/FL01-demo/README.md) |
+| FL03 | Scheduled cleanup of temporary files older than 8 hours | Documented | [View FL03](flows/FL03-demo/README.md) |
+
+Additional workflows will be documented progressively.
+
+> These demonstrations describe workflow architecture and are not directly importable into Power Automate.
+
+
 ## Repository Structure
 
 - `docs/`: Technical documentation and architecture.
