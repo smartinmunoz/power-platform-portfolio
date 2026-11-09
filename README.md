@@ -23,11 +23,12 @@ A collection of Power Platform automation projects focused on SharePoint integra
 All published examples use fictional data and are intended for technical demonstration purposes.
 
 
-### Power Automate | SharePoint & Excel Automation
 
-A collection of automation workflows focused on SharePoint integration, Excel processing, document management, and scheduled maintenance.
+### SharePoint-Excel-Automation
 
-[Explore the SharePoint & Excel Automation project](Power-Automate/SharePoint-Excel-Automation/)
+A collection of Power Automate workflows focused on SharePoint integration, Excel processing, document management, and scheduled maintenance.
+
+[Explore SharePoint-Excel-Automation](Power-Automate/SharePoint-Excel-Automation/)
 
 
 ### Technical Focus
