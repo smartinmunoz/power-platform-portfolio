@@ -31,16 +31,19 @@ Once validated, the system automatically:
 5. Applies dynamic permissions to individual records.
 6. Cleans up temporary processing files.
 
+
 ## Solution Components
 
 | Component | Purpose |
 |---|---|
 | FL01 | File reception and document preparation |
-| FL02 | Excel processing and SharePoint record creation |
+| FL02 | Excel processing, output generation and SharePoint record creation |
 | FL03 | Scheduled temporary file cleanup |
+| FL04 | Child flow for processing logs, execution tracking and error reporting |
 | FL05 | Dynamic record-level permissions |
 | Office Scripts | Excel data extraction and export generation |
-| SharePoint | Document storage, records and permissions |
+| SharePoint | Document storage, records, permissions and processing logs |
+
 
 ## Technical Highlights
 
