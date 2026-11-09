@@ -76,6 +76,17 @@ Primary and associated records are processed sequentially to preserve their rela
 
 Scheduled workflow that removes temporary processing files older than eight hours.
 
+### FL04: Processing Logs and Error Tracking
+
+Reusable child flow invoked by FL02 to centralize processing logs and error reporting.
+
+The flow receives execution information, including the source file, processing reference, record counts, error details and execution identifier.
+
+It creates a SharePoint log entry to provide traceability and support troubleshooting.
+
+This separation keeps the main processing workflow focused on business operations while delegating execution logging to a dedicated component.
+
+
 ### FL05: Dynamic Permissions
 
 Triggered when a SharePoint record is created.
