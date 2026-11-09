@@ -29,6 +29,8 @@ flowchart TD
     P["FL05: Apply Dynamic Record Permissions"]
     Q["Permissions Configuration List"]
     R["FL03: Scheduled Temporary File Cleanup"]
+    T["FL04: Processing Logs and Error Tracking"]
+    U["SharePoint: Processing Logs List"]
 
     A --> B
     B --> C
@@ -46,6 +48,8 @@ flowchart TD
     N --> O
     O --> P
     Q --> P
+    G -.->|"Child flow invocation"| T
+    T --> U
     S["Scheduled: Daily"]
     S --> R
 
