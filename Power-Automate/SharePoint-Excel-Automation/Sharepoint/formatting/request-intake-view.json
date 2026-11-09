@@ -1,0 +1,52 @@
+
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/sp/v2/row-formatting.schema.json",
+  "commandBarProps": {
+    "commands": [
+      {
+        "key": "new",
+        "text": "New Request"
+      },
+      {
+        "key": "editInGridView",
+        "hide": true
+      },
+      {
+        "key": "undo",
+        "hide": true
+      },
+      {
+        "key": "share",
+        "hide": true
+      },
+      {
+        "key": "copyLink",
+        "hide": true
+      },
+      {
+        "key": "export",
+        "hide": true
+      },
+      {
+        "key": "forms",
+        "hide": true
+      },
+      {
+        "key": "manageForms",
+        "hide": true
+      },
+      {
+        "key": "automate",
+        "hide": true
+      },
+      {
+        "key": "workflows",
+        "hide": true
+      },
+      {
+        "key": "integrate",
+        "hide": true
+      }
+    ]
+  }
+}
