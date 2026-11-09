@@ -74,6 +74,42 @@ The customization reduces unnecessary actions in the list interface while preser
 
 **Important:** Hidden commands do not represent security restrictions. SharePoint permissions and list settings must be configured separately.
 
+### Document Library Command Bar
+
+**File:** `formatting/document-library-commandbar.json`
+
+This customization provides a simplified command bar for SharePoint document libraries used in automated document processing and validation workflows.
+
+**Features:**
+
+- Highlights "Edit in Grid View" as the primary action.
+- Preserves document opening options.
+- Hides file upload and creation commands.
+- Hides download, delete, rename, move and copy commands.
+- Hides sharing and export options.
+- Hides automation, integration and other non-essential commands.
+
+**Use case:**
+
+The same JSON configuration can be applied to two document libraries with different permission models:
+
+1. **Protected Document Library:** Stores files managed by automated processes. Access and editing capabilities are restricted through SharePoint permissions.
+2. **Validation Document Library:** Allows authorized validators to review documents and update metadata using grid editing.
+
+This approach separates the user interface configuration from the underlying security model.
+
+**Security considerations:**
+
+JSON formatting only controls the visibility and presentation of supported interface commands.
+
+It does not prevent users from performing operations through other interfaces, APIs or applications when their permissions allow them.
+
+Actual access restrictions must be implemented using SharePoint permissions and library settings.
+
+**Compatibility:**
+
+Some command identifiers may not be supported in every SharePoint interface or Microsoft 365 version. The configuration should be tested in the target environment.
+
 
 ## Implementation
 
