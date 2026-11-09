@@ -58,15 +58,6 @@ flowchart TD
 - AdministradoresDemo: access to both libraries.
 - ValidadoresDemo: access to the validation library.
 
-## Error Handling
-
-The proposed design includes processing statuses:
-
-- Completado
-- Error
-- Omitido
-
-Errors should be logged and reported to an administrator.
 
 ## Implementation Status
 
@@ -74,7 +65,7 @@ Errors should be logged and reported to an administrator.
 
 The FL01-demo.json file documents the intended workflow architecture.
 
-SharePoint permissions, metadata updates, error handling and attachment processing must be implemented and tested in an appropriate environment.
+SharePoint permissions, metadata updates and attachment processing must be implemented and tested in an appropriate environment.
 
 ## Security
 
