@@ -53,10 +53,20 @@ flowchart TD
 | DocumentosEntradaDemo | Restricted document library |
 | DocumentosValidacionDemo | Validation document library |
 
+
 ## Permissions
 
-- AdministradoresDemo: access to both libraries.
-- ValidadoresDemo: access to the validation library.
+The workflow uses different permission levels depending on the SharePoint resource.
+
+| SharePoint Resource | Members | Owners |
+|---|---|---|
+| Request list item | Read | Read |
+| Original document | Read | Read |
+| Validation document | Edit | Edit |
+
+Permission inheritance is broken for the request list item and the original document.
+
+The demonstration uses fictional SharePoint groups (`IntegrantesDemo` and `PropietariosDemo`).
 
 
 ## Implementation Status
