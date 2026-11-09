@@ -47,6 +47,34 @@ These visual customizations do not replace SharePoint permissions or list-level 
 
 - `formatting/`: JSON files for SharePoint view and column formatting.
 
+## Available JSON Customizations
+
+### Request Intake View
+
+**File:** `formatting/request-intake-view.json`
+
+This customization is designed for a SharePoint list where users submit requests with Excel file attachments.
+
+It simplifies the command bar to provide a more focused request submission experience.
+
+**Features:**
+
+- Renames the New button to "New Request".
+- Hides grid editing.
+- Hides sharing and copy-link commands.
+- Hides export options.
+- Hides form management commands.
+- Hides automation and integration commands.
+
+**Use case:**
+
+Users create new requests and attach Excel files for subsequent processing through Power Automate.
+
+The customization reduces unnecessary actions in the list interface while preserving the standard SharePoint request creation functionality.
+
+**Important:** Hidden commands do not represent security restrictions. SharePoint permissions and list settings must be configured separately.
+
+
 ## Implementation
 
 1. Create or select a SharePoint list.
