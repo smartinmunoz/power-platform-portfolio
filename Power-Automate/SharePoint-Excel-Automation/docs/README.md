@@ -8,6 +8,7 @@ This folder contains technical documentation for the SharePoint & Excel Automati
 - FL01: File reception and permissions
 - FL02: Excel validation and transformation
 - FL03: Temporary file cleanup
+- FL04: Processing logs and error tracking
 - FL05: Record-level permissions
 - Security and configuration guidelines
 
