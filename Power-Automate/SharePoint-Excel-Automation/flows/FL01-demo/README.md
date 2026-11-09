@@ -10,24 +10,30 @@ All names, identifiers and data are fictional.
 
 ### Workflow Diagram
 
-```mermaid
+
 flowchart TD
-    A["New item in SolicitudesDemo"] --> B{"Has attachments?"}
-    B -->|No| C["End without processing"]
-    B -->|Yes| D["Get attachments"]
-    D --> E["For each attachment"]
-    E --> F{"Is it an .xlsx file?"}
-    F -->|No| G["Skip attachment"]
-    F -->|Yes| H["Get attachment content"]
-    H --> I["Create file in DocumentosEntradaDemo"]
-    I --> J["Create file in DocumentosValidacionDemo"]
-    J --> K["Associate document metadata"]
-    K --> L["Record processing result"]
-    H -.->|Error| M["Log error and notify administrator"]
-    I -.->|Error| M
-    J -.->|Error| M
-    K -.->|Error| M
-```
+    A["Nuevo elemento en lista SharePoint"]
+    B["Romper herencia de permisos"]
+    C["Conceder acceso al elemento"]
+    D["Asignar permisos de lectura a grupo A"]
+    E["Asignar permisos de lectura a grupo B"]
+    F["Obtener adjuntos"]
+    G["Obtener contenido del adjunto"]
+    H["Crear archivo original"]
+    I["Romper herencia de permisos del archivo"]
+    J["Asignar lectura al grupo A"]
+    K["Asignar lectura al grupo B"]
+    L["Actualizar propiedades del archivo"]
+    M["Obtener propiedades del archivo original"]
+    N["Actualizar estado de la solicitud"]
+    O["Actualizar resultado del archivo original"]
+    P["Crear archivo para validacion"]
+    Q["Actualizar propiedades del archivo para validacion"]
+    R["Finalizar"]
+
+    A --> B --> C --> D --> E --> F --> G --> H
+    H --> I --> J --> K --> L --> M --> N --> O
+    O --> P --> Q --> R
 
 **Trigger:** When an item is created in `SolicitudesDemo`.
 
