@@ -56,18 +56,41 @@ Once validated, the system automatically:
 - Configuration-driven access control.
 - Scheduled cleanup of temporary files.
 
-## Available Workflow Demonstrations
 
-The following workflows include technical documentation, architecture diagrams, and conceptual JSON representations.
+## Project Components & Documentation
 
-| Flow | Description | Status | Documentation |
+This project includes Power Automate workflows, Office Scripts, and sample Excel files demonstrating an integrated document processing solution.
+
+### Power Automate Workflows
+
+| ID | Description | Status | Documentation |
 |---|---|---|---|
 | FL01 | SharePoint and Excel document preparation, validation, and permissions | Documented | [View FL01](flows/FL01-demo/README.md) |
+| FL02 | Excel processing, output generation, and SharePoint record creation | Planned | Coming soon |
 | FL03 | Scheduled cleanup of temporary files older than 8 hours | Documented | [View FL03](flows/FL03-demo/README.md) |
+| FL04 | Processing logs, execution tracking, and error reporting | Planned | Coming soon |
+| FL05 | Dynamic SharePoint record-level permissions | Planned | Coming soon |
 
-Additional workflows will be documented progressively.
+### Office Scripts
 
-> These demonstrations describe workflow architecture and are not directly importable into Power Automate.
+Office Scripts support Excel data extraction, transformation, validation, and output generation.
+
+[Explore Office Scripts](office-scripts/)
+
+### Sample Excel Files
+
+Fictional Excel datasets and templates used to demonstrate the automation process.
+
+[Explore Sample Data](sample-data/)
+
+### Technical Documentation
+
+Architecture diagrams, implementation notes, and supporting technical documentation.
+
+[Explore Documentation](docs/)
+
+> All examples use fictional data and independently developed demonstration components. Conceptual JSON files are not directly importable into Power Automate.
+
 
 
 ## Repository Structure
