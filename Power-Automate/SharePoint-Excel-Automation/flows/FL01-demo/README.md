@@ -56,17 +56,23 @@ flowchart TD
 
 ## Permissions
 
-The workflow uses different permission levels depending on the SharePoint resource.
+The workflow applies different permission levels depending on the SharePoint resource.
 
-| SharePoint Resource | Members | Owners |
-|---|---|---|
-| Request list item | Read | Read |
-| Original document | Read | Read |
-| Validation document | Edit | Edit |
+| SharePoint Resource | Item Creator | Members | Owners |
+|---|---|---|---|
+| SharePoint list item | Read | Read | Read |
+| Original document | No access | Read | Read |
+| Validation document | No access | Edit | Edit |
 
-Permission inheritance is broken for the request list item and the original document.
+### Permission Management
 
-The demonstration uses fictional SharePoint groups (`IntegrantesDemo` and `PropietariosDemo`).
+- **Item Creator:** Read-only access to the SharePoint list item. No access to the generated documents.
+- **Members:** Read access to the list item and original document. Edit access to the validation document.
+- **Owners:** Read access to the list item and original document. Edit access to the validation document.
+
+Permission inheritance is broken for the SharePoint list item and the original document.
+
+All group names and SharePoint resources used in this demonstration are fictional.
 
 
 ## Implementation Status
