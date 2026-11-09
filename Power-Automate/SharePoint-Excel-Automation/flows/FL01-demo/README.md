@@ -48,7 +48,7 @@ Errors should be logged and reported to an administrator.
 
 **Conceptual demonstration. Not an importable Power Automate flow.**
 
-The JSON file in `flow/` documents the intended workflow architecture. It does not contain executable Power Automate action definitions.
+The FL01-demo.json file documents the intended workflow architecture.
 
 SharePoint permissions, metadata updates, error handling and attachment processing must be implemented and tested in an appropriate environment.
 
