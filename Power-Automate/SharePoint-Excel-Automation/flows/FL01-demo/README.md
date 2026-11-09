@@ -10,8 +10,6 @@ All names, identifiers and data are fictional.
 
 ### Workflow Diagram
 
-### Workflow Diagram
-
 ```mermaid
 flowchart TD
     A["New SharePoint list item"] --> B["Break permission inheritance"]
