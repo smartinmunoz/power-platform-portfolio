@@ -8,6 +8,27 @@ All names, identifiers and data are fictional.
 
 ## Architecture
 
+### Workflow Diagram
+
+```mermaid
+flowchart TD
+    A["New item in SolicitudesDemo"] --> B{"Has attachments?"}
+    B -->|No| C["End without processing"]
+    B -->|Yes| D["Get attachments"]
+    D --> E["For each attachment"]
+    E --> F{"Is it an .xlsx file?"}
+    F -->|No| G["Skip attachment"]
+    F -->|Yes| H["Get attachment content"]
+    H --> I["Create file in DocumentosEntradaDemo"]
+    I --> J["Create file in DocumentosValidacionDemo"]
+    J --> K["Associate document metadata"]
+    K --> L["Record processing result"]
+    H -.->|Error| M["Log error and notify administrator"]
+    I -.->|Error| M
+    J -.->|Error| M
+    K -.->|Error| M
+```
+
 **Trigger:** When an item is created in `SolicitudesDemo`.
 
 **Process:**
