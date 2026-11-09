@@ -11,26 +11,90 @@
   },
   "actions": [
     {
-      "name": "ObtenerAdjuntos",
+      "name": "BreakItemPermissionInheritance",
+      "type": "SharePoint",
+      "operation": "Break permission inheritance"
+    },
+    {
+      "name": "GrantItemAccess",
+      "type": "SharePoint",
+      "operation": "Grant access to item"
+    },
+    {
+      "name": "AssignItemReadGroupA",
+      "type": "SharePoint",
+      "operation": "Assign read access",
+      "group": "GroupA-Demo"
+    },
+    {
+      "name": "AssignItemReadGroupB",
+      "type": "SharePoint",
+      "operation": "Assign read access",
+      "group": "GroupB-Demo"
+    },
+    {
+      "name": "GetAttachments",
       "type": "SharePoint",
       "operation": "Get attachments"
     },
     {
-      "name": "ObtenerContenidoAdjunto",
+      "name": "GetAttachmentContent",
       "type": "SharePoint",
       "operation": "Get attachment content"
     },
     {
-      "name": "CopiarArchivoEntrada",
+      "name": "CreateOriginalFile",
       "type": "SharePoint",
       "operation": "Create file",
       "destination": "DocumentosEntradaDemo"
     },
     {
-      "name": "CopiarArchivoValidacion",
+      "name": "BreakFilePermissionInheritance",
+      "type": "SharePoint",
+      "operation": "Break permission inheritance"
+    },
+    {
+      "name": "AssignFileReadGroupA",
+      "type": "SharePoint",
+      "operation": "Assign read access",
+      "group": "GroupA-Demo"
+    },
+    {
+      "name": "AssignFileReadGroupB",
+      "type": "SharePoint",
+      "operation": "Assign read access",
+      "group": "GroupB-Demo"
+    },
+    {
+      "name": "UpdateOriginalFileProperties",
+      "type": "SharePoint",
+      "operation": "Update file properties"
+    },
+    {
+      "name": "GetOriginalFileProperties",
+      "type": "SharePoint",
+      "operation": "Get file properties"
+    },
+    {
+      "name": "UpdateRequestStatus",
+      "type": "SharePoint",
+      "operation": "Update item"
+    },
+    {
+      "name": "UpdateOriginalFileResults",
+      "type": "SharePoint",
+      "operation": "Update file properties"
+    },
+    {
+      "name": "CreateValidationFile",
       "type": "SharePoint",
       "operation": "Create file",
       "destination": "DocumentosValidacionDemo"
+    },
+    {
+      "name": "UpdateValidationFileProperties",
+      "type": "SharePoint",
+      "operation": "Update file properties"
     }
   ],
   "attachmentHandling": {
@@ -47,20 +111,52 @@
     }
   },
   "permissions": {
-    "DocumentosEntradaDemo": {
+    "requestItem": {
+      "inheritance": "Broken",
       "access": "Restricted",
       "groups": [
-        "AdministradoresDemo"
-      ],
-      "permission": "Edit"
+        {
+          "name": "IntegrantesDemo",
+          "permission": "Read"
+        },
+        {
+          "name": "PropietariosDemo",
+          "permission": "Read"
+        },
+        {
+          "name": "ItemCreator",
+          "permission": "Read"
+        }
+      ]
     },
-    "DocumentosValidacionDemo": {
+    "originalFile": {
+      "library": "DocumentosEntradaDemo",
+      "inheritance": "Broken",
       "access": "Restricted",
       "groups": [
-        "AdministradoresDemo",
-        "ValidadoresDemo"
-      ],
-      "permission": "Edit"
+        {
+          "name": "IntegrantesDemo",
+          "permission": "Read"
+        },
+        {
+          "name": "PropietariosDemo",
+          "permission": "Read"
+        }
+      ]
+    },
+    "validationFile": {
+      "library": "DocumentosValidacionDemo",
+      "access": "Restricted",
+      "groups": [
+        {
+          "name": "IntegrantesDemo",
+          "permission": "Edit"
+        },
+        {
+          "name": "PropietariosDemo",
+          "permission": "Edit"
+        }
+      ]
     }
   },
   "documentMetadata": {
@@ -71,3 +167,4 @@
     "Origen": "SolicitudesDemo"
   }
 }
+
