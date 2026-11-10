@@ -140,10 +140,18 @@ SharePoint permissions, metadata updates and attachment processing must be imple
 This conceptual workflow demonstrates the design of a SharePoint-based document automation process using Microsoft Power Automate.
 
 ### SharePoint Permission Management
-- Break permission inheritance on SharePoint list items and original documents.
-- Assign read-only access to the item creator.
-- Apply different access levels to original and validation documents.
-- Use SharePoint groups to manage document permissions.
+
+### SharePoint Permission Management
+
+- Break permission inheritance on request list items to control access to individual submissions.
+- Grant read access to the request creator, Site Members, and Site Owners.
+- Provide read-only access to the Derived Documents Library for all authorized Main Site users.
+- Restrict access to the Validation Library to authorized management users.
+- Allow Site Members and Site Owners to edit validation documents during the validation stage.
+- Support FL02 permission changes after processing, making validated documents read-only for Site Members and Site Owners.
+- Preserve administrative control for Site Collection Administrators.
+- Use SharePoint permissions to enforce access restrictions independently of JSON interface customizations.
+
 
 ### Document Automation
 - Trigger a workflow when a new SharePoint list item is created.
