@@ -1,0 +1,63 @@
+{
+  "name": "FL05-Dynamic-SharePoint-Permissions-Demo",
+  "description": "Dynamic item-level permission assignment using a SharePoint configuration list",
+  "version": "1.0",
+  "type": "demonstration",
+  "trigger": {
+    "operation": "When an item is created",
+    "type": "SharePoint"
+  },
+  "sharePoint": {
+    "targetList": "BusinessRecordsDemo",
+    "site": "https://contoso.sharepoint.com/sites/DemoSite",
+    "configurationList": "CenterPermissionsDemo"
+  },
+  "actions": [
+    {
+      "operation": "Get items",
+      "purpose": "Find the matching center in the configuration list",
+      "name": "FindCenter",
+      "type": "SharePoint"
+    },
+    {
+      "expression": "length(matchingRecords) > 0",
+      "ifFalse": [],
+      "ifTrue": [
+        {
+          "operation": "Compose",
+          "name": "GetCenterGroupId",
+          "type": "DataOperation"
+        },
+        {
+          "operation": "Break item permission inheritance",
+          "name": "BreakPermissionInheritance",
+          "type": "SharePoint"
+        },
+        {
+          "operation": "Grant item permissions",
+          "group": "Configured center group",
+          "permission": "Edit",
+          "name": "GrantCenterGroupPermissions",
+          "type": "SharePoint"
+        },
+        {
+          "operation": "Grant item permissions",
+          "group": "Owners",
+          "permission": "Edit",
+          "name": "GrantOwnersPermissions",
+          "type": "SharePoint"
+        },
+        {
+          "operation": "Grant item permissions",
+          "group": "Members",
+          "permission": "Edit",
+          "name": "GrantMembersPermissions",
+          "type": "SharePoint"
+        }
+      ],
+      "name": "CenterFound",
+      "type": "Condition"
+    }
+  ],
+  "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
+}
