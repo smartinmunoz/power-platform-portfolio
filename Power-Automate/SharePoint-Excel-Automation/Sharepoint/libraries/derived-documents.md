@@ -53,20 +53,23 @@ The Management Subsite contains the internal validation, processing, configurati
 
 This separation helps distinguish external-facing functionality from internal management operations.
 
+
 ## 5. Document Lifecycle
 
-The conceptual document lifecycle is:
+The document lifecycle begins when an authorized user submits a new item in the Request Intake List with an attached Excel workbook.
 
-1. A user submits a request through the Request Intake List.
-2. The request enters the internal validation and processing lifecycle.
-3. Power Automate processes the relevant information.
-4. Derived documents are generated or prepared according to the solution requirements.
-5. Authorized processes or administrators make the documents available in the Derived Documents Library.
-6. Users with the appropriate permissions consult or download the documents.
+FL01 performs the initial document distribution:
 
-The precise document publication mechanism must be defined in the implementation.
+1. An authorized user creates a request and attaches an Excel workbook.
+2. FL01 retrieves the Excel attachment from the Request Intake List.
+3. FL01 creates a document copy in the Derived Documents Library, located in the Main SharePoint Site.
+4. FL01 creates a separate copy in the Validation Library, located in the Management Subsite.
+5. The Derived Documents Library provides read-only access to authorized Main Site users, including external staff, Site Members, and Site Owners.
+6. The Validation Library follows its own restricted permission model for internal validation and subsequent processing.
 
-This documentation does not assume that every generated workbook is automatically copied from the Management Subsite Export Library.
+The Derived Documents Library does not depend on FL02 or a separate publication workflow to receive the initial document copy.
+
+The two document copies serve different purposes and follow independent access-control requirements.
 
 ## 6. Permissions
 
