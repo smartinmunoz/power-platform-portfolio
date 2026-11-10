@@ -1,0 +1,143 @@
+{
+  "name": "FL02-Excel-Processing-Demo",
+  "description": "Excel processing, export generation, and related SharePoint record creation",
+  "version": "1.0",
+  "type": "demonstration",
+  "trigger": {
+    "operation": "When a file is created or modified (properties only)",
+    "condition": "FileStatus = Validated",
+    "type": "SharePoint"
+  },
+  "sharePoint": {
+    "sourceLibrary": "ValidatedDocumentsDemo",
+    "destinationList": "BusinessRecordsDemo",
+    "temporaryLibrary": "TemporaryFilesDemo",
+    "site": "https://contoso.sharepoint.com/sites/DemoSite"
+  },
+  "variables": [
+    {
+      "initialValue": 0,
+      "name": "SharePointErrors",
+      "type": "integer"
+    },
+    {
+      "initialValue": 0,
+      "name": "LastPrimaryRecordId",
+      "type": "integer"
+    },
+    {
+      "initialValue": [],
+      "name": "ErrorDetails",
+      "type": "array"
+    },
+    {
+      "initialValue": 0,
+      "name": "RecordsCreated",
+      "type": "integer"
+    }
+  ],
+  "actions": [
+    {
+      "operation": "Break permission inheritance",
+      "name": "BreakFilePermissionInheritance"
+    },
+    {
+      "operation": "Grant Read permission",
+      "group": "Members",
+      "name": "GrantMembersReadAccess"
+    },
+    {
+      "operation": "Grant Read permission",
+      "group": "Owners",
+      "name": "GrantOwnersReadAccess"
+    },
+    {
+      "operation": "Update SharePoint file properties",
+      "status": "Processed",
+      "note": "Status is updated before processing completes",
+      "name": "MarkFileAsProcessing"
+    },
+    {
+      "operation": "Condition",
+      "ifFalse": [],
+      "ifTrue": [
+        "Get validated Excel file",
+        "Create temporary working copy",
+        "Run process-records.ts",
+        "Check Office Script result",
+        "Get Excel export template",
+        "Create export workbook",
+        "Run populate-export-template.ts",
+        "Process extracted records sequentially"
+      ],
+      "name": "ValidateProcessingCondition"
+    },
+    {
+      "recordTypes": {
+        "associated": "B",
+        "primary": "T"
+      },
+      "concurrency": 1,
+      "name": "ProcessExcelRecords",
+      "primaryRecord": [
+        "Reset last primary record ID",
+        "Create primary SharePoint item",
+        "Increment created records count on success",
+        "Save created primary item ID",
+        "Track and record creation errors"
+      ],
+      "familyIdentifier": "concat(SourceFileId, '-', FamilyId)",
+      "associatedRecord": [
+        "Validate associated record",
+        "Create associated SharePoint item",
+        "Set ParentRecordId from LastPrimaryRecordId",
+        "Increment created records count on success",
+        "Track and append creation errors"
+      ],
+      "operation": "Apply to each"
+    },
+    {
+      "operation": "Compose JSON",
+      "properties": [
+        "ProcessingReferenceId",
+        "RecordsCreated",
+        "SharePointErrors",
+        "ErrorDetails"
+      ],
+      "name": "BuildProcessingSummary"
+    },
+    {
+      "operation": "Run child flow",
+      "childFlow": "FL04-Processing-Logs-Demo",
+      "output": "Id_Log",
+      "name": "ExecuteFL04",
+      "inputCount": 8
+    },
+    {
+      "operation": "Compose",
+      "details": [
+        "Count imported records",
+        "Count Excel errors",
+        "Combine error details"
+      ],
+      "name": "CalculateFinalDiagnostics"
+    }
+  ],
+  "officeScripts": [
+    "process-records.ts",
+    "populate-export-template.ts"
+  ],
+  "relatedFlows": [
+    {
+      "purpose": "Processing logs and error tracking",
+      "relationship": "Child flow invoked by FL02",
+      "id": "FL04"
+    },
+    {
+      "purpose": "Scheduled cleanup of temporary Excel files",
+      "relationship": "Separate maintenance workflow",
+      "id": "FL03"
+    }
+  ],
+  "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
+}
