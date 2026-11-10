@@ -99,6 +99,31 @@ Fictional Excel datasets and templates used to demonstrate the automation proces
 
 Architecture diagrams, implementation notes, and supporting technical documentation.
 
+
+## Project Status
+
+**Status: Documentation complete - Demonstration project**
+
+The portfolio currently includes:
+
+- Five documented Power Automate workflows (FL01-FL05).
+- Conceptual workflow JSON definitions.
+- Office Scripts source code.
+- Fictional Excel sample data and templates.
+- SharePoint site architecture documentation.
+- Four documented SharePoint lists.
+- Three documented document libraries.
+- SharePoint JSON formatting examples.
+- Request intake form layout example.
+- Security and permissions documentation.
+
+The conceptual Power Automate JSON files are not directly importable as production flows.
+
+The project demonstrates the architecture and implementation approach but is not provided as a fully deployable solution package.
+
+Further development may include executable demonstration flows, automated deployment, and additional testing.
+
+
 [Explore Documentation](docs/)
 
 > All examples use fictional data and independently developed demonstration components. Conceptual JSON files are not directly importable into Power Automate.
