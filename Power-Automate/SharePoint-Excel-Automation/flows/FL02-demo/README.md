@@ -1,92 +1,252 @@
-# FL05 - Dynamic SharePoint Permissions
+# FL02 - Excel Processing and Record Creation
 
 ## Overview
 
-Conceptual demonstration of a Power Automate workflow that dynamically assigns item-level permissions in SharePoint Online.
+FL02 is the main Power Automate workflow responsible for processing validated Excel files, generating output workbooks, and creating related records in SharePoint Online.
 
-The workflow uses a separate configuration list to identify the security group associated with each business record.
+It orchestrates SharePoint document management, Office Scripts, sequential record processing, error tracking, and execution logging through the FL04 child flow.
+
+This is an independent conceptual demonstration using fictional data.
 
 ## Architecture
 
-### Workflow Diagram
+```mermaid
+flowchart TD
+    A["SharePoint: File created or modified"]
+    A --> B{"Status = Validated?"}
+    B -->|No| Z["End"]
+    B -->|Yes| C["Initialize 4 variables"]
+
+    C --> D["Break file permission inheritance"]
+    D --> E["Grant Read to Members"]
+    E --> F["Grant Read to Owners"]
+    F --> G["Update file status to Processed"]
+    G --> H{"Additional validation condition"}
+
+    H -->|Yes| I["Get validated Excel file"]
+    I --> J["Create temporary Excel file"]
+    J --> K["Run Office Script: Extract records"]
+    K --> L{"Script result valid?"}
+    L -->|Yes| M["Get Excel export template"]
+    M --> N["Create export workbook"]
+    N --> O["Run Office Script: Populate export"]
+    O --> P["Apply to each Excel record - Sequential"]
+
+    subgraph LOOP["Excel record processing"]
+        P --> Q["Look up center"]
+        Q --> R{"Record type = T?"}
+
+        R -->|Yes| S["Create primary SharePoint record"]
+        S --> T{"Creation successful?"}
+        T -->|Yes| U["Save LastPrimaryRecordId"]
+        U --> V["Increment RecordsCreated"]
+        T -->|No| W["Increment SharePointErrors"]
+        W --> X["Append error to ErrorDetails"]
+
+        R -->|No| Y{"Record type = B?"}
+        Y -->|Yes| AA["Create associated SharePoint record"]
+        AA --> AB["Set ParentRecordId from LastPrimaryRecordId"]
+        AB --> AC{"Creation successful?"}
+        AC -->|Yes| AD["Increment RecordsCreated"]
+        AC -->|No| AE["Increment SharePointErrors"]
+        AE --> AF["Append error to ErrorDetails"]
+        Y -->|No| AG["Skip unsupported record"]
+    end
+
+    V --> AH["Next record"]
+    X --> AH
+    AD --> AH
+    AF --> AH
+    AG --> AH
+    AH -->|More records| P
+
+    AH -->|All records processed| AI["Build processing summary"]
+    L -->|No| AI
+    H -->|No| AI
+
+    AI --> AJ["Call FL04 child flow: Create processing log"]
+    AJ --> AK["Count imported records"]
+    AK --> AL["Count Excel errors"]
+    AL --> AM["Combine error details"]
+    AM --> AN["End"]
+```
+
+## Trigger
+
+**SharePoint - When a file is created or modified (properties only)**
+
+The workflow uses a trigger condition that checks whether the file status is `Validated`.
+
+An additional condition is used before the main processing operations.
+
+## Initialization
+
+The workflow initializes four variables:
+
+| Variable | Type | Purpose |
+|---|---|---|
+| SharePointErrors | Integer | Counts SharePoint record creation errors |
+| LastPrimaryRecordId | Integer | Stores the last successfully created primary record ID |
+| ErrorDetails | Array | Collects processing error details |
+| RecordsCreated | Integer | Counts successfully created records |
+
+## Document Permission Management
+
+Before processing the Excel file, the workflow:
+
+1. Breaks permission inheritance on the source document.
+2. Grants Read permissions to the configured Members group.
+3. Grants Read permissions to the configured Owners group.
+
+This restricts editing during processing.
+
+## Document Status
+
+The file status changes from `Validated` to `Processed` before the main processing operations finish.
+
+**Important:** `Processed` indicates that the workflow has entered the processing stage. It does not guarantee successful completion.
+
+## Excel Processing
+
+The workflow performs the following operations:
+
+1. Retrieve the validated source workbook.
+2. Create a temporary working copy.
+3. Execute `process-records.ts` to extract Excel records.
+4. Check the Office Script result.
+5. Retrieve the predefined export template.
+6. Create a new Excel export workbook.
+7. Execute `populate-export-template.ts` to populate the template.
+8. Continue with SharePoint record creation.
+
+The export script writes data into the predefined template starting at row 15.
+
+## Sequential Record Processing
+
+The workflow distinguishes two types of records:
+
+| Record Type | Description |
+|---|---|
+| T | Primary record |
+| B | Associated record |
+
+Records are processed sequentially, with concurrency limited to one iteration at a time.
+
+This preserves the source order and allows associated records to reference the correct primary record.
+
+### Record Relationship Diagram
 
 ```mermaid
 flowchart TD
-    A["SharePoint: Item created"] --> B["Find matching center"]
-    B --> C{"Center found?"}
-    C -->|Yes| D["Get center group ID"]
-    D --> E["Break permission inheritance"]
-    E --> F["Grant Edit to center group"]
-    F --> G["Grant Edit to Owners"]
-    G --> H["Grant Edit to Members"]
-    H --> I["Finish"]
-    C -->|No| J["No additional actions"]
+    A["Process next Excel record"] --> B["Find matching center"]
+    B --> C{"Is primary record T?"}
+
+    C -->|Yes| D["Reset LastPrimaryRecordId"]
+    D --> E["Create primary SharePoint item"]
+    E -->|Success| F["Increment RecordsCreated"]
+    F --> G["Save LastPrimaryRecordId"]
+    E -->|Failure| H["Increment SharePointErrors"]
+    H --> I["Append primary record error"]
+
+    C -->|No| J{"Valid associated record B?"}
+    J -->|Yes| K["Create associated SharePoint item"]
+    K -->|Success| L["Increment RecordsCreated"]
+    K -->|Failure| M["Increment SharePointErrors"]
+    M --> N["Append associated record error"]
+    J -->|No| O["Skip record"]
+
+    G -.->|"Used by subsequent associated records"| K
 ```
 
-## Workflow Steps
+## Composite Family Identifier
 
-1. Trigger when a new SharePoint list item is created.
-2. Search a separate configuration list for the matching center.
-3. Check whether the search returned at least one result.
-4. Retrieve the configured center group identifier.
-5. Break permission inheritance for the new item.
-6. Grant Edit permissions to the configured center group.
-7. Grant Edit permissions to the Owners group.
-8. Grant Edit permissions to the Members group.
+The workflow constructs a family identifier by combining the source SharePoint file ID and the family identifier from Excel.
 
-If no matching center is found, the conditional branch performs no additional actions.
+Example:
 
-## Configuration-Driven Permissions
+```text
+SourceFileId = 125
+FamilyId = FAM003
+CompositeFamilyId = 125-FAM003
+```
 
-The workflow uses a SharePoint configuration list rather than hardcoded center-to-group mappings.
+This helps distinguish records originating from different source files.
 
-Example using fictional values:
+## Error Tracking
 
-| Center Reference | Security Group |
+The workflow maintains:
+
+- A counter for SharePoint record creation errors.
+- An array containing error details.
+- A counter for successfully created records.
+- A processing summary containing the reference ID, created records, errors, and error details.
+
+Separate branches track successful and failed record creation operations.
+
+## Integration with FL04
+
+FL02 invokes FL04 as a child flow and passes eight input parameters:
+
+| Parameter | Purpose |
 |---|---|
-| REGION-A | Center-Group-A |
-| REGION-B | Center-Group-B |
-| REGION-C | Center-Group-C |
+| ProcessingReferenceId | Identifies the processing operation |
+| SourceFileId | Identifies the source file |
+| SourceFileName | Identifies the processed workbook |
+| RecordsRead | Number of records read |
+| RecordsCreated | Number of records created |
+| RecordsWithErrors | Number of SharePoint errors |
+| ErrorDetails | Processing error details |
+| ExecutionId | Flow execution identifier |
 
-## Permission Matrix
+FL04 creates a SharePoint log entry and returns its ID as `Id_Log`.
 
-| Group | Permission Level |
+## Related Workflows
+
+| Flow | Relationship |
 |---|---|
-| Configured center group | Edit |
-| Owners | Edit |
-| Members | Edit |
+| FL01 | Prepares documents for validation |
+| FL03 | Cleans up temporary files older than 8 hours |
+| FL04 | Receives processing results and creates execution logs |
+| FL05 | Applies dynamic permissions to newly created SharePoint records |
 
-All three groups receive Edit permissions.
-
-## Technical Highlights
-
-- SharePoint event-driven automation.
-- Configuration-driven security group selection.
-- Conditional processing based on lookup results.
-- Dynamic group identifier retrieval.
-- SharePoint permission inheritance management.
-- Item-level access control.
-- SharePoint REST API integration.
+FL03 operates independently on a schedule, while FL04 is directly invoked by FL02.
 
 ## Technologies
 
 - Microsoft Power Automate
 - SharePoint Online
-- SharePoint REST API
-- SharePoint security groups
+- Excel Online (Business)
+- Office Scripts
+- TypeScript
 - JSON
+- SharePoint permission management
 - Mermaid
+
+## Technical Highlights
+
+- Metadata-driven automation.
+- Document lifecycle and permission management.
+- Office Scripts orchestration.
+- Excel export generation.
+- Sequential processing and parent-child record relationships.
+- Composite identifiers.
+- Array-based error tracking.
+- Reusable child flow integration.
+- SharePoint execution logging.
 
 ## Implementation Status
 
 **Conceptual demonstration. Not an importable Power Automate flow.**
 
-The FL05-demo.json file describes the workflow architecture and does not contain executable Power Automate action definitions.
+The `FL02-demo.json` file represents the workflow architecture and does not contain executable Power Automate action definitions.
 
 ## Security
 
-- Fictional SharePoint sites and lists.
-- Fictional center references and group names.
+- Fictional SharePoint site and list names.
+- Fictional records and identifiers.
 - No real user data.
-- No credentials or corporate identifiers.
+- No credentials or corporate URLs.
 - No proprietary solution exports.
+
+
+
