@@ -79,7 +79,7 @@ Office Scripts support Excel data extraction, transformation, validation, and ou
 | Script | Purpose | Source Code |
 |---|---|---|
 | process-records.ts | Processes structured Excel records for automation workflows. | [View Script](office-scripts/process-records.ts) |
-| populate-export-template.ts | Populates an Excel export template with processed data. | [FL05](flows/FL05-demo/README.md) |
+| populate-export-template.ts | Populates an Excel export template with processed data. | [View Script](office-scripts/populate-export-template.ts) |
 
 [Explore all Office Scripts](office-scripts/)
 
