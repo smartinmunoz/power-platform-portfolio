@@ -69,7 +69,7 @@ This project includes Power Automate workflows, Office Scripts, and sample Excel
 | FL02 | Excel processing, output generation, and SharePoint record creation | Planned | Coming soon |
 | FL03 | Scheduled cleanup of temporary files older than 8 hours | Documented | [View FL03](flows/FL03-demo/README.md) |
 | FL04 | Processing logs, execution tracking, and error reporting | Planned | Coming soon |
-| FL05 | Dynamic SharePoint record-level permissions | Planned | Coming soon |
+| FL05 | Dynamic SharePoint record-level permissions | Documented | [View FL05](flows/FL05-demo/README.md) |
 
 
 ### Office Scripts
@@ -79,7 +79,7 @@ Office Scripts support Excel data extraction, transformation, validation, and ou
 | Script | Purpose | Source Code |
 |---|---|---|
 | process-records.ts | Processes structured Excel records for automation workflows. | [View Script](office-scripts/process-records.ts) |
-| populate-export-template.ts | Populates an Excel export template with processed data. | [View Script](office-scripts/populate-export-template.ts) |
+| populate-export-template.ts | Populates an Excel export template with processed data. | [FL05](flows/FL05-demo/README.md) |
 
 [Explore all Office Scripts](office-scripts/)
 
