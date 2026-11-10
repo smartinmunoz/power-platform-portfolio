@@ -1,0 +1,84 @@
+{
+  "name": "FL04-Processing-Logs-Demo",
+  "description": "Reusable child flow for SharePoint processing logs",
+  "version": "1.0",
+  "type": "demonstration",
+  "parentFlow": "FL02-Excel-Processing",
+  "trigger": {
+    "operation": "Manually trigger a flow",
+    "invokedBy": "FL02",
+    "type": "Manual"
+  },
+  "inputs": [
+    {
+      "name": "ProcessingReferenceId",
+      "type": "number"
+    },
+    {
+      "name": "SourceFileId",
+      "type": "number"
+    },
+    {
+      "name": "SourceFileName",
+      "type": "string"
+    },
+    {
+      "name": "RecordsRead",
+      "type": "number"
+    },
+    {
+      "name": "RecordsCreated",
+      "type": "number"
+    },
+    {
+      "name": "RecordsWithErrors",
+      "type": "number"
+    },
+    {
+      "name": "ErrorDetails",
+      "type": "string"
+    },
+    {
+      "name": "ExecutionId",
+      "type": "string"
+    }
+  ],
+  "sharePoint": {
+    "list": "ProcessingLogsDemo",
+    "site": "https://contoso.sharepoint.com/sites/DemoSite"
+  },
+  "actions": [
+    {
+      "operation": "Create item",
+      "name": "CreateProcessingLog",
+      "type": "SharePoint",
+      "fields": {
+        "Status": "CalculatedProcessingStatus",
+        "ExecutionId": "inputs.ExecutionId",
+        "ExecutionDate": "utcNow()",
+        "RecordsWithErrors": "inputs.RecordsWithErrors",
+        "RecordsRead": "inputs.RecordsRead",
+        "RecordsCreated": "inputs.RecordsCreated",
+        "SourceFileId": "inputs.SourceFileId",
+        "ErrorDetails": "inputs.ErrorDetails",
+        "ProcessingReferenceId": "inputs.ProcessingReferenceId"
+      }
+    },
+    {
+      "operation": "Respond to a Power App or flow",
+      "output": {
+        "value": "CreateProcessingLog.ID",
+        "name": "Id_Log",
+        "type": "number"
+      },
+      "name": "ReturnLogId",
+      "type": "Response"
+    }
+  ],
+  "statusLogic": {
+    "partialSuccess": "RecordsCreated > 0 AND RecordsWithErrors > 0",
+    "error": "RecordsCreated = 0",
+    "success": "RecordsCreated > 0 AND RecordsWithErrors = 0"
+  },
+  "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
+}
