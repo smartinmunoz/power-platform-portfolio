@@ -172,33 +172,40 @@ SharePoint JSON formatting may be used to customize the interface.
 
 However, interface customization does not replace SharePoint permission management.
 
+
 ## 11. Integration with Power Automate
 
-The broader solution uses several Power Automate workflows.
+The Derived Documents Library is integrated with the broader Power Automate solution.
 
 ### FL01 - Request Intake
 
-Supports the request intake and validation lifecycle.
+FL01 starts when a new request is submitted through the Request Intake List with an attached Excel workbook.
+
+The workflow retrieves the attachment and creates two separate document copies:
+
+- One copy in the Derived Documents Library, located in the Main SharePoint Site.
+- One copy in the Validation Library, located in the Management Subsite.
+
+The Derived Documents Library provides read-only access to authorized Main Site users, including external staff, Site Members, and Site Owners.
+
+No additional document publication workflow is required.
 
 ### FL02 - Excel Processing
 
-Processes validated Excel workbooks, creates SharePoint records, and generates export workbooks.
+FL02 processes validated Excel workbooks from the Management Subsite Validation Library.
 
-### Document Publication
-
-A publication process may be used to make derived documents available in the Main SharePoint Site.
-
-The exact mechanism is implementation-specific and is not defined as an additional workflow in this portfolio.
+It creates SharePoint records and generates export workbooks without modifying the document copy stored in the Derived Documents Library.
 
 ### FL04 - Processing Logs
 
-Records processing execution information in the Management Subsite.
+FL04 records processing execution information in the Management Subsite.
 
 ### FL05 - Record Permissions
 
-Applies center-based permissions to processed records in the Management Subsite.
+FL05 applies center-based permissions to processed records in the Management Subsite.
 
-The Derived Documents Library has its own access requirements and should not automatically inherit the record-level permission model of FL05.
+The Derived Documents Library follows its own read-only access model and does not inherit the record-level permissions managed by FL05.
+
 
 ## 12. Security and Governance Considerations
 
