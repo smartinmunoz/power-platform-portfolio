@@ -1,41 +1,64 @@
+
 {
-  "name": "FL01-Recepcion-Archivos-Demo",
-  "description": "Recepcion y distribucion de archivos Excel en SharePoint",
-  "version": "1.0",
-  "type": "demonstration",
+  "name": "FL01-SharePoint-File-Intake-Demo",
+  "description": "Receive Excel attachments from a SharePoint request list and distribute document copies to the Derived Documents and Validation libraries.",
+  "version": "1.1",
+  "type": "conceptual-demonstration",
+  "importable": false,
+  "architecture": {
+    "mainSite": {
+      "name": "Main Site",
+      "resources": [
+        "Request Intake List",
+        "Derived Documents Library"
+      ]
+    },
+    "managementSubsite": {
+      "name": "Management Subsite",
+      "resources": [
+        "Validation Library"
+      ]
+    }
+  },
   "trigger": {
     "type": "SharePoint",
     "event": "When an item is created",
-    "site": "https://contoso.sharepoint.com/sites/DemoSite",
-    "list": "SolicitudesDemo"
+    "site": "Main Site",
+    "list": "Request Intake List"
   },
   "actions": [
     {
-      "name": "BreakItemPermissionInheritance",
+      "name": "BreakRequestItemInheritance",
       "type": "SharePoint",
-      "operation": "Break permission inheritance"
+      "operation": "Break permission inheritance",
+      "target": "Request Intake List item"
     },
     {
-      "name": "GrantItemAccess",
+      "name": "AssignRequestItemPermissions",
       "type": "SharePoint",
-      "operation": "Grant access to item"
+      "operation": "Grant read access",
+      "target": "Request Intake List item",
+      "principals": [
+        "Item Creator",
+        "Site Members",
+        "Site Owners"
+      ]
     },
     {
-      "name": "AssignItemReadGroupA",
-      "type": "SharePoint",
-      "operation": "Assign read access",
-      "group": "GroupA-Demo"
-    },
-    {
-      "name": "AssignItemReadGroupB",
-      "type": "SharePoint",
-      "operation": "Assign read access",
-      "group": "GroupB-Demo"
+      "name": "CheckAttachments",
+      "type": "Condition",
+      "expression": "HasAttachments equals true"
     },
     {
       "name": "GetAttachments",
       "type": "SharePoint",
-      "operation": "Get attachments"
+      "operation": "Get attachments",
+      "source": "Request Intake List item"
+    },
+    {
+      "name": "FilterExcelAttachments",
+      "type": "Condition",
+      "expression": "File extension equals .xlsx"
     },
     {
       "name": "GetAttachmentContent",
@@ -43,128 +66,137 @@
       "operation": "Get attachment content"
     },
     {
-      "name": "CreateOriginalFile",
+      "name": "CreateDerivedDocument",
       "type": "SharePoint",
       "operation": "Create file",
-      "destination": "DocumentosEntradaDemo"
+      "destination": "Derived Documents Library",
+      "site": "Main Site"
     },
     {
-      "name": "BreakFilePermissionInheritance",
+      "name": "EnsureDerivedDocumentReadAccess",
       "type": "SharePoint",
-      "operation": "Break permission inheritance"
+      "operation": "Ensure read access",
+      "target": "Derived Documents Library",
+      "principals": [
+        "All Authorized Main Site Users"
+      ]
     },
     {
-      "name": "AssignFileReadGroupA",
+      "name": "UpdateDerivedDocumentProperties",
       "type": "SharePoint",
-      "operation": "Assign read access",
-      "group": "GroupA-Demo"
+      "operation": "Update file properties",
+      "target": "Derived Documents Library"
     },
     {
-      "name": "AssignFileReadGroupB",
+      "name": "CreateValidationDocument",
       "type": "SharePoint",
-      "operation": "Assign read access",
-      "group": "GroupB-Demo"
+      "operation": "Create file",
+      "destination": "Validation Library",
+      "site": "Management Subsite"
     },
     {
-      "name": "UpdateOriginalFileProperties",
+      "name": "ApplyValidationPermissions",
       "type": "SharePoint",
-      "operation": "Update file properties"
+      "operation": "Ensure restricted access",
+      "target": "Validation Library",
+      "principals": [
+        "Site Members",
+        "Site Owners"
+      ]
     },
     {
-      "name": "GetOriginalFileProperties",
+      "name": "UpdateValidationDocumentProperties",
       "type": "SharePoint",
-      "operation": "Get file properties"
+      "operation": "Update file properties",
+      "target": "Validation Library"
     },
     {
       "name": "UpdateRequestStatus",
       "type": "SharePoint",
-      "operation": "Update item"
-    },
-    {
-      "name": "UpdateOriginalFileResults",
-      "type": "SharePoint",
-      "operation": "Update file properties"
-    },
-    {
-      "name": "CreateValidationFile",
-      "type": "SharePoint",
-      "operation": "Create file",
-      "destination": "DocumentosValidacionDemo"
-    },
-    {
-      "name": "UpdateValidationFileProperties",
-      "type": "SharePoint",
-      "operation": "Update file properties"
+      "operation": "Update item",
+      "target": "Request Intake List"
     }
   ],
   "attachmentHandling": {
     "condition": "HasAttachments equals true",
-    "ifFalse": "End without processing",
+    "ifFalse": "Record missing attachment and end processing",
     "ifTrue": {
       "loop": "Apply to each attachment",
       "filter": "Only .xlsx files",
       "operations": [
         "Get attachment content",
-        "Create file in DocumentosEntradaDemo",
-        "Create file in DocumentosValidacionDemo"
+        "Create file in Derived Documents Library",
+        "Update derived document metadata",
+        "Create file in Validation Library",
+        "Update validation document metadata"
       ]
     }
   },
   "permissions": {
     "requestItem": {
+      "resource": "Request Intake List",
       "inheritance": "Broken",
-      "access": "Restricted",
       "groups": [
         {
-          "name": "IntegrantesDemo",
+          "name": "Item Creator",
           "permission": "Read"
         },
         {
-          "name": "PropietariosDemo",
+          "name": "Site Members",
           "permission": "Read"
         },
         {
-          "name": "ItemCreator",
+          "name": "Site Owners",
           "permission": "Read"
         }
       ]
     },
-    "originalFile": {
-      "library": "DocumentosEntradaDemo",
-      "inheritance": "Broken",
-      "access": "Restricted",
-      "groups": [
-        {
-          "name": "IntegrantesDemo",
-          "permission": "Read"
-        },
-        {
-          "name": "PropietariosDemo",
-          "permission": "Read"
-        }
-      ]
+    "derivedDocuments": {
+      "resource": "Derived Documents Library",
+      "site": "Main Site",
+      "access": "Read",
+      "principals": [
+        "All Authorized Main Site Users"
+      ],
+      "fileCreation": "Authorized automation connection"
     },
-    "validationFile": {
-      "library": "DocumentosValidacionDemo",
+    "validationDocuments": {
+      "resource": "Validation Library",
+      "site": "Management Subsite",
       "access": "Restricted",
       "groups": [
         {
-          "name": "IntegrantesDemo",
-          "permission": "Edit"
+          "name": "Site Members",
+          "permission": "Edit during validation"
         },
         {
-          "name": "PropietariosDemo",
-          "permission": "Edit"
+          "name": "Site Owners",
+          "permission": "Edit during validation"
         }
-      ]
+      ],
+      "excludedGroups": [
+        "External Staff",
+        "Center Groups"
+      ],
+      "afterFL02Processing": {
+        "siteMembers": "Read",
+        "siteOwners": "Read",
+        "siteCollectionAdministrators": "Administrative control"
+      }
     }
   },
   "documentMetadata": {
-    "SolicitudID": "ID del elemento de SolicitudesDemo",
-    "NombreArchivo": "Nombre original del adjunto",
-    "EstadoValidacion": "Pendiente",
-    "FechaRecepcion": "Fecha de creacion de la solicitud",
-    "Origen": "SolicitudesDemo"
+    "SourceRequestId": "SharePoint Request Intake List item ID",
+    "OriginalFileName": "Original Excel attachment filename",
+    "ValidationStatus": "Pending",
+    "ReceivedDate": "Request creation date",
+    "Source": "Request Intake List"
+  },
+  "implementationStatus": {
+    "status": "Conceptual demonstration",
+    "deployable": false,
+    "notes": "This JSON documents the intended architecture and processing sequence. It is not a Power Automate export and cannot be imported directly. Permissions, conditions, metadata fields and error handling require implementation and testing."
   }
 }
+
 
