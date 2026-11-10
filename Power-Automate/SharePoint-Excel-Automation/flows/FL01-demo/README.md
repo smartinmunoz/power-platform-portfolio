@@ -45,13 +45,26 @@ flowchart TD
 7. Associate document metadata.
 8. Record the processing result.
 
+
 ## SharePoint Components
 
-| Component | Purpose |
-|---|---|
-| SolicitudesDemo | Request intake list |
-| DocumentosEntradaDemo | Restricted document library |
-| DocumentosValidacionDemo | Validation document library |
+FL01 starts when a new request is created in the SharePoint Request Intake List.
+
+Each request is a SharePoint list item containing observations and an attached Excel workbook.
+
+The workflow retrieves the attachments and creates document copies in two SharePoint libraries.
+
+| Component | Location | Purpose |
+|---|---|---|
+| Request Intake List | Main Site | Stores request records, observations, and Excel attachments. |
+| Derived Documents Library | Main Site | Stores document copies generated from requests. All site users have read access. |
+| Validation Library | Management Subsite | Stores Excel copies for internal validation and subsequent processing. Access is restricted to authorized management users. |
+
+The Request Intake List is the entry point of the process. It is not a document library.
+
+The Derived Documents Library provides read-only access to documents for all authorized users of the Main Site.
+
+The Validation Library is located in the Management Subsite and follows a separate, restricted permission model.
 
 
 ## Permissions
