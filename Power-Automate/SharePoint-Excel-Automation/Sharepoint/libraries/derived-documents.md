@@ -107,31 +107,35 @@ If different users must access different documents, additional document-level pe
 
 This is an implementation decision and is not assumed to be part of the current demonstration.
 
+
 ## 8. Document Access Workflow
 
 ```mermaid
 flowchart TD
-    A[Request Intake List]
-    B[Internal Validation and Processing]
-    C[Derived Document Prepared]
-    D[Authorized Publication]
-    E[Derived Documents Library]
-    F{User Authorized?}
-    G[Read or Download Document]
-    H[Access Denied]
+    A[User submits Request Intake item]
+    B[Excel workbook attached]
+    C[FL01 - Request Intake Automation]
+    D[Derived Documents Library - Main Site]
+    E[Validation Library - Management Subsite]
+    F[Authorized Main Site users]
+    G[Internal validation and processing]
+    H[Read or Download Document]
 
     A --> B
     B --> C
     C --> D
-    D --> E
-    E --> F
-    F -->|Yes| G
-    F -->|No| H
+    C --> E
+    D --> F
+    F --> H
+    E --> G
 ```
 
-This diagram represents the conceptual document availability process.
+FL01 creates two independent copies of the Excel attachment.
 
-It does not specify a separate publication flow or an automatic synchronization mechanism.
+- **Derived Documents Library:** Provides read-only access to authorized Main Site users, including external staff, Site Members, and Site Owners.
+- **Validation Library:** Stores the separate copy used for internal validation and subsequent processing.
+
+The Derived Documents Library receives its copy directly from FL01. No additional publication workflow is required.
 
 ## 9. Document Organization
 
