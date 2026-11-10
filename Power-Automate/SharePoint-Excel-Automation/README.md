@@ -100,6 +100,46 @@ Fictional Excel datasets and templates used to demonstrate the automation proces
 Architecture diagrams, implementation notes, and supporting technical documentation.
 
 
+[Explore Documentation](docs/)
+
+### SharePoint Architecture & Configuration
+
+The project includes a documented SharePoint Online architecture with a Main Site and a Management Subsite.
+
+The documentation covers:
+
+- SharePoint site hierarchy and security architecture.
+- Four SharePoint lists.
+- Three document libraries.
+- Role-based and item-level permissions.
+- JSON command bar customizations.
+- Request intake form layout.
+- Integration with Power Automate workflows FL01-FL05.
+
+| Component | Documentation |
+|---|---|
+| SharePoint Overview | [View Documentation](Sharepoint/README.md) |
+| Sites Architecture | [View Architecture](Sharepoint/architecture/sites-architecture.md) |
+| Main Site | [View Main Site](Sharepoint/sites/main-site.md) |
+| Management Subsite | [View Management Subsite](Sharepoint/sites/management-subsite.md) |
+| SharePoint Lists | [View Lists](Sharepoint/lists/request-intake.md) |
+| Document Libraries | [View Libraries](Sharepoint/libraries/validation-library.md) |
+| Request Form | [View JSON](Sharepoint/forms/request-intake-form.json) |
+
+The documentation demonstrates reusable architecture and configuration patterns, not a fully deployable SharePoint provisioning package.
+
+> All examples use fictional data and independently developed demonstration components. Conceptual JSON files are not directly importable into Power Automate.
+
+
+
+## Repository Structure
+
+- `docs/`: Technical documentation and architecture.
+- `flows/`: Power Automate demonstration flows.
+- `office-scripts/`: Independently developed Office Scripts.
+- `sample-data/`: Fictional Excel datasets and templates.
+- `Sharepoint/`: SharePoint Online architecture, sites, lists, document libraries, forms, and JSON customizations.
+
 ## Project Status
 
 **Status: Documentation complete - Demonstration project**
@@ -122,28 +162,6 @@ The conceptual Power Automate JSON files are not directly importable as producti
 The project demonstrates the architecture and implementation approach but is not provided as a fully deployable solution package.
 
 Further development may include executable demonstration flows, automated deployment, and additional testing.
-
-
-[Explore Documentation](docs/)
-
-> All examples use fictional data and independently developed demonstration components. Conceptual JSON files are not directly importable into Power Automate.
-
-
-
-## Repository Structure
-
-- `docs/`: Technical documentation and architecture.
-- `flows/`: Power Automate demonstration flows.
-- `office-scripts/`: Independently developed Office Scripts.
-- `sample-data/`: Fictional Excel datasets and templates.
-
-## Project Status
-
-**In development**
-
-Technical documentation and demonstration Office Scripts are available.
-
-Power Automate demonstration flows are being developed independently.
 
 ## Security and Confidentiality
 
