@@ -141,8 +141,6 @@ This conceptual workflow demonstrates the design of a SharePoint-based document 
 
 ### SharePoint Permission Management
 
-### SharePoint Permission Management
-
 - Break permission inheritance on request list items to control access to individual submissions.
 - Grant read access to the request creator, Site Members, and Site Owners.
 - Provide read-only access to the Derived Documents Library for all authorized Main Site users.
