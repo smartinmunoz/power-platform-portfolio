@@ -58,21 +58,36 @@ The user follows a simple submission process:
 
 The submitted item and its attachment become available to the configured Power Automate workflow.
 
+
 ## 5. Customized SharePoint Form
 
-The New Item form is customized using SharePoint JSON form formatting.
+The Request Intake List uses SharePoint JSON form customization to provide a simplified interface for submitting Excel documents.
 
-The customization focuses on:
+The form is designed around two fields:
 
-- A clear and simple submission interface.
-- Visibility of the Observations field.
-- Access to the standard attachment functionality.
-- Reduced visual complexity.
-- Consistent presentation.
+- **Observations:** An optional multiple-lines-of-text field where users can provide additional information.
+- **Attachments:** The standard SharePoint list attachment functionality used to upload Excel workbooks.
 
-The form layout customization does not replace SharePoint permissions or server-side validation.
+### Form Configuration
 
-The sanitized form configuration will be documented separately under the `forms` directory.
+The demonstration JSON configuration is available in the repository:
+
+[View Request Intake Form JSON](../forms/request-intake-form.json)
+
+The form configuration organizes the request information into a section named "Request Information".
+
+The example is conceptual. The behavior of the native SharePoint attachment control within the JSON form layout must be verified in a demonstration environment.
+
+### Form and Command Bar Customization
+
+SharePoint form customization and command bar formatting serve different purposes:
+
+- **Form JSON:** Defines the layout and organization of the request form.
+- **Command Bar JSON:** Customizes the available list commands and their presentation.
+- **SharePoint Permissions:** Control which users can create, read, edit, or manage list items.
+
+JSON interface customization does not replace SharePoint security permissions or server-side validation.
+
 
 ## 6. Command Bar Customization
 
