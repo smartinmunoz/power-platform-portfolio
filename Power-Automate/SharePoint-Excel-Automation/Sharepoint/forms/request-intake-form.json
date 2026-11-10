@@ -1,0 +1,12 @@
+
+{
+  "sections": [
+    {
+      "displayname": "Request Information",
+      "fields": [
+        "Observations",
+        "Attachments"
+      ]
+    }
+  ]
+}
