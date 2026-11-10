@@ -61,13 +61,24 @@ The intake process supports:
 
 The detailed field schema and validation rules will be documented separately.
 
+
 ### 4.3 Customized Form
 
-The New Item form uses SharePoint JSON form customization to improve the user experience and organize the information required for submission.
+The Request Intake List uses SharePoint JSON form customization to provide a simplified request submission interface.
 
-The form configuration is separate from the list view and command bar formatting.
+The form is designed around two fields:
 
-A sanitized demonstration of the form JSON will be added to the portfolio.
+- **Observations:** An optional multiple-lines-of-text field for additional information.
+- **Attachments:** The standard SharePoint list attachment functionality, used to submit Excel workbooks.
+
+The demonstration form configuration is available in the repository:
+
+[View Request Intake Form JSON](../forms/request-intake-form.json)
+
+This JSON represents a conceptual form layout example. Its compatibility with the native SharePoint attachment control must be verified in a demonstration environment.
+
+Form customization is separate from command bar formatting and does not replace SharePoint permissions or validation rules.
+
 
 ### 4.4 Command Bar Formatting
 
