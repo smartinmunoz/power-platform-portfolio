@@ -291,7 +291,8 @@ Actual security must be implemented through SharePoint permissions and appropria
 
 | Workflow | Responsibility |
 |---|---|
-| FL01 | Request intake and validation lifecycle |
+
+| FL01 | Receives Excel attachments from the Request Intake List and distributes document copies to the Derived Documents Library and Validation Library, applying the corresponding access permissions. |
 | FL02 | Excel processing, document protection, record creation, and export generation |
 | FL03 | Cleanup of temporary processing files |
 | FL04 | Processing execution logging |
