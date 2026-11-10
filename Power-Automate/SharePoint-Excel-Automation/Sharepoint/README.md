@@ -1,135 +1,351 @@
 
-# SharePoint Online Customizations
+# SharePoint Online Architecture & Customizations
 
 ## Overview
 
-This folder contains reusable SharePoint Online customizations developed as part of the SharePoint & Excel Automation Pipeline project.
+This folder documents the SharePoint Online architecture, security configuration, document libraries, lists, and JSON customizations used in the SharePoint & Excel Automation Pipeline project.
 
-The objective is to improve the user experience, simplify data management and provide controlled interaction with SharePoint lists.
+The solution combines SharePoint Online, Microsoft Lists, Power Automate, and Office Scripts to manage request intake, document validation, Excel processing, record creation, and controlled access to information.
 
-The examples are designed to be adapted to different business scenarios.
+The architecture is presented as a reusable portfolio demonstration using fictional business scenarios.
+
+No production URLs, credentials, real organizational identifiers, or confidential information are included.
 
 ## Technologies
 
 - SharePoint Online
-- SharePoint JSON Formatting
 - Microsoft Lists
+- SharePoint JSON Formatting
 - Power Automate
+- Office Scripts
+- Microsoft Excel
 
-## Customizations
+## Solution Architecture
 
-### List View Formatting
+The solution uses two SharePoint locations:
 
-Custom JSON formatting is used to adapt the appearance and available actions of SharePoint list views.
+1. **Main SharePoint Site:** Provides request submission and access to derived documents.
+2. **Management Subsite:** Contains internal validation, processing, configuration, and logging resources.
 
-Examples include:
+The Management Subsite is a subsite of the Main SharePoint Site, not an independent site collection.
 
-- Customized list layouts.
-- Simplified user interfaces.
-- Visibility control for interface elements.
-- Customized actions and navigation.
-- Interfaces designed around grid-based editing workflows.
+The architecture separates external-facing functionality from internal management operations.
 
-### Record Management Interface
+### Architecture Diagram
 
-The final records list uses a customized interface designed to encourage structured data editing.
+```mermaid
+flowchart TD
+    A[Main SharePoint Site]
+    B[Request Intake List]
+    C[Derived Documents Library]
+    D[Management Subsite]
+    E[Validation Library]
+    F[Export Library]
+    G[Processed Records List]
+    H[Centers Configuration List]
+    I[Processing Logs List]
+    J[Power Automate FL01-FL05]
 
-The customization focuses on:
+    A --> B
+    A --> C
+    A --> D
 
-- Simplifying record management.
-- Promoting grid-based editing.
-- Reducing unnecessary interface actions.
-- Hiding attachment-related actions where supported by the formatting interface.
+    D --> E
+    D --> F
+    D --> G
+    D --> H
+    D --> I
 
-These visual customizations do not replace SharePoint permissions or list-level configuration.
+    B -.-> J
+    E -.-> J
+    F -.-> J
+    G -.-> J
+    H -.-> J
+    I -.-> J
+```
+
+The dotted connections represent integration with the broader Power Automate solution, not direct relationships between every resource and every workflow.
 
 ## Repository Structure
 
-- `formatting/`: JSON files for SharePoint view and column formatting.
+```text
+Sharepoint/
+├── README.md
+├── architecture/
+│   └── sites-architecture.md
+├── sites/
+│   ├── main-site.md
+│   └── management-subsite.md
+├── lists/
+│   ├── request-intake.md
+│   ├── processed-records.md
+│   ├── centers-configuration.md
+│   └── processing-logs.md
+├── libraries/
+│   ├── derived-documents.md
+│   ├── validation-library.md
+│   └── export-library.md
+├── forms/
+│   └── request-intake-form.json
+└── formatting/
+    ├── request-intake-view.json
+    └── document-library-commandbar.json
+```
 
-## Available JSON Customizations
+## Architecture Documentation
+
+| Document | Description |
+|---|---|
+| [Sites Architecture](architecture/sites-architecture.md) | SharePoint site hierarchy, resources, and security model |
+| [Main Site](sites/main-site.md) | External-facing request intake and document consultation |
+| [Management Subsite](sites/management-subsite.md) | Internal processing resources and access controls |
+
+## SharePoint Lists
+
+### Request Intake List
+
+[View documentation](lists/request-intake.md)
+
+Located in the Main SharePoint Site.
+
+Allows authorized external staff to submit requests using a customized SharePoint form.
+
+The user-facing fields include:
+
+- Observations
+- Excel file attachments
+
+The list also contains standard SharePoint system fields.
+
+### Processed Records List
+
+[View documentation](lists/processed-records.md)
+
+Located in the Management Subsite.
+
+Stores primary and associated records generated from Excel processing.
+
+The solution uses:
+
+- Primary records identified as T.
+- Associated records identified as B.
+- ParentRecordId relationships.
+- Center-based item permissions managed by FL05.
+
+### Centers Configuration List
+
+[View documentation](lists/centers-configuration.md)
+
+Stores center configuration and SharePoint group references.
+
+The list includes:
+
+- Center
+- SharePoint Group ID
+- Group Management Link
+
+FL05 uses the configured group identifiers when assigning record-level permissions.
+
+### Processing Logs List
+
+[View documentation](lists/processing-logs.md)
+
+Stores processing execution information generated through FL04.
+
+The logging architecture supports:
+
+- Execution traceability.
+- Processing results.
+- Error tracking.
+- Record creation summaries.
+- Diagnostic information.
+
+The list is not accessible to external staff or Center Groups.
+
+## Document Libraries
+
+### Derived Documents Library
+
+[View documentation](libraries/derived-documents.md)
+
+Located in the Main SharePoint Site.
+
+Provides read-only access to derived documents for authorized users, including external staff where applicable.
+
+### Validation Library
+
+[View documentation](libraries/validation-library.md)
+
+Located in the Management Subsite.
+
+Stores Excel documents awaiting validation and processing.
+
+FL02 protects validated documents by breaking file-level permission inheritance, assigning read-only permissions to Owners and Members, and updating the status to Tractat.
+
+### Export Library
+
+[View documentation](libraries/export-library.md)
+
+Located in the Management Subsite.
+
+Stores Excel workbooks generated by the processing workflow.
+
+Owners, Members, and Center Groups have read-only access.
+
+An authorized Power Automate connection performs the necessary file creation and update operations.
+
+## JSON Customizations
+
+SharePoint JSON formatting is used to customize supported interface elements.
+
+These customizations improve usability but do not replace SharePoint permissions.
 
 ### Request Intake View
 
-**File:** `formatting/request-intake-view.json`
+[View JSON](formatting/request-intake-view.json)
 
-This customization is designed for a SharePoint list where users submit requests with Excel file attachments.
+Customizes the Request Intake List command bar.
 
-It simplifies the command bar to provide a more focused request submission experience.
+Features include:
 
-**Features:**
-
-- Renames the New button to "New Request".
-- Hides grid editing.
-- Hides sharing and copy-link commands.
-- Hides export options.
-- Hides form management commands.
-- Hides automation and integration commands.
-
-**Use case:**
-
-Users create new requests and attach Excel files for subsequent processing through Power Automate.
-
-The customization reduces unnecessary actions in the list interface while preserving the standard SharePoint request creation functionality.
-
-**Important:** Hidden commands do not represent security restrictions. SharePoint permissions and list settings must be configured separately.
+- Renaming New to New Request.
+- Hiding grid editing.
+- Hiding sharing and copy-link commands.
+- Hiding export options.
+- Hiding non-essential automation and integration commands.
 
 ### Document Library Command Bar
 
-**File:** `formatting/document-library-commandbar.json`
+[View JSON](formatting/document-library-commandbar.json)
 
-This customization provides a simplified command bar for SharePoint document libraries used in automated document processing and validation workflows.
+Provides a simplified command bar for selected document libraries.
 
-**Features:**
+Depending on the supported interface, it can:
 
-- Highlights "Edit in Grid View" as the primary action.
-- Preserves document opening options.
-- Hides file upload and creation commands.
-- Hides download, delete, rename, move and copy commands.
-- Hides sharing and export options.
-- Hides automation, integration and other non-essential commands.
+- Highlight grid editing.
+- Hide upload and creation commands.
+- Hide delete, rename, move, and copy commands.
+- Hide sharing and export options.
+- Reduce unnecessary interface actions.
 
-**Use case:**
+The same formatting can be adapted to libraries with different permission models.
 
-The same JSON configuration can be applied to two document libraries with different permission models:
+The JSON must be tested against the intended SharePoint interface.
 
-1. **Protected Document Library:** Stores files managed by automated processes. Access and editing capabilities are restricted through SharePoint permissions.
-2. **Validation Document Library:** Allows authorized validators to review documents and update metadata using grid editing.
+### Request Intake Form
 
-This approach separates the user interface configuration from the underlying security model.
+[View JSON](forms/request-intake-form.json)
 
-**Security considerations:**
+Contains a conceptual layout configuration for the Request Intake List form.
 
-JSON formatting only controls the visibility and presentation of supported interface commands.
+The layout references:
 
-It does not prevent users from performing operations through other interfaces, APIs or applications when their permissions allow them.
+- Observations
+- Attachments
 
-Actual access restrictions must be implemented using SharePoint permissions and library settings.
+The standard SharePoint attachment control must be enabled and validated separately.
 
-**Compatibility:**
+The JSON does not create columns, enable attachments, or provision the list.
 
-Some command identifiers may not be supported in every SharePoint interface or Microsoft 365 version. The configuration should be tested in the target environment.
+## Security Model
 
+The solution uses several layers of SharePoint security.
 
-## Implementation
+### Site-Level Security
 
-1. Create or select a SharePoint list.
-2. Configure the required columns according to the business scenario.
-3. Open the relevant view or column formatting settings.
-4. Apply the corresponding JSON customization.
-5. Adapt field references and actions to the target list.
-6. Validate the behavior with the intended user permissions.
+The Main SharePoint Site provides access to authorized external staff and management users.
+
+The Management Subsite restricts access to internal resources according to user roles.
+
+### Library-Level Security
+
+Individual libraries use access rules appropriate to their purpose.
+
+Examples include:
+
+- Read-only access to derived documents.
+- Restricted access to validation documents.
+- Read-only access to generated export files.
+
+### Item-Level Security
+
+FL05 assigns permissions to processed records according to their associated center.
+
+Each Center Group can access only the records authorized for that center.
+
+### Processed Document Protection
+
+FL02 applies file-level permission changes to validated documents.
+
+Site Collection Administrators retain administrative control.
+
+### Important Security Principle
+
+**SharePoint JSON formatting is not a security boundary.**
+
+Hiding a button does not prevent an operation if the user still has permission to perform it through another interface.
+
+Actual security must be implemented through SharePoint permissions and appropriate configuration.
+
+## Power Automate Integration
+
+| Workflow | Responsibility |
+|---|---|
+| FL01 | Request intake and validation lifecycle |
+| FL02 | Excel processing, document protection, record creation, and export generation |
+| FL03 | Cleanup of temporary processing files |
+| FL04 | Processing execution logging |
+| FL05 | Center-based permissions for processed records |
+
+The workflows are documented in the parent project's `flows/` and `docs/` directories.
+
+## Implementation Considerations
+
+The architecture is intended to be adapted to different environments.
+
+Implementation activities may include:
+
+1. Creating the required SharePoint sites and resources.
+2. Configuring list columns and document libraries.
+3. Assigning site, library, and item permissions.
+4. Enabling attachments on the Request Intake List.
+5. Applying supported JSON customizations.
+6. Configuring Power Automate connections.
+7. Adapting Excel templates and Office Scripts.
+8. Testing the workflows with fictional data.
+9. Validating effective permissions for each user role.
+
+The documentation does not automatically provision the SharePoint environment.
 
 ## Reusability
 
-The JSON examples are intended as adaptable templates.
+The solution demonstrates reusable patterns for:
 
-Column names, internal field references and business-specific settings may need to be modified before use.
+- Request management.
+- Document validation.
+- Excel automation.
+- SharePoint record relationships.
+- Role-based and item-level access.
+- Execution logging.
+- Interface customization.
+- Separation of external-facing and internal resources.
 
-## Security and Limitations
+The examples are intended for learning, demonstration, and portfolio purposes.
 
-SharePoint JSON formatting customizes the user interface but does not enforce security restrictions.
+## Documentation Status
 
-Permissions, attachment settings and editing capabilities must be configured separately when technical enforcement is required.
+**Status: Architecture and SharePoint resource documentation complete.**
 
-All examples use generic configurations and exclude corporate identifiers, internal URLs and confidential information.
+Documented components include:
+
+- Main SharePoint Site.
+- Management Subsite.
+- Four SharePoint lists.
+- Three document libraries.
+- Request form layout example.
+- Two JSON command bar customizations.
+- Security architecture.
+- Power Automate integration.
+
+The repository contains conceptual documentation and selected reusable examples, not a fully deployable SharePoint provisioning package.
+
