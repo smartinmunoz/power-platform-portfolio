@@ -66,7 +66,7 @@ This project includes Power Automate workflows, Office Scripts, and sample Excel
 | ID | Description | Status | Documentation |
 |---|---|---|---|
 | FL01 | SharePoint and Excel document preparation, validation, and permissions | Documented | [View FL01](flows/FL01-demo/README.md) |
-| FL02 | Excel processing, output generation, and SharePoint record creation | Planned | Coming soon |
+| FL02 | Excel processing, output generation, and SharePoint record creation | Documented | [View FL02](flows/FL02-demo/README.md) |
 | FL03 | Scheduled cleanup of temporary files older than 8 hours | Documented | [View FL03](flows/FL03-demo/README.md) |
 | FL04 | Processing logs, execution tracking, and error reporting | Documented | [View FL04](flows/FL04-demo/README.md) |
 | FL05 | Dynamic SharePoint record-level permissions | Documented | [View FL05](flows/FL05-demo/README.md) |
