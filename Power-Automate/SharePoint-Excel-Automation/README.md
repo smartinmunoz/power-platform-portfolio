@@ -139,16 +139,55 @@ FL03 independently performs scheduled cleanup of temporary processing files.
 Together, these components demonstrate a modular architecture that separates document intake, processing, security, logging, and maintenance responsibilities.
 
 
+
 ## Technical Highlights
 
-- Event-driven automation with trigger conditions.
-- Manual validation integrated into automated workflows.
-- Office Scripts execution from Power Automate.
-- JSON-based data exchange between scripts.
-- Sequential processing to preserve parent-child relationships.
-- SharePoint permission inheritance management.
-- Configuration-driven access control.
-- Scheduled cleanup of temporary files.
+This project demonstrates several Microsoft Power Platform and SharePoint automation design patterns.
+
+### Power Automate Orchestration
+
+- Event-driven workflows triggered by SharePoint list and document events.
+- Trigger conditions to control workflow execution.
+- Coordination between multiple automated processes.
+- Child flow integration for centralized execution logging.
+- Scheduled automation for temporary file cleanup.
+- Modular separation of processing, permissions, and logging responsibilities.
+
+### Excel Automation with Office Scripts
+
+- Integration between Power Automate and Excel Online.
+- Execution of Office Scripts for structured data processing.
+- JSON-based data exchange between scripts and workflows.
+- Sequential record processing to preserve parent-child relationships.
+- Automated population of Excel export templates.
+
+### SharePoint Architecture and Security
+
+- Main Site and Management Subsite architecture.
+- SharePoint lists and document libraries with differentiated permissions.
+- File-level permission inheritance management.
+- Dynamic item-level permissions using SharePoint REST API.
+- Center-to-group mapping through a centralized configuration list.
+- Separation of ordinary user permissions and automation connection privileges.
+
+### Data Processing and Traceability
+
+- Creation of primary and associated SharePoint records.
+- Preservation of parent-child relationships using record identifiers.
+- Execution logging through a dedicated child workflow.
+- Processing status tracking and error reporting.
+- Scheduled cleanup of temporary processing files.
+
+### Reusable Design Principles
+
+- Modular workflow architecture.
+- Configuration-driven permission management.
+- Separation of responsibilities.
+- Least-privilege access design.
+- Maintainability and extensibility.
+- Documentation-first development using fictional demonstration data.
+
+These capabilities are illustrated through conceptual workflow definitions, technical documentation, and selected independently developed demonstration components.
 
 
 ## Project Components & Documentation
