@@ -29,7 +29,8 @@ All authorized Main SharePoint Site users, including Site Owners, Site Members, 
 
 ## 3. Purpose
 
-The library provides a controlled location for documents that users need to consult after the request or processing lifecycle.
+
+The library provides a centralized, read-only location where authorized Main SharePoint Site users can access Excel document copies created by FL01 immediately after request submission and successful document distribution.
 
 Its main objectives are:
 
