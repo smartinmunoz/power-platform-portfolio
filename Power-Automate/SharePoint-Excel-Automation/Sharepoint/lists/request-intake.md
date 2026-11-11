@@ -131,24 +131,56 @@ The following security principles apply:
 
 The exact list-level permission assignments are not included in this conceptual demonstration.
 
+
 ## 9. Power Automate Integration
 
-The Request Intake List serves as the starting point for the document processing lifecycle.
+The Request Intake List is the entry point for the automated document processing solution.
 
-FL01 handles the intake and initial document lifecycle operations.
+FL01 starts when a new request item is created in the Main SharePoint Site.
 
-The overall processing solution subsequently includes:
+### FL01 - Document Intake and Distribution
 
-- Document validation.
-- Excel processing through FL02.
-- Creation of primary and associated records.
-- Generation of export workbooks.
-- Execution logging through FL04.
-- Center-based permissions through FL05.
+The workflow follows this conceptual sequence:
 
-Temporary file cleanup is handled by FL03.
+1. An authorized user creates a request in the Request Intake List.
+2. The user enters optional observations and attaches an Excel workbook.
+3. SharePoint creates the request item and assigns its unique item ID.
+4. FL01 retrieves the request information and its Excel attachment.
+5. FL01 creates a document copy in the Derived Documents Library in the Main SharePoint Site.
+6. FL01 creates a separate document copy in the Validation Library in the Management Subsite.
+7. FL01 applies the corresponding permissions and updates the required request and document metadata.
+
+### Document Destinations
+
+| Destination | Location | Purpose |
+|---|---|---|
+| Derived Documents Library | Main SharePoint Site | Read-only consultation by authorized main-site users, including External Staff |
+| Validation Library | Management Subsite | Internal document validation by authorized Site Owners and Site Members |
+
+The two document copies serve different purposes and have different access permissions.
+
+### Subsequent Processing
+
+Once the document is validated in the Validation Library, FL02 starts the Excel processing workflow.
+
+The overall solution also includes:
+
+- FL03 for temporary file cleanup.
+- FL04 for processing logs.
+- FL05 for dynamic center-based record permissions.
 
 The detailed workflow logic is documented in the Power Automate section of the portfolio.
+
+### Security Considerations
+
+FL01 must use an appropriately authorized SharePoint connection to create document copies and manage permissions.
+
+External Staff must not receive access to the restricted Validation Library in the Management Subsite.
+
+The Derived Documents Library provides read-only access to authorized users of the Main SharePoint Site.
+
+The request item and its attachments must remain protected through SharePoint permissions.
+
 
 ## 10. Example Submission
 
