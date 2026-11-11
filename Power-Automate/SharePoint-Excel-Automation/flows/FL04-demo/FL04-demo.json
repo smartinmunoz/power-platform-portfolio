@@ -82,6 +82,5 @@
   "error": "RecordsCreated = 0 AND RecordsWithErrors > 0",
   "noRecords": "RecordsCreated = 0 AND RecordsWithErrors = 0"
   },
-,
   "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
 }
