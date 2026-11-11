@@ -106,7 +106,27 @@
       ],
       "name": "BuildProcessingSummary"
     },
-  {
+
+{
+  "operation": "Compose",
+  "details": [
+    "Count imported records",
+    "Count Excel errors",
+    "Combine error details"
+  ],
+  "name": "CalculateFinalDiagnostics"
+},
+{
+  "operation": "Compose JSON",
+  "properties": [
+    "ProcessingReferenceId",
+    "RecordsCreated",
+    "SharePointErrors",
+    "ErrorDetails"
+  ],
+  "name": "BuildProcessingSummary"
+},
+{
   "operation": "Run child flow",
   "childFlow": "FL04-Processing-Logs-Demo",
   "output": "Id_Log",
@@ -120,9 +140,10 @@
     "RecordsCreated": "RecordsCreated",
     "RecordsWithErrors": "CalculatedRecordsWithErrors",
     "ErrorDetails": "ConsolidatedErrorDetails",
-    
     "ExecutionId": "CurrentFlowExecutionId"
   }
+}
+
 },
 {
   "operation": "Compose",
