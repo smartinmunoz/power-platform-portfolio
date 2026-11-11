@@ -11,19 +11,17 @@ The library is designed to allow authorized users, including external staff wher
 
 > **Portfolio disclaimer:** This documentation describes a conceptual demonstration using fictional names and examples. No production URLs, credentials, real identifiers, or confidential business information are included.
 
-## 2. Library Configuration
-
 | Property | Configuration |
 |---|---|
 | Library Name | Derived Documents Library |
 | Location | Main SharePoint Site |
 | Library Type | SharePoint Document Library |
-| Primary Purpose | Access to derived documents |
-| User Access | Read-only |
-| External Staff | Read access when authorized |
-| Document Modification | Restricted to authorized processes or administrators |
-
-The exact document formats and metadata fields depend on the implementation.
+| Primary Purpose | Read-only consultation of Excel document copies created by FL01 |
+| Site Owners | Read |
+| Site Members | Read |
+| Authorized External Staff | Read |
+| Document Creation | FL01 through an authorized Power Automate connection |
+| Document Modification | Restricted to authorized automation connections and Site Collection Administrators |
 
 ## 3. Purpose
 
