@@ -54,6 +54,12 @@ function main(workbook: ExcelScript.Workbook): string {
         );
     }
 
+    // Return an empty array when only headers exist
+    if (values.length < 2) {
+        return JSON.stringify([]);
+    }
+
+
     // Extract records
     const records: {
         [key: string]: string | number | boolean
@@ -87,6 +93,4 @@ function main(workbook: ExcelScript.Workbook): string {
     return JSON.stringify(records);
 }
 
-    if (values.length < 2) {
-        return JSON.stringify([]);
-    }
+  
