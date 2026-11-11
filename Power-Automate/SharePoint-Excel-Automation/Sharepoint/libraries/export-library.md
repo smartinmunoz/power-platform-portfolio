@@ -60,19 +60,43 @@ The export generation process is part of FL02 and does not require a separate Po
 The complete FL02 workflow also includes SharePoint record creation, error handling, execution logging through FL04, and temporary file cleanup through FL03.
 
 
+
 ## 5. Integration with Office Scripts
 
-The solution uses Office Scripts to process Excel information.
+FL02 uses two Office Scripts to extract information from the validated source workbook and populate the generated export workbook.
 
-A demonstration implementation includes scripts for:
+### Source Data Extraction
 
-- Extracting and structuring source workbook data.
-- Populating an export template.
-- Preparing the generated workbook for subsequent use.
+[View process-records.ts](../../office-scripts/process-records.ts)
 
-The Office Scripts are documented separately in the project.
+The first Office Script processes the temporary copy of the validated Excel workbook.
 
-The Excel template and column mappings can be adapted to the requirements of each implementation.
+Its purpose is to:
+
+- Read and structure the source workbook data.
+- Prepare the extracted information for subsequent Power Automate operations.
+- Return the processed data to FL02.
+
+### Export Workbook Population
+
+[View populate-export-template.ts](../../office-scripts/populate-export-template.ts)
+
+The second Office Script runs against the workbook created from the export template.
+
+Its purpose is to:
+
+- Receive the structured information prepared during extraction.
+- Populate the export workbook.
+- Prepare the generated Excel file for consultation and download.
+
+### Integration Considerations
+
+The Office Scripts are executed through Power Automate using an appropriately authorized connection.
+
+The Excel template structure, source columns, and field mappings can be adapted to the requirements of each implementation.
+
+The scripts are demonstration examples and must be tested with the intended Excel templates and data structures.
+
 
 ## 6. Permissions
 
