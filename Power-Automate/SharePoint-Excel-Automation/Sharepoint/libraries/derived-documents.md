@@ -11,6 +11,9 @@ The library is designed to allow authorized users, including external staff wher
 
 > **Portfolio disclaimer:** This documentation describes a conceptual demonstration using fictional names and examples. No production URLs, credentials, real identifiers, or confidential business information are included.
 
+
+## 2. Library Configuration
+
 | Property | Configuration |
 |---|---|
 | Library Name | Derived Documents Library |
