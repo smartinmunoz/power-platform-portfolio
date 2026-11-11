@@ -142,6 +142,26 @@ New projects will be added as independent demonstration components.
 
 
 
+
 ## Contact
 
-Connect with me on LinkedIn.
+I'm interested in connecting with professionals working in Microsoft Power Platform, business process automation, low-code development, and enterprise technology.
+
+I'm particularly interested in exchanging knowledge about:
+
+- Power Apps and Power Automate development.
+- SharePoint Online integration and automation.
+- Power Platform governance and administration.
+- Business process optimization.
+- Microsoft 365 adoption and user enablement.
+
+### Professional Profiles
+
+- **LinkedIn:** [Connect with me on LinkedIn](www.linkedin.com/in/santiago-martin-muñoz-71ab5a42)
+- **GitHub:** [Explore my repositories](https://github.com/smartinmunoz)
+
+Feel free to explore the projects and technical documentation available in this portfolio.
+
+---
+
+*All published projects use fictional data and independently developed demonstration components. They do not represent production exports or confidential organizational solutions.*
