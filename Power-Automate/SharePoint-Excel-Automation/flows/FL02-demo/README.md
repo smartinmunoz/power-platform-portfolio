@@ -234,6 +234,32 @@ FL03 operates independently on a schedule, while FL04 is directly invoked by FL0
 - Reusable child flow integration.
 - SharePoint execution logging.
 
+### FL04 Child Flow Input Contract
+
+FL02 invokes FL04 to create a centralized processing log.
+
+The child flow expects eight input parameters:
+
+| Parameter | Expected Source |
+|---|---|
+| ProcessingReferenceId | Current processing reference |
+| SourceFileId | SharePoint source file identifier |
+| SourceFileName | Original Excel file name |
+| RecordsRead | Number of records extracted from the workbook |
+| RecordsCreated | Successfully created SharePoint records |
+| RecordsWithErrors | Total number of records with processing errors |
+| ErrorDetails | Consolidated processing error details |
+| ExecutionId | Current Power Automate execution identifier |
+
+FL04 returns `Id_Log`, the identifier of the created SharePoint log item.
+
+**Implementation note:** The conceptual FL02 JSON currently declares an eight-parameter child flow invocation without defining the individual input mappings.
+
+The final implementation must explicitly map all eight parameters, calculate RecordsWithErrors consistently, and validate that the values are available before invoking FL04.
+
+SharePointErrors and RecordsWithErrors must not be treated as equivalent unless the implementation explicitly defines and validates that relationship.
+
+
 ## Implementation Status
 
 **Conceptual demonstration. Not an importable Power Automate flow.**
