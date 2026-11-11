@@ -191,29 +191,51 @@ FL05 must use an appropriately authorized connection to manage SharePoint item p
 Effective permissions must be tested to ensure that users cannot access records from other centers through inherited permissions, additional group memberships, or direct assignments.
 
 
+
 ## 9. Integration with Power Automate
+
+The Processed Records List is integrated with three Power Automate workflows: FL02, FL05, and FL04.
 
 ### FL02 - Excel Processing
 
 FL02 is responsible for:
 
-- Reading validated Excel data.
-- Identifying primary and associated records.
+- Reading and processing validated Excel data.
+- Identifying primary (T) and associated (B) records.
 - Creating SharePoint list items.
-- Maintaining record relationships.
+- Maintaining parent-child relationships through `LastPrimaryRecordId` and `ParentRecordId`.
+- Associating each record with its corresponding operational center.
 - Recording processing results and errors.
 
-### FL05 - Permission Management
+FL02 processes records sequentially to preserve the relationship between primary and associated records.
+
+### FL05 - Dynamic Item Permissions
 
 FL05 is responsible for:
 
-- Identifying the record's center.
-- Resolving the associated SharePoint group.
-- Applying item-level permissions.
+- Receiving the information required to identify the SharePoint record and its operational center.
+- Looking up the center's SharePoint Group ID in the Centers Configuration List.
+- Breaking item-level permission inheritance.
+- Assigning Read permissions to the corresponding center group.
+- Restricting access by other center groups.
+
+FL05 applies the access control rules independently of the record creation logic.
 
 ### FL04 - Processing Logs
 
-FL04 provides execution traceability by recording processing results and diagnostic information.
+FL04 records processing results and diagnostic information in the Processing Logs List.
+
+This provides traceability for the execution of FL02, including records created and processing errors.
+
+### Workflow Responsibilities
+
+| Workflow | Responsibility |
+|---|---|
+| FL02 | Excel processing and SharePoint record creation |
+| FL05 | Dynamic item-level permission assignment |
+| FL04 | Processing logs and execution traceability |
+
+Separating these responsibilities improves maintainability and allows the processing and permission logic to evolve independently.
 
 ## 10. Example Data
 
