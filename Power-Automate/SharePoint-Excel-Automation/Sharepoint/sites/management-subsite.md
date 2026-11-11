@@ -238,31 +238,55 @@ The matrix represents the intended security model rather than a verified product
 
 Effective permissions must be tested in a controlled SharePoint environment, including scenarios involving users who belong to multiple SharePoint groups.
 
+
 ## 10. Permission Inheritance
 
-The architecture combines subsite-level permissions with resource-level and item-level security.
+The Management Subsite combines general subsite-level access with resource-specific and item-level permission restrictions.
+
+Center Groups have general Read access to the subsite, but this does not automatically grant access to every list, library, or document.
 
 ### Validation Library
 
-Permission inheritance is interrupted to exclude Center Groups.
-
-FL02 also applies unique permissions to processed documents.
+- Library-level permission inheritance is interrupted.
+- Center Groups and External Staff are excluded.
+- Site Owners and Site Members have Edit access during validation.
+- FL02 breaks file-level permission inheritance when processing a validated document.
+- FL02 assigns Read access to Site Owners and Site Members.
+- Site Collection Administrators retain administrative control.
 
 ### Export Library
 
-Read access is provided to Site Owners, Site Members, and Center Groups.
+- Site Owners, Site Members, and Center Groups receive Read access.
+- External Staff are excluded.
+- FL02 creates export workbooks through an appropriately authorized SharePoint connection.
 
 ### Processed Records List
 
-FL05 assigns item-level permissions according to the center associated with each record.
+- FL02 creates primary and associated records.
+- FL05 applies item-level permissions based on the assigned center.
+- FL05 retrieves the relevant SharePoint Group ID from the Centers Configuration List.
+- Center Groups receive access only to records explicitly assigned to their group.
+- General subsite Read access does not automatically grant access to all processed records.
 
 ### Centers Configuration List
 
-All users with access to the subsite have read access.
+- Site Owners, Site Members, and Center Groups receive Read access.
+- External Staff are excluded.
+- Configuration changes require separately authorized permissions.
+- Group management links do not automatically grant group administration privileges.
 
 ### Processing Logs List
 
-Permissions are restricted to Site Owners and Site Members, excluding Center Groups.
+- List-level permission inheritance is interrupted.
+- Site Owners and Site Members receive Read access.
+- Center Groups and External Staff are excluded.
+- FL04 creates log entries through an appropriately authorized SharePoint connection.
+
+### Permission Validation
+
+All permission inheritance changes and automated assignments must be tested in a controlled SharePoint environment.
+
+Effective permissions must be verified for users belonging to multiple SharePoint groups and for automation connections performing privileged operations.
 
 ## 11. Power Automate Integration
 
