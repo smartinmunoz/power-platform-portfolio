@@ -40,6 +40,24 @@ function main(workbook: ExcelScript.Workbook): string {
         );
     }
 
+    // Detect duplicate column headers
+    const nonEmptyHeaders = headers.filter(
+        header => header !== ""
+    );
+
+    const duplicateHeaders = nonEmptyHeaders.filter(
+        (header, index) =>
+            nonEmptyHeaders.indexOf(header) !== index
+    );
+
+    if (duplicateHeaders.length > 0) {
+        throw new Error(
+            `Duplicate column headers: ${
+                [...new Set(duplicateHeaders)].join(", ")
+            }`
+        );
+    }
+
     // Extract records
     const records: {
         [key: string]: string | number | boolean
@@ -72,3 +90,4 @@ function main(workbook: ExcelScript.Workbook): string {
 
     return JSON.stringify(records);
 }
+
