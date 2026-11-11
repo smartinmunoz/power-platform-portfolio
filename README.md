@@ -157,7 +157,8 @@ I'm particularly interested in exchanging knowledge about:
 
 ### Professional Profiles
 
-- **LinkedIn:** [Connect with me on LinkedIn](www.linkedin.com/in/santiago-martin-muñoz-71ab5a42)
+
+- **LinkedIn:** [Connect with me on LinkedIn](https://www.linkedin.com/in/santiago-martin-mu%C3%B1oz-71ab5a42)
 - **GitHub:** [Explore my repositories](https://github.com/smartinmunoz)
 
 Feel free to explore the projects and technical documentation available in this portfolio.
