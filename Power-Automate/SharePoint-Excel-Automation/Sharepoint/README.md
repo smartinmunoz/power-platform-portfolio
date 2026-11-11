@@ -45,7 +45,7 @@ flowchart TD
     H[Centers Configuration List]
     I[Processing Logs List]
     J[Power Automate FL01-FL05]
-
+    K[Temporary Files Library]
     A --> B
     A --> C
     A --> D
@@ -55,6 +55,7 @@ flowchart TD
     D --> G
     D --> H
     D --> I
+    D --> K
 
     B -.-> J
     E -.-> J
@@ -62,6 +63,7 @@ flowchart TD
     G -.-> J
     H -.-> J
     I -.-> J
+    K -.-> J
 ```
 
 The dotted connections represent integration with the broader Power Automate solution, not direct relationships between every resource and every workflow.
