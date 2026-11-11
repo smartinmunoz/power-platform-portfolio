@@ -37,7 +37,7 @@
           "operation": "Grant item permissions",
           "group": "Configured center group",
           "permission": "Edit",
-          "name": "GrantCenterGroupPermissions",
+          "name": "GrantCenterGroupPermissions"
           "type": "SharePoint"
         },
         {
