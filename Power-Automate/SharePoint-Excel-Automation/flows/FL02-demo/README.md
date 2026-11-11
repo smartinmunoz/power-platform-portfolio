@@ -183,6 +183,27 @@ The workflow maintains:
 
 Separate branches track successful and failed record creation operations.
 
+### Error Counting Model
+
+The workflow distinguishes between SharePoint operation errors and records affected by processing errors.
+
+| Metric | Definition |
+|---|---|
+| SharePointErrors | Number of failed SharePoint record creation operations |
+| RecordsWithErrors | Number of distinct source records affected by validation or creation errors |
+| ErrorDetails | Diagnostic information describing processing failures |
+| RecordsCreated | Number of successfully created SharePoint records |
+
+A source record must be counted only once in RecordsWithErrors, even if multiple errors affect that record.
+
+Workflow-level failures that cannot be attributed to an individual source record must be tracked separately.
+
+The current Office Script extracts records but does not return per-record validation errors.
+
+Therefore, the RecordsWithErrors calculation remains a conceptual requirement until validation rules and error aggregation are implemented.
+
+FL04 must receive the final calculated value before determining the processing status.
+
 ## Integration with FL04
 
 FL02 invokes FL04 as a child flow and passes eight input parameters:
