@@ -5,9 +5,10 @@
 
 The Derived Documents Library is a SharePoint Online document library located in the Main SharePoint Site.
 
-It provides centralized access to documents generated or made available as part of the automated request processing solution.
+The library stores Excel document copies created automatically by FL01 when a new request is submitted through the Request Intake List.
 
-The library is designed to allow authorized users, including external staff where applicable, to consult and download documents without modifying them.
+All authorized Main SharePoint Site users, including Site Owners, Site Members, and External Staff, have read-only access to these documents. They can consult and download the files without modifying them.
+
 
 > **Portfolio disclaimer:** This documentation describes a conceptual demonstration using fictional names and examples. No production URLs, credentials, real identifiers, or confidential business information are included.
 
