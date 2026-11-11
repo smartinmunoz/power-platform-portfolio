@@ -16,7 +16,7 @@ flowchart TD
     B --> C{"Center found?"}
     C -->|Yes| D["Get center group ID"]
     D --> E["Break permission inheritance"]
-    E --> F["Grant Edit to center group"]
+    E --> F["Grant Read to center group"]
     F --> G["Grant Edit to Owners"]
     G --> H["Grant Edit to Members"]
     H --> I["Finish"]
@@ -30,7 +30,7 @@ flowchart TD
 3. Check whether the search returned at least one result.
 4. Retrieve the configured center group identifier.
 5. Break permission inheritance for the new item.
-6. Grant Edit permissions to the configured center group.
+6. Grant Read permissions to the configured center group.
 7. Grant Edit permissions to the Owners group.
 8. Grant Edit permissions to the Members group.
 
@@ -52,11 +52,13 @@ Example using fictional values:
 
 | Group | Permission Level |
 |---|---|
-| Configured center group | Edit |
+\| Configured center group \| Read \|
 | Owners | Edit |
 | Members | Edit |
 
-All three groups receive Edit permissions.
+
+The configured center group receives Read access only to records assigned to its center. Owners and Members retain Edit permissions across all records. Other center groups must not have access to records outside their assigned center.
+
 
 ## Technical Highlights
 
