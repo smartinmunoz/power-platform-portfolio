@@ -44,8 +44,8 @@
     }
   ],
   "sharePoint": {
-    "list": "ProcessingLogsDemo",
-    "site": "https://contoso.sharepoint.com/sites/DemoSite"
+  "list": "Processing Logs List",
+  "site": "https://contoso.sharepoint.com/sites/DemoSite"
   },
   "actions": [
     {
