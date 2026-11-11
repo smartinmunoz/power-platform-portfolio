@@ -212,16 +212,39 @@ The JSON files describe conceptual workflow structures for learning and portfoli
 They are not directly importable Power Automate flow packages.
 
 
+
 ### Office Scripts
 
-Office Scripts support Excel data extraction, transformation, validation, and output generation.
+Office Scripts provide the Excel processing capabilities used by the automation architecture.
 
-| Script | Purpose | Source Code |
+They demonstrate how TypeScript-based scripts can be integrated with Power Automate to process structured workbook data and populate predefined export templates.
+
+| Script | Responsibility | Source Code |
 |---|---|---|
-| process-records.ts | Processes structured Excel records for automation workflows. | [View Script](office-scripts/process-records.ts) |
-| populate-export-template.ts | Populates an Excel export template with processed data. | [View Script](office-scripts/populate-export-template.ts) |
+| process-records.ts | Reads and processes structured Excel records, preparing data for subsequent Power Automate operations. | [View Script](office-scripts/process-records.ts) |
+| populate-export-template.ts | Populates a predefined Excel template using processed data to generate structured output workbooks. | [View Script](office-scripts/populate-export-template.ts) |
+
+#### Integration with FL02
+
+FL02 coordinates the Excel processing lifecycle.
+
+Office Scripts support the workflow by:
+
+1. Reading structured data from validated Excel workbooks.
+2. Preparing information for record creation.
+3. Supporting the transformation of data into the required output structure.
+4. Populating predefined Excel export templates.
+
+SharePoint record creation, permission assignments, and execution logging are managed by the corresponding Power Automate workflows.
+
+#### Portfolio Scope
+
+The scripts are independently developed demonstration components.
+
+They illustrate reusable Excel automation techniques and may require adaptation to specific workbook structures, Power Automate connections, and target environments.
 
 [Explore all Office Scripts](office-scripts/)
+
 
 ### Sample Excel Files
 
