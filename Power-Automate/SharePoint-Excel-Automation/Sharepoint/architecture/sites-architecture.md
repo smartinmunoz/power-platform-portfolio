@@ -174,31 +174,70 @@ Effective access depends on SharePoint group membership, inheritance settings, d
 All permissions must be validated in a controlled SharePoint environment.
 
 
+
 ## 6. Permission Inheritance Strategy
 
-SharePoint permission inheritance is selectively interrupted to enforce resource-specific security.
+SharePoint permission inheritance is selectively interrupted to enforce resource-specific and item-level security.
+
+The architecture combines site-level permissions, library-level restrictions, and automated item-level permission assignments.
+
+### Request Intake List
+
+- Authorized External Staff can create new request items.
+- FL01 breaks permission inheritance on each submitted request.
+- The Request Creator receives Read access to their own request.
+- Site Owners and Site Members receive Read access.
+- Other External Staff and Center Groups are excluded.
+- Request attachments remain protected through the corresponding list item's effective permissions.
+
+### Derived Documents Library
+
+- Authorized Main Site users receive Read access.
+- External Staff, Site Owners, and Site Members can consult the generated document copies.
+- Document creation and management operations are performed through an appropriately authorized automation connection.
 
 ### Validation Library
 
-- Permission inheritance is interrupted.
-- Center groups are excluded.
-- Processed files receive unique permissions.
-- Site Owners and Members receive read access after validation.
-
-### Processed Records List
-
-- FL05 assigns item-specific permissions.
-- Access is determined by the record's center.
-- Center groups do not automatically receive access to all records.
-
-### Processing Logs List
-
-- Access is restricted to Site Owners and Site Members.
-- Center groups are excluded despite having general read access to the subsite.
+- Library-level permission inheritance is interrupted.
+- Center Groups and External Staff are excluded.
+- Site Owners and Site Members have Edit access during validation.
+- When FL02 processes a validated document, it breaks file-level permission inheritance.
+- FL02 assigns Read permissions to Site Owners and Site Members.
+- Site Collection Administrators retain administrative control.
 
 ### Export Library
 
-- Site Owners, Site Members, and Center groups receive read access.
+- Site Owners, Site Members, and Center Groups receive Read access.
+- External Staff are excluded.
+- FL02 creates export documents using an appropriately authorized automation connection.
+
+### Processed Records List
+
+- FL02 creates primary and associated records.
+- FL05 applies item-level permissions based on the record's assigned center.
+- Center Groups receive access only to records explicitly assigned to their SharePoint group.
+- Center Groups do not automatically receive access to all records in the list.
+
+### Centers Configuration List
+
+- Site Owners, Site Members, and Center Groups receive Read access.
+- External Staff are excluded.
+- The list stores the center-to-SharePoint-group mapping used by FL05.
+- Changes to configuration items require separately authorized permissions.
+
+### Processing Logs List
+
+- List-level permission inheritance is interrupted.
+- Site Owners and Site Members receive Read access.
+- Center Groups and External Staff are excluded.
+- FL04 creates log entries through an appropriately authorized SharePoint connection.
+
+### Permission Validation
+
+All inheritance breaks and permission assignments must be tested in a controlled SharePoint environment.
+
+Effective access must be verified for users belonging to multiple SharePoint groups and for automation connections performing privileged operations.
+
 
 ## 7. Power Automate Integration
 
