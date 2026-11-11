@@ -16,27 +16,35 @@
     "site": "https://contoso.sharepoint.com/sites/DemoSite"
   },
   "variables": [
-    {
-      "initialValue": 0,
-      "name": "SharePointErrors",
-      "type": "integer"
-    },
-    {
-      "initialValue": 0,
-      "name": "LastPrimaryRecordId",
-      "type": "integer"
-    },
-    {
-      "initialValue": [],
-      "name": "ErrorDetails",
-      "type": "array"
-    },
-    {
-      "initialValue": 0,
-      "name": "RecordsCreated",
-      "type": "integer"
-    }
-  ],
+ 
+"variables": [
+  {
+    "initialValue": 0,
+    "name": "SharePointErrors",
+    "type": "integer"
+  },
+  {
+    "initialValue": 0,
+    "name": "RecordsWithErrors",
+    "type": "integer"
+  },
+  {
+    "initialValue": 0,
+    "name": "LastPrimaryRecordId",
+    "type": "integer"
+  },
+  {
+    "initialValue": [],
+    "name": "ErrorDetails",
+    "type": "array"
+  },
+  {
+    "initialValue": 0,
+    "name": "RecordsCreated",
+    "type": "integer"
+  }
+],
+
   "actions": [
     {
       "operation": "Break permission inheritance",
