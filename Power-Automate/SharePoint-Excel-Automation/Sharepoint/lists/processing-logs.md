@@ -137,7 +137,8 @@ FL04 creates a SharePoint item in the Processing Logs List and returns its ident
 
 FL02 receives the identifier and can use it for subsequent diagnostic or tracking operations.
 
-The exact input parameters and actions are documented in the corresponding Power Automate workflow files.
+The exact input parameters, output configuration, and error handling are defined in the corresponding Power Automate workflow documentation.
+
 
 ## 6. Error Tracking
 
