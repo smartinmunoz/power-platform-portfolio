@@ -343,13 +343,64 @@ It is not a fully deployable SharePoint provisioning package.
 > All examples use fictional data and independently developed demonstration components. Conceptual workflow JSON files are not directly importable into Power Automate.
 
 
+
 ## Repository Structure
 
-- `docs/`: Technical documentation and architecture.
-- `flows/`: Power Automate demonstration flows.
-- `office-scripts/`: Independently developed Office Scripts.
-- `sample-data/`: Fictional Excel datasets and templates.
-- `Sharepoint/`: SharePoint Online architecture, sites, lists, document libraries, forms, and JSON customizations.
+The project is organized into dedicated folders for workflow definitions, Excel automation scripts, sample data, technical documentation, and SharePoint architecture.
+
+```text
+SharePoint-Excel-Automation/
+|
+|-- README.md
+|
+|-- flows/
+|   |-- FL01-demo/
+|   |-- FL02-demo/
+|   |-- FL03-demo/
+|   |-- FL04-demo/
+|   `-- FL05-demo/
+|
+|-- office-scripts/
+|   |-- process-records.ts
+|   `-- populate-export-template.ts
+|
+|-- sample-data/
+|   |-- sample-records.xlsx
+|   `-- export-template.xlsx
+|
+|-- docs/
+|   `-- Technical documentation
+|
+`-- Sharepoint/
+    |-- README.md
+    |-- architecture/
+    |-- sites/
+    |-- lists/
+    |-- libraries/
+    |-- forms/
+    `-- formatting/
+```
+
+### Folder Responsibilities
+
+| Folder | Description |
+|---|---|
+| `flows/` | Conceptual Power Automate workflow definitions and technical documentation. |
+| `office-scripts/` | TypeScript-based Office Scripts for Excel data processing and export generation. |
+| `sample-data/` | Fictional Excel input files and export templates. |
+| `docs/` | Supporting technical documentation and architecture notes. |
+| `Sharepoint/` | SharePoint sites, lists, libraries, permissions, forms, and JSON formatting examples. |
+
+### Navigation
+
+- [Explore Power Automate Workflows](flows/)
+- [Explore Office Scripts](office-scripts/)
+- [Explore Sample Excel Files](sample-data/)
+- [Explore Technical Documentation](docs/)
+- [Explore SharePoint Architecture](Sharepoint/)
+
+The repository structure separates automation logic, supporting scripts, sample data, and SharePoint configuration documentation to improve readability and maintainability.
+
 
 ## Project Status
 
