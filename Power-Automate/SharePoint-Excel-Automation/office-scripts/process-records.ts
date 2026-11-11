@@ -14,10 +14,6 @@ function main(workbook: ExcelScript.Workbook): string {
 
     const values = usedRange.getValues();
 
-    if (values.length < 2) {
-        return JSON.stringify([]);
-    }
-
     const headers = values[0].map(value =>
         String(value).trim()
     );
@@ -91,3 +87,6 @@ function main(workbook: ExcelScript.Workbook): string {
     return JSON.stringify(records);
 }
 
+    if (values.length < 2) {
+        return JSON.stringify([]);
+    }
