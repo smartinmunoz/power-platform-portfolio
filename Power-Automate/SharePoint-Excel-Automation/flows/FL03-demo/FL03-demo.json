@@ -10,7 +10,7 @@
   },
   "sharePoint": {
   "site": "https://contoso.sharepoint.com/sites/DemoSite",
-  "library": "TemporaryFilesDemo"
+  "library": "Temporary Files Library"
   },
   "retentionPolicy": {
     "condition": "File age greater than 8 hours",
