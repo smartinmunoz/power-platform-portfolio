@@ -1,3 +1,4 @@
+
 {
   "name": "FL02-Excel-Processing-Demo",
   "description": "Excel processing, export generation, and related SharePoint record creation",
@@ -9,10 +10,10 @@
     "type": "SharePoint"
   },
   "sharePoint": {
-  "sourceLibrary": "Validation Library",
-  "destinationList": "Processed Records List",
-  "temporaryLibrary": "Temporary Files Library",
-  "site": "https://contoso.sharepoint.com/sites/DemoSite"
+    "sourceLibrary": "Validation Library",
+    "destinationList": "Processed Records List",
+    "temporaryLibrary": "Temporary Files Library",
+    "site": "https://contoso.sharepoint.com/sites/DemoSite"
   },
   "variables": [
     {
@@ -97,6 +98,15 @@
       "operation": "Apply to each"
     },
     {
+      "operation": "Compose",
+      "details": [
+        "Count imported records",
+        "Count Excel errors",
+        "Combine error details"
+      ],
+      "name": "CalculateFinalDiagnostics"
+    },
+    {
       "operation": "Compose JSON",
       "properties": [
         "ProcessingReferenceId",
@@ -106,62 +116,28 @@
       ],
       "name": "BuildProcessingSummary"
     },
-
-{
-  "operation": "Compose",
-  "details": [
-    "Count imported records",
-    "Count Excel errors",
-    "Combine error details"
+    {
+      "operation": "Run child flow",
+      "childFlow": "FL04-Processing-Logs-Demo",
+      "output": "Id_Log",
+      "name": "ExecuteFL04",
+      "inputCount": 8,
+      "inputMappings": {
+        "ProcessingReferenceId": "CurrentProcessingReferenceId",
+        "SourceFileId": "TriggerFileId",
+        "SourceFileName": "TriggerFileName",
+        "RecordsRead": "CalculatedRecordsRead",
+        "RecordsCreated": "RecordsCreated",
+        "RecordsWithErrors": "CalculatedRecordsWithErrors",
+        "ErrorDetails": "ConsolidatedErrorDetails",
+        "ExecutionId": "CurrentFlowExecutionId"
+      }
+    }
   ],
-  "name": "CalculateFinalDiagnostics"
-},
-{
-  "operation": "Compose JSON",
-  "properties": [
-    "ProcessingReferenceId",
-    "RecordsCreated",
-    "SharePointErrors",
-    "ErrorDetails"
+  "officeScripts": [
+    "process-records.ts",
+    "populate-export-template.ts"
   ],
-  "name": "BuildProcessingSummary"
-},
-{
-  "operation": "Run child flow",
-  "childFlow": "FL04-Processing-Logs-Demo",
-  "output": "Id_Log",
-  "name": "ExecuteFL04",
-  "inputCount": 8,
-  "inputMappings": {
-    "ProcessingReferenceId": "CurrentProcessingReferenceId",
-    "SourceFileId": "TriggerFileId",
-    "SourceFileName": "TriggerFileName",
-    "RecordsRead": "CalculatedRecordsRead",
-    "RecordsCreated": "RecordsCreated",
-    "RecordsWithErrors": "CalculatedRecordsWithErrors",
-    "ErrorDetails": "ConsolidatedErrorDetails",
-    "ExecutionId": "CurrentFlowExecutionId"
-  }
-}
-
-
-},
-{
-  "operation": "Compose",
-  "details": [
-    "Count imported records",
-    "Count Excel errors",
-    "Combine error details"
-  ],
-     "ExecutionId": "CurrentFlowExecutionId"
-  }
-}
-],
-"officeScripts": [
-  "process-records.ts",
-  "populate-export-template.ts"
-],
-
   "relatedFlows": [
     {
       "purpose": "Processing logs and error tracking",
