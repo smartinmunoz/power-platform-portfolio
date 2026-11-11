@@ -75,14 +75,16 @@ The two document copies serve different purposes and follow independent access-c
 
 The library uses a read-only access model for ordinary users.
 
+
 | Role | Access |
 |---|---|
 | Site Collection Administrators | Administrative control |
-| Site Owners | According to authorized role |
-| Site Members | According to authorized role |
+| Site Owners | Read |
+| Site Members | Read |
 | Authorized External Staff | Read |
 | Unauthorized Users | No access |
-| Authorized Automation Connection | Permissions required for document publication |
+| Authorized Automation Connection | Permissions required to create and manage document copies |
+
 
 Read access allows users to open and download documents without granting editing rights.
 
