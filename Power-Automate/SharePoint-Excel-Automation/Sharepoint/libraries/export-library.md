@@ -113,17 +113,20 @@ The demonstration JSON must be reviewed and adapted to the intended library expe
 
 For example, hiding an editing command does not remove a user's underlying permission to edit documents.
 
+
 ## 8. Export Workflow Diagram
 
 ```mermaid
 flowchart TD
-    A[Validated Excel Workbook]
-    B[FL02 Processing]
-    C[Retrieve Export Template]
-    D[Create Export Workbook]
-    E[Run Office Script]
-    F[Export Library]
-    G[Authorized Users - Read Access]
+    A[Validated Excel in Validation Library]
+    B[FL02 - Excel Processing]
+    C[Create Temporary Processing Copy]
+    D[Office Script - Extract Source Data]
+    E[Retrieve Export Template]
+    F[Create Workbook in Export Library]
+    G[Office Script - Populate Export Workbook]
+    H[Completed Export Workbook]
+    I[Owners, Members and Center Groups - Read Access]
 
     A --> B
     B --> C
@@ -131,11 +134,16 @@ flowchart TD
     D --> E
     E --> F
     F --> G
+    G --> H
+    H --> I
 ```
 
-This diagram represents the conceptual export generation process.
+The diagram illustrates the export generation sequence within FL02.
 
-The complete workflow also includes record creation, error handling, and execution logging.
+The complete workflow also includes SharePoint record creation, error handling, processing logs through FL04, and temporary file cleanup through FL03.
+
+The generated workbook is stored in the Export Library in the Management Subsite, where authorized Site Owners, Site Members, and Center Groups have read-only access.
+
 
 ## 9. Document Organization
 
