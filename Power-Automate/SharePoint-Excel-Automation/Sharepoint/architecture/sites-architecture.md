@@ -123,24 +123,56 @@ Center groups do not have access.
 
 The list must therefore use restricted permissions rather than unrestricted inheritance from the subsite.
 
+
 ## 5. Permissions Matrix
+
+The following matrix summarizes the conceptual access model across the Main SharePoint Site and the Management Subsite.
 
 | Resource | Site Owners | Site Members | Center Groups | External Staff |
 |---|---|---|---|---|
-| Main Site | Management access | According to role | According to assignment | Authorized access |
-| Request Intake List | According to role | According to role | According to assignment | Request submission |
-| Derived Documents Library | According to role | According to role | According to assignment | Read where authorized |
+| Main SharePoint Site | According to role | According to role | According to assignment | Authorized access |
+| Request Intake List | Read on submitted items | Read on submitted items | No access | Create requests; Read own submitted items |
+| Derived Documents Library | Read | Read | According to assignment | Read |
 | Management Subsite | According to role | According to role | Read | No access |
-| Validation Library | Management access | Management access | No access | No access |
-| Processed Validation Files | Read | Read | No access | No access |
+| Validation Library - During Validation | Edit | Edit | No access | No access |
+| Validation Library - After FL02 Protection | Read | Read | No access | No access |
 | Export Library | Read | Read | Read | No access |
-| Processed Records List | According to role | According to role | Assigned records only | No access |
+| Processed Records List | According to security model | According to security model | Assigned records only | No access |
 | Centers Configuration List | Read | Read | Read | No access |
 | Processing Logs List | Read | Read | No access | No access |
 
-Site collection administrators retain administrative privileges, including the ability to modify processed validation files.
+### Request Creator Access
 
-Permissions described as "According to role" are intentionally not expanded into unverified permission levels.
+The Request Intake List uses item-level permissions.
+
+External Staff can create new requests, but after FL01 applies the corresponding permissions, the Request Creator retains Read access only to their own submitted items.
+
+Other External Staff must not receive access to requests they did not create.
+
+### Document Access
+
+The Derived Documents Library provides Read access to authorized users of the Main SharePoint Site, including External Staff.
+
+The Validation Library is restricted to management users.
+
+During validation, Site Owners and Site Members can edit documents.
+
+When FL02 starts processing a validated document, it breaks file-level permission inheritance and grants Read access to Site Owners and Site Members.
+
+### Administrative Access
+
+Site Collection Administrators retain administrative privileges across the relevant SharePoint resources.
+
+Administrative permissions and appropriately authorized automation connections are managed separately from ordinary user access.
+
+### Important Considerations
+
+The matrix describes the intended permission model rather than a verified production configuration.
+
+Effective access depends on SharePoint group membership, inheritance settings, direct assignments, and the permissions granted to automation connections.
+
+All permissions must be validated in a controlled SharePoint environment.
+
 
 ## 6. Permission Inheritance Strategy
 
