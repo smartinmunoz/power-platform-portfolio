@@ -8,6 +8,7 @@ It orchestrates SharePoint document management, Office Scripts, sequential recor
 
 This is an independent conceptual demonstration using fictional data.
 
+
 ## Architecture
 
 ```mermaid
@@ -16,7 +17,6 @@ flowchart TD
     A --> B{"Status = Validated?"}
     B -->|No| Z["End"]
     B -->|Yes| C["Initialize 5 variables"]
-
 
     C --> D["Break file permission inheritance"]
     D --> E["Grant Read to Members"]
@@ -61,16 +61,16 @@ flowchart TD
     AG --> AH
     AH -->|More records| P
 
-    AH -->|All records processed| AI["Build processing summary"]
+    AH -->|All records processed| AI["Calculate final diagnostics"]
     L -->|No| AI
     H -->|No| AI
 
-    AI --> AJ["Call FL04 child flow: Create processing log"]
-    AJ --> AK["Count imported records"]
-    AK --> AL["Count Excel errors"]
-    AL --> AM["Combine error details"]
-    AM --> AN["End"]
+    AI --> AJ["Build processing summary"]
+    AJ --> AK["Call FL04 child flow: Create processing log"]
+    AK --> AL["End"]
 ```
+
+
 
 ## Trigger
 
