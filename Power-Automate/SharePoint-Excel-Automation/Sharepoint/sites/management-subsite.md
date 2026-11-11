@@ -288,17 +288,59 @@ All permission inheritance changes and automated assignments must be tested in a
 
 Effective permissions must be verified for users belonging to multiple SharePoint groups and for automation connections performing privileged operations.
 
+
 ## 11. Power Automate Integration
 
-| Flow | Management Subsite Responsibility |
-|---|---|
-| FL01 | Supports the intake and validation lifecycle |
-| FL02 | Processes validated Excel files and creates records and exports |
-| FL03 | Removes temporary processing files |
-| FL04 | Creates processing log entries |
-| FL05 | Assigns center-based permissions to processed records |
+The Management Subsite supports document validation, Excel processing, record creation, export generation, execution logging, and center-based permission management.
 
-The workflows are documented separately in the Power Automate section of this project.
+The solution uses five conceptual Power Automate workflows.
+
+### 11.1 Workflow Responsibilities
+
+| Workflow | Management Subsite Responsibility | Main Resources |
+|---|---|---|
+| FL01 | Creates a copy of each submitted Excel attachment for internal validation | Validation Library |
+| FL02 | Processes validated Excel files, protects source documents, creates records, and generates export workbooks | Validation Library, Processed Records List, Export Library |
+| FL03 | Removes temporary processing files older than the configured retention threshold | Temporary processing files |
+| FL04 | Creates execution logs and returns the `Id_Log` identifier | Processing Logs List |
+| FL05 | Applies center-based item-level permissions using the configured SharePoint Group ID | Processed Records List, Centers Configuration List |
+
+### 11.2 Document Validation and Processing
+
+1. FL01 creates an Excel document copy in the Validation Library.
+2. Authorized Site Owners or Site Members review and validate the document.
+3. FL02 starts when the document is validated.
+4. FL02 breaks file-level permission inheritance and assigns Read access to Site Owners and Site Members.
+5. FL02 updates the document status to `Tractat`.
+6. FL02 processes the Excel data and creates primary and associated records.
+7. FL02 generates the corresponding export workbook.
+
+The `Tractat` status is applied before all subsequent processing operations have necessarily completed and does not independently guarantee successful end-to-end processing.
+
+### 11.3 Logging and Permissions
+
+FL02 calls FL04 to register processing information.
+
+FL04 creates an entry in the Processing Logs List and returns its SharePoint item identifier through the `Id_Log` output parameter.
+
+FL05 retrieves the center-to-group mapping from the Centers Configuration List and assigns item-level permissions to the corresponding processed records.
+
+### 11.4 Temporary File Cleanup
+
+FL03 removes temporary processing files older than eight hours according to the conceptual cleanup configuration.
+
+The cleanup process must target temporary files and must not remove source documents, validated records, or generated exports.
+
+### 11.5 Security Considerations
+
+The workflows use appropriately authorized SharePoint connections.
+
+Automation permissions are managed separately from ordinary user permissions.
+
+External Staff do not receive access to the Management Subsite through the intake workflow.
+
+The detailed workflow definitions and implementation considerations are documented in the Power Automate section of the portfolio.
+
 
 ## 12. Security and Governance
 
