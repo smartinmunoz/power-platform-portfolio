@@ -8,9 +8,9 @@
     "type": "SharePoint"
   },
   "sharePoint": {
-    "targetList": "BusinessRecordsDemo",
-    "site": "https://contoso.sharepoint.com/sites/DemoSite",
-    "configurationList": "CenterPermissionsDemo"
+  "targetList": "Processed Records List",
+  "site": "https://contoso.sharepoint.com/sites/DemoSite",
+  "configurationList": "Centers Configuration List"
   },
   "actions": [
     {
