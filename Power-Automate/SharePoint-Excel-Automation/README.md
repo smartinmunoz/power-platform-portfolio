@@ -246,16 +246,36 @@ They illustrate reusable Excel automation techniques and may require adaptation 
 [Explore all Office Scripts](office-scripts/)
 
 
+
 ### Sample Excel Files
 
-Fictional Excel datasets and templates used to demonstrate the automation process.
+The project includes fictional Excel datasets and templates designed to illustrate the document processing architecture.
 
-| File | Purpose | Download |
+These files support the demonstration of structured data intake, transformation, and export generation.
+
+| File | Purpose | File |
 |---|---|---|
-| sample-records.xlsx | Sample structured records used as input data. | [View File](sample-data/sample-records.xlsx) |
-| export-template.xlsx | Excel template for generated output files. | [View File](sample-data/export-template.xlsx) |
+| sample-records.xlsx | Example structured Excel data representing records submitted for processing. | [View File](sample-data/sample-records.xlsx) |
+| export-template.xlsx | Example Excel workbook template used to illustrate structured export generation. | [View File](sample-data/export-template.xlsx) |
+
+#### Role in the Automation Process
+
+1. A structured Excel workbook is submitted through the SharePoint Request Intake List.
+2. FL01 distributes document copies to the corresponding SharePoint libraries.
+3. Authorized users validate the document.
+4. FL02 coordinates Excel data processing using Office Scripts.
+5. The processed information is used to create SharePoint records and populate an export workbook.
+
+#### Demonstration Scope
+
+All sample data is fictional.
+
+The workbooks illustrate the expected input and output concepts of the solution.
+
+They are not production datasets and may require adjustments to match specific Office Scripts, workbook structures, and target environments.
 
 [Explore all Sample Data](sample-data/)
+
 
 
 ### Technical Documentation
