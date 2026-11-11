@@ -49,21 +49,27 @@ FL04 is called by FL02 and receives eight input parameters.
 6. Retrieve the ID of the created SharePoint item.
 7. Return `Id_Log` to the parent flow.
 
+
 ## Processing Status Logic
 
-The workflow determines the processing status based on the number of created records and records with errors.
+The workflow determines the processing status based on the number of successfully created records and records with errors.
 
 | Records Created | Records With Errors | Status |
 |---|---|---|
 | Greater than 0 | 0 | Success |
 | Greater than 0 | Greater than 0 | Partial Success |
-| 0 | Any value | Error |
+| 0 | Greater than 0 | Error |
+| 0 | 0 | No Records |
 
-These English status labels represent the original workflow's logic using generic terminology.
+The No Records status distinguishes executions that produce no records and report no errors from failed executions.
+
+This conceptual status model assumes that RecordsWithErrors accurately reflects the relevant processing failures.
+
+The status logic must be validated against the actual parent flow outputs during implementation.
 
 ## SharePoint Log Structure
 
-Example fictional SharePoint list: `ProcessingLogsDemo`
+Example fictional SharePoint list: `Processing Logs List`
 
 | Column | Purpose |
 |---|---|
