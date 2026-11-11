@@ -49,17 +49,38 @@ The Request Intake List provides a structured mechanism for collecting requests 
 
 Users create new requests through a customized SharePoint form.
 
+
 ### 4.2 Request Submission
 
-The intake process supports:
+The Request Intake List provides a simplified submission process for authorized External Staff.
 
-1. Opening the customized New Item form.
-2. Entering the required request information.
-3. Attaching an Excel workbook.
-4. Submitting the SharePoint list item.
-5. Starting the subsequent Power Automate processing workflow.
+The process follows these steps:
 
-The detailed field schema and validation rules will be documented separately.
+1. The user opens the customized New Item form.
+2. The user optionally enters additional information in the `Observations` field.
+3. The user attaches an Excel workbook using the standard SharePoint attachment functionality.
+4. The user saves the request.
+5. SharePoint creates the list item and assigns a unique item ID.
+6. FL01 retrieves the request information and its Excel attachment.
+7. FL01 creates a document copy in the Derived Documents Library in the Main SharePoint Site.
+8. FL01 creates a separate document copy in the Validation Library in the Management Subsite.
+9. FL01 applies the configured request item permissions.
+
+### Request Security
+
+After submission, FL01 breaks permission inheritance on the request item.
+
+The Request Creator retains Read access to their submitted request.
+
+Site Owners and Site Members receive Read access, while other External Staff and Center Groups are excluded.
+
+### Document Distribution
+
+The Derived Documents Library provides Read access to authorized Main Site users, including External Staff.
+
+The Validation Library is restricted to authorized management users and supports the subsequent validation and processing lifecycle.
+
+The detailed request structure, form configuration, and permissions are documented in the Request Intake List documentation.
 
 
 ### 4.3 Customized Form
