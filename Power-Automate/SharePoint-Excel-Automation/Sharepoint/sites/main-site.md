@@ -235,15 +235,33 @@ The architecture follows these principles:
 - [Request Intake Command Bar Formatting](../formatting/request-intake-view.json)
 - [Document Library Command Bar Formatting](../formatting/document-library-commandbar.json)
 
+
 ## 9. Documentation Status
 
-**Status:** Conceptual site documentation complete.
+**Status:** Conceptual Main SharePoint Site documentation complete.
 
-The following components will be documented separately:
+The following components are documented:
 
-- Request Intake List schema.
+- Main SharePoint Site structure and user roles.
+- Request Intake List configuration and submission process.
 - Customized New Item form JSON.
-- Derived Documents Library configuration.
-- Detailed resource permissions.
+- Command bar JSON formatting.
+- Derived Documents Library configuration and access model.
+- Integration with Power Automate workflows FL01 through FL05.
+- Request item-level permissions.
+- Document distribution between the Main Site and Management Subsite.
+- Security and automation connection considerations.
 
-This document is not an automated SharePoint site provisioning template.
+### Implementation Validation
+
+The following aspects require validation in a target SharePoint environment:
+
+- Main Site configuration and group membership.
+- Effective permissions for External Staff, Site Owners, and Site Members.
+- Request item-level permission assignments performed by FL01.
+- Native SharePoint attachment behavior in the customized form.
+- Document creation and access permissions in the Derived Documents Library.
+- Power Automate connection permissions and execution behavior.
+- End-to-end testing of the request submission and document distribution process.
+
+This document describes a conceptual implementation and is not an automated SharePoint site provisioning template.
