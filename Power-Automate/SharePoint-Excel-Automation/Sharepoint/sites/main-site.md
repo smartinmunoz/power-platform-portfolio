@@ -167,23 +167,55 @@ The detailed library configuration, document lifecycle, and permission considera
 [Derived Documents Library](../libraries/derived-documents.md)
 
 
+
 ## 6. Integration with Power Automate
 
-The Main SharePoint Site participates in the document processing lifecycle.
+The Main SharePoint Site acts as the entry point for the automated document processing lifecycle.
 
-The overall solution includes:
+The solution uses five conceptual Power Automate workflows.
 
-- Request intake.
-- Document validation.
-- Excel data processing.
-- Generation of output documents.
-- Creation of processed records.
-- Execution logging.
-- Center-based permission management.
+### 6.1 Workflow Responsibilities
 
-These responsibilities are distributed across the documented FL01-FL05 workflows.
+| Workflow | Responsibility | Main Resources |
+|---|---|---|
+| FL01 | Request intake, attachment retrieval, document distribution, and request item permissions | Request Intake List, Derived Documents Library, Validation Library |
+| FL02 | Validated Excel processing, record creation, export generation, and processed document protection | Validation Library, Processed Records List, Export Library |
+| FL03 | Temporary file cleanup | Temporary processing files |
+| FL04 | Execution logging and diagnostic tracking | Processing Logs List |
+| FL05 | Center-based item-level permission assignments | Processed Records List, Centers Configuration List |
 
-The Management Subsite contains the internal resources used for validation, record management, configuration, and monitoring.
+### 6.2 Main Site Operations
+
+The Main SharePoint Site supports the initial submission and document consultation stages.
+
+1. External Staff submit an Excel workbook through the Request Intake List.
+2. FL01 retrieves the submitted attachment.
+3. FL01 creates a document copy in the Derived Documents Library.
+4. FL01 creates a separate document copy in the Management Subsite's Validation Library.
+5. FL01 applies the configured item-level permissions to the original request.
+
+The Derived Documents Library provides Read access to authorized Main Site users.
+
+### 6.3 Management Subsite Operations
+
+The Management Subsite handles the subsequent internal processing lifecycle.
+
+- Authorized management users validate submitted documents.
+- FL02 processes validated Excel files and creates primary and associated records.
+- FL02 generates export workbooks and protects processed source documents.
+- FL04 records execution information and returns the `Id_Log` identifier.
+- FL05 assigns record-level permissions based on the configured center.
+- FL03 removes temporary files according to the configured cleanup rules.
+
+### 6.4 Security and Automation Connections
+
+Power Automate workflows use appropriately authorized connections to perform SharePoint operations.
+
+Ordinary user permissions remain separate from the permissions required by automation.
+
+External Staff do not receive access to the Management Subsite through the document submission process.
+
+The detailed workflow definitions and documentation are available in the Power Automate section of the portfolio.
 
 ## 7. Security Considerations
 
