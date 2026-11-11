@@ -68,31 +68,78 @@ My technical experience covers Microsoft Power Platform development, business pr
 
 The technologies demonstrated in this portfolio vary by project. Some examples describe conceptual architectures rather than fully deployed implementations.
 
+
 ## Projects
 
-A collection of Power Platform automation projects focused on SharePoint integration, workflow efficiency, and process improvement.
+This portfolio showcases independently developed Microsoft Power Platform projects focused on business automation, SharePoint integration, application development, and solution architecture.
 
-All published examples use fictional data and are intended for technical demonstration purposes.
+Each project includes technical documentation, implementation concepts, and reusable design patterns.
 
+All examples use fictional data and generic business scenarios.
 
+---
 
-### SharePoint-Excel-Automation
+### 01. SharePoint & Excel Automation
 
-A collection of Power Automate workflows focused on SharePoint integration, Excel processing, document management, and scheduled maintenance.
+**Category:** Power Automate | SharePoint Online | Office Scripts
 
-[Explore SharePoint-Excel-Automation](Power-Automate/SharePoint-Excel-Automation/)
+**Status:** Conceptual architecture and technical documentation complete.
 
+#### Project Overview
 
-### Technical Focus
+An end-to-end automation architecture designed to manage Excel-based requests, document validation, structured data processing, SharePoint record creation, and secure information distribution.
 
-- Workflow automation with Power Automate
-- SharePoint Online integration
-- Document lifecycle management
-- File permissions and access control
-- Scheduled maintenance processes
-- Error handling and diagnostics
+The solution demonstrates how Power Automate, SharePoint Online, and Office Scripts can work together to streamline document-driven business processes.
 
-> **Note:** These projects are conceptual demonstrations. Their JSON files document workflow architecture and are not directly importable into Power Automate.
+#### Key Features
+
+- Automated intake of Excel attachments through SharePoint.
+- Document distribution between SharePoint sites.
+- Controlled document validation and processing.
+- Excel data transformation using Office Scripts.
+- Automated creation of related SharePoint records.
+- Center-based item-level access permissions.
+- Structured execution logging and error diagnostics.
+- Scheduled cleanup of temporary documents.
+
+#### Technical Components
+
+| Component | Description |
+|---|---|
+| Power Automate | Five documented workflows (FL01-FL05) |
+| SharePoint Online | Two sites, four lists, and three document libraries |
+| Office Scripts | Two TypeScript-based Excel automation scripts |
+| JSON | Conceptual workflow definitions and SharePoint interface customizations |
+| Excel | Fictional input datasets and export templates |
+
+#### Skills Demonstrated
+
+- Business process automation and workflow orchestration.
+- SharePoint information architecture.
+- Document lifecycle management.
+- Role-based and item-level security.
+- Excel automation and structured data processing.
+- Error handling, monitoring, and maintenance.
+- Technical documentation and solution design.
+
+**[Explore Full Project Documentation](Power-Automate/SharePoint-Excel-Automation/)**
+
+> **Implementation note:** This is a conceptual demonstration project. The workflow JSON files are not directly importable into Power Automate, and the solution is not provided as a production-ready deployment package.
+
+---
+
+### Future Projects
+
+Additional Power Platform examples may include:
+
+- Power Apps business applications.
+- Power Automate integration scenarios.
+- Dataverse-based solutions.
+- Power Platform governance and administration examples.
+- Copilot Studio and AI-assisted automation scenarios.
+
+New projects will be added as independent demonstration components.
+
 
 
 ## Contact
