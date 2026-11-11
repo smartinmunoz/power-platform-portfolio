@@ -160,20 +160,58 @@ After applying permissions, effective access should be verified to ensure that o
 The exact SharePoint actions, error handling, and permission levels depend on the implementation.
 
 
+
 ## 9. Configuration Maintenance
 
-When a new operational center is introduced, an authorized administrator can:
+The Centers Configuration List must be maintained by authorized administrators to ensure that FL05 applies permissions using valid center-to-group mappings.
 
-1. Create or identify the corresponding SharePoint group.
-2. Add the center to the configuration list.
-3. Enter the SharePoint Group ID.
-4. Add the group management link.
-5. Validate the mapping.
-6. Test permission assignment through FL05.
+### Adding a New Center
 
-When a center changes its associated group, the configuration should be reviewed to ensure that future permission assignments use the correct group.
+1. Create or identify the corresponding SharePoint security group.
+2. Configure the appropriate group membership.
+3. Add a new item to the Centers Configuration List.
+4. Enter the operational center name.
+5. Enter the corresponding SharePoint Group ID.
+6. Add the Group Management Link.
+7. Validate that the mapping is unique and correct.
+8. Test FL05 permission assignment using a demonstration record.
 
-Changes to the configuration do not automatically update permissions already assigned to existing records unless an additional workflow or reassignment process is implemented.
+### Modifying an Existing Center
+
+When a center changes its associated SharePoint group:
+
+1. Review the existing center configuration.
+2. Identify the new SharePoint group and its Group ID.
+3. Update the corresponding configuration item.
+4. Validate the new mapping.
+5. Test permission assignment through FL05.
+6. Review previously processed records that may still contain permissions assigned to the former group.
+
+Changes to the Centers Configuration List affect future permission assignments but do not automatically update permissions already applied to existing SharePoint records.
+
+Existing records may require a separate permission reassignment process.
+
+### Removing a Center
+
+Before removing a center configuration:
+
+1. Identify existing records associated with the center.
+2. Review the permissions currently assigned to those records.
+3. Determine whether records must be reassigned, retained, or archived.
+4. Review the corresponding SharePoint group and its membership.
+5. Remove or deactivate the configuration only after the required access-control actions have been completed.
+
+### Configuration Validation
+
+Administrators should periodically verify:
+
+- Each operational center has a unique configuration entry.
+- SharePoint Group IDs correspond to valid groups.
+- Group Management Links point to the intended administration pages.
+- Center group memberships remain appropriate.
+- FL05 applies permissions to the expected SharePoint group.
+- Previously assigned permissions remain consistent with current organizational requirements.
+
 
 ## 10. Security Considerations
 
