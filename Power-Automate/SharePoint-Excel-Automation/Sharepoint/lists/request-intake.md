@@ -113,23 +113,61 @@ Attachment-related validation, including file type, file count, and content stru
 
 The presence of an attachment field does not automatically enforce Excel-only uploads.
 
+
 ## 8. Permissions and Security
 
-The list is accessible to authorized users of the Main SharePoint Site.
+The Request Intake List is located in the Main SharePoint Site and allows authorized External Staff to submit Excel documents for processing.
 
-External staff can submit requests according to their assigned SharePoint permissions.
+### Request Submission Permissions
 
-Site Owners and Site Members have access according to their configured roles.
+External Staff must have the necessary SharePoint permissions to create request items and upload attachments.
 
-The following security principles apply:
+The customized form provides a simplified submission interface but does not control the underlying SharePoint permissions.
 
-- Grant only the permissions necessary for request submission.
-- Avoid exposing management resources to external users.
-- Protect attachments through SharePoint access controls.
-- Do not rely on JSON formatting to enforce security.
-- Validate effective permissions in a test environment.
+### Request Item Permissions
 
-The exact list-level permission assignments are not included in this conceptual demonstration.
+FL01 applies item-level permissions to protect each submitted request.
+
+The conceptual permission model is:
+
+| Role | Access |
+|---|---|
+| Site Collection Administrators | Administrative control |
+| Request Creator | Read |
+| Site Owners | Read |
+| Site Members | Read |
+| Other External Staff | No access |
+| Center Groups | No access |
+
+After submission, FL01 breaks permission inheritance for the request item and assigns the required Read permissions.
+
+The Request Creator can consult the submitted request without receiving ordinary editing permissions.
+
+Site Owners and Site Members can consult submitted requests according to the configured security model.
+
+### Attachment Security
+
+Excel attachments belong to their corresponding SharePoint list item and must be protected through the item's effective permissions.
+
+FL01 retrieves the submitted Excel attachment using an appropriately authorized SharePoint connection.
+
+The workflow creates separate document copies in:
+
+- The Derived Documents Library in the Main SharePoint Site.
+- The Validation Library in the Management Subsite.
+
+Each destination applies its own security model.
+
+### Security Considerations
+
+- Apply the principle of least privilege.
+- Ensure that External Staff can submit requests without accessing other users' request items.
+- Verify that item-level permission inheritance is correctly broken.
+- Prevent unauthorized modification of submitted requests.
+- Validate effective permissions for users belonging to multiple SharePoint groups.
+- Do not rely on JSON form or command bar customization to enforce security.
+- Test the complete submission and permission assignment process in a controlled SharePoint environment.
+
 
 
 ## 9. Power Automate Integration
