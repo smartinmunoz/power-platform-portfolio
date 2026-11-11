@@ -52,7 +52,7 @@ Example using fictional values:
 
 | Group | Permission Level |
 |---|---|
-\| Configured center group \| Read \|
+| Configured center group | Read |
 | Owners | Edit |
 | Members | Edit |
 
