@@ -215,7 +215,7 @@ The Derived Documents Library follows its own read-only access model and does no
 ## 12. Security and Governance Considerations
 
 - Use SharePoint permissions to enforce access.
-- Validate effective permissions before publication.
+- Validate effective read-only permissions for Site Owners, Site Members, and authorized External Staff after FL01 creates the document copy.
 - Restrict modification to authorized identities.
 - Avoid sharing confidential documents through unrestricted links.
 - Review document retention requirements.
