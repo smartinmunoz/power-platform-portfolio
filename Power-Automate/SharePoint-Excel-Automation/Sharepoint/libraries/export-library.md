@@ -37,20 +37,28 @@ Its main objectives are:
 
 The library structure can be adapted to different business requirements.
 
+
 ## 4. Export Generation Process
 
-FL02 generates export workbooks as part of the validated Excel processing workflow.
+FL02 generates an Excel export workbook as part of the validated document processing workflow.
+
+The export generation process uses an Excel template and Office Scripts to transform the validated source information into a structured output workbook.
 
 The conceptual sequence is:
 
-1. Retrieve the validated source workbook.
-2. Extract and process its data.
-3. Retrieve the export template.
-4. Create a new Excel workbook in the output location.
-5. Execute an Office Script to populate the workbook.
-6. Make the generated file available through the Export Library.
+1. FL02 detects a validated Excel document in the Validation Library.
+2. FL02 retrieves the source workbook and creates a temporary processing copy.
+3. An Office Script extracts and structures the source workbook data.
+4. FL02 retrieves the predefined Excel export template.
+5. FL02 creates a new workbook in the Export Library using the template.
+6. A second Office Script populates the generated workbook with the extracted data.
+7. The completed export workbook remains available in the Export Library.
+8. Authorized Site Owners, Site Members, and Center Groups can consult and download the generated document with read-only permissions.
 
-The exact order of individual workflow actions is defined in the FL02 documentation.
+The export generation process is part of FL02 and does not require a separate Power Automate workflow.
+
+The complete FL02 workflow also includes SharePoint record creation, error handling, execution logging through FL04, and temporary file cleanup through FL03.
+
 
 ## 5. Integration with Office Scripts
 
