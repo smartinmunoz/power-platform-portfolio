@@ -156,9 +156,17 @@ The Processing Logs List provides additional execution and error information thr
 
 ## 9. Integration with Power Automate
 
+
 ### FL01 - Document Intake
 
-Supports the initial request and validation lifecycle.
+FL01 starts when a new request is submitted through the Request Intake List in the Main SharePoint Site.
+
+The workflow retrieves the attached Excel workbook and creates a copy in the Validation Library in the Management Subsite.
+
+This copy is used for internal validation and subsequent processing through FL02.
+
+A separate copy is also created in the Derived Documents Library in the Main SharePoint Site for read-only consultation by authorized users.
+
 
 ### FL02 - Excel Processing
 
