@@ -194,15 +194,22 @@ These capabilities are illustrated through conceptual workflow definitions, tech
 
 This project includes Power Automate workflows, Office Scripts, and sample Excel files demonstrating an integrated document processing solution.
 
+
 ### Power Automate Workflows
 
-| ID | Description | Status | Documentation |
+The solution includes five documented conceptual workflows, each with a dedicated technical README and JSON architecture example.
+
+| Workflow | Main Responsibility | Documentation | Conceptual JSON |
 |---|---|---|---|
-| FL01 | SharePoint and Excel document preparation, validation, and permissions | Documented | [View FL01](flows/FL01-demo/README.md) |
-| FL02 | Excel processing, output generation, and SharePoint record creation | Documented | [View FL02](flows/FL02-demo/README.md) |
-| FL03 | Scheduled cleanup of temporary files older than 8 hours | Documented | [View FL03](flows/FL03-demo/README.md) |
-| FL04 | Processing logs, execution tracking, and error reporting | Documented | [View FL04](flows/FL04-demo/README.md) |
-| FL05 | Dynamic SharePoint record-level permissions | Documented | [View FL05](flows/FL05-demo/README.md) |
+| FL01 - Request Intake | SharePoint request submission, Excel attachment distribution, and request permissions | [README](flows/FL01-demo/README.md) | [JSON](flows/FL01-demo/FL01-demo.json) |
+| FL02 - Excel Processing | Document validation, Excel processing, SharePoint record creation, and export generation | [README](flows/FL02-demo/README.md) | [JSON](flows/FL02-demo/FL02-demo.json) |
+| FL03 - Temporary Cleanup | Scheduled removal of temporary processing files older than eight hours | [README](flows/FL03-demo/README.md) | [JSON](flows/FL03-demo/FL03-demo.json) |
+| FL04 - Processing Logs | Centralized execution logging and return of the `Id_Log` identifier | [README](flows/FL04-demo/README.md) | [JSON](flows/FL04-demo/FL04-demo.json) |
+| FL05 - Dynamic Permissions | Center-based SharePoint item-level permission assignments | [README](flows/FL05-demo/README.md) | [JSON](flows/FL05-demo/FL05-demo.json) |
+
+The JSON files describe conceptual workflow structures for learning and portfolio purposes.
+
+They are not directly importable Power Automate flow packages.
 
 
 ### Office Scripts
