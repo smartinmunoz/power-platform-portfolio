@@ -83,6 +83,7 @@ Sharepoint/
 │   └── processing-logs.md
 ├── libraries/
 │   ├── derived-documents.md
+│   ├── temporary-files-library.md
 │   ├── validation-library.md
 │   └── export-library.md
 ├── forms/
@@ -181,6 +182,18 @@ Located in the Management Subsite.
 Stores Excel documents awaiting validation and processing.
 
 FL02 protects validated documents by breaking file-level permission inheritance, assigning read-only permissions to Owners and Members, and updating the status to Tractat.
+
+### Temporary Files Library
+
+[View documentation](libraries/temporary-files-library.md)
+
+Located in the Management Subsite.
+
+Stores temporary Excel workbooks generated during FL02 processing.
+
+FL03 periodically removes eligible temporary files older than 8 hours, provided they are no longer required by active processing operations.
+
+Access is restricted to authorized management and automation accounts.
 
 ### Export Library
 
@@ -356,7 +369,7 @@ The following components are documented:
 - Main SharePoint Site and Management Subsite.
 - SharePoint site hierarchy and security architecture.
 - Four SharePoint lists and their functional responsibilities.
-- Three document libraries and their access models.
+- Four document libraries and their access models.
 - Request Intake List form layout example.
 - Two SharePoint JSON command bar customization examples.
 - Document validation and protection lifecycle.
