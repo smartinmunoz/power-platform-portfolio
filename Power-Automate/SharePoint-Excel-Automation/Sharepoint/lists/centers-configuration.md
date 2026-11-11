@@ -83,19 +83,44 @@ The documented Read permissions describe ordinary access to the list.
 
 Administrative privileges and any authorized configuration maintenance permissions must be managed separately.
 
+
 ## 7. Integration with FL05
 
-FL05 uses the Centers Configuration List to determine which SharePoint group should receive permissions on a processed record.
+The Centers Configuration List provides the mapping between operational centers and their corresponding SharePoint security groups.
 
-The workflow follows this general sequence:
+FL05 uses this configuration to dynamically assign item-level permissions to records stored in the Processed Records List.
 
-1. Receives or identifies the processed SharePoint item.
-2. Determines the center associated with the record.
-3. Looks up the center in the Centers Configuration List.
-4. Retrieves the corresponding SharePoint Group ID.
-5. Applies item-level permissions to the processed record.
+### Configuration Lookup Process
 
-This design separates center configuration from the processing logic.
+1. FL05 receives the information required to identify the processed SharePoint record and its associated operational center.
+2. FL05 searches the Centers Configuration List for the corresponding center.
+3. The workflow retrieves the SharePoint Group ID stored in the matching configuration item.
+4. FL05 uses the retrieved group identifier to assign permissions to the processed SharePoint record.
+5. The assigned center group receives Read access to the corresponding record.
+6. Other center groups must not receive access to records outside their assigned center.
+
+### Configuration Responsibilities
+
+| Component | Responsibility |
+|---|---|
+| Centers Configuration List | Stores center-to-group mappings |
+| SharePoint Group ID | Identifies the security group associated with a center |
+| Group Management Link | Provides access to SharePoint group administration |
+| FL05 | Applies dynamic item-level permissions |
+| Processed Records List | Stores the records protected by center-based permissions |
+
+### Important Considerations
+
+The Centers Configuration List is the central reference for resolving center-specific SharePoint groups.
+
+FL05 must validate that a matching center configuration exists before attempting permission assignment.
+
+Missing, duplicated, or invalid group mappings should be treated as configuration errors and must not result in unintended access.
+
+The Group Management Link is intended for administrative convenience and is not required for the automated permission assignment process.
+
+SharePoint group membership and effective access remain controlled by SharePoint security.
+
 
 ## 8. Permission Assignment Diagram
 
