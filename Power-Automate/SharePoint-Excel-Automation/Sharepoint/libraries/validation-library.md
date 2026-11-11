@@ -24,20 +24,27 @@ The library implements document-level security to protect validated files agains
 | External Staff Access | Not permitted |
 | Center Groups Access | Not permitted |
 
+
 ## 3. Document Lifecycle
 
-Documents enter the library as part of the request intake and validation process.
+Documents enter the Validation Library through FL01, which starts when a new request is submitted in the Main SharePoint Site.
 
-The general lifecycle is:
+The document lifecycle is:
 
-1. A request is submitted through the Main SharePoint Site.
-2. The document becomes available for internal validation.
-3. Authorized management users review the document.
-4. The document is validated.
-5. FL02 processes the validated Excel workbook.
-6. The document is protected with read-only permissions for Site Owners and Site Members.
+1. An authorized user submits a request with an attached Excel workbook through the Request Intake List.
+2. FL01 retrieves the Excel attachment.
+3. FL01 creates a copy in the Derived Documents Library in the Main SharePoint Site.
+4. FL01 creates a separate copy in the Validation Library in the Management Subsite.
+5. Authorized Site Owners and Site Members review and validate the document.
+6. The document status changes to `Validated`, triggering FL02.
+7. FL02 breaks file-level permission inheritance and grants Read access to Site Owners and Site Members.
+8. FL02 updates the document status to `Tractat` before continuing with Excel processing.
+9. FL02 processes the Excel data, creates SharePoint records, generates the export workbook, and records processing results through FL04.
 
-The exact intake and validation operations are documented in the FL01 workflow.
+The Validation Library is restricted to authorized management users. External Staff and Center Groups cannot access its documents.
+
+The `Tractat` status indicates that the document has entered the protected processing stage, not necessarily that every downstream operation completed successfully.
+
 
 ## 4. Document Status
 
