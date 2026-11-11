@@ -72,26 +72,57 @@ They reference the corresponding primary SharePoint item through the `ParentReco
 
 This allows related information to be stored as separate list items while preserving the relationship between records.
 
+
 ## 5. Record Relationships
 
-The relationship between primary and associated records is established during processing.
+FL02 maintains relationships between primary records (T) and associated records (B) during sequential Excel processing.
+
+The workflow processes records with concurrency set to 1 to preserve the order required for parent-child relationships.
+
+### Relationship Management
+
+1. FL02 reads the structured records extracted from the validated Excel workbook.
+2. The workflow processes the records sequentially.
+3. When a primary record (T) is identified, FL02 creates a new item in the Processed Records List.
+4. FL02 stores the generated SharePoint item ID in the `LastPrimaryRecordId` variable.
+5. When an associated record (B) is identified, FL02 creates a new list item.
+6. The associated record receives the value of `LastPrimaryRecordId` in its `ParentRecordId` field.
+7. This establishes the relationship between the associated record and its corresponding primary record.
+
+### Relationship Diagram
 
 ```mermaid
 flowchart TD
-    A[Validated Excel Workbook] --> B[FL02 Extracts Records]
-    B --> C{Record Type}
-    C -->|T| D[Create Primary Record]
-    D --> E[Store SharePoint Item ID]
-    C -->|B| F[Create Associated Record]
-    E --> F
-    F --> G[Set ParentRecordId]
-    G --> H[Processed Records List]
-    D --> H
+    A[FL02 - Sequential Record Processing]
+    B{Record Type}
+    C[Create Primary Record T]
+    D[Store SharePoint Item ID]
+    E[Update LastPrimaryRecordId]
+    F[Create Associated Record B]
+    G[Set ParentRecordId]
+    H[Processed Records List]
+
+    A --> B
+    B -->|T| C
+    C --> D
+    D --> E
+    E --> H
+    B -->|B| F
+    E -.-> G
+    F --> G
+    G --> H
 ```
 
-The demonstration assumes that records are processed in an order that allows the relevant primary record to be identified before creating its associated records.
+### Processing Considerations
 
-FL02 processes records sequentially to maintain this relationship.
+The demonstration assumes that each primary record appears before its associated records in the extracted Excel data.
+
+Sequential processing prevents concurrent iterations from overwriting `LastPrimaryRecordId` while associated records are being created.
+
+The `ParentRecordId` field stores the SharePoint item ID of the corresponding primary record.
+
+The exact relationship strategy can be adapted if the source Excel structure requires a different processing order.
+
 
 ## 6. Family Identification
 
