@@ -120,17 +120,20 @@
     "RecordsCreated": "RecordsCreated",
     "RecordsWithErrors": "CalculatedRecordsWithErrors",
     "ErrorDetails": "ConsolidatedErrorDetails",
+    
     "ExecutionId": "CurrentFlowExecutionId"
-    },
-    {
-      "operation": "Compose",
-      "details": [
-        "Count imported records",
-        "Count Excel errors",
-        "Combine error details"
-      ],
-      "name": "CalculateFinalDiagnostics"
-    }
+  }
+},
+{
+  "operation": "Compose",
+  "details": [
+    "Count imported records",
+    "Count Excel errors",
+    "Combine error details"
+  ],
+  "name": "CalculateFinalDiagnostics"
+}
+
   ],
   "officeScripts": [
     "process-records.ts",
