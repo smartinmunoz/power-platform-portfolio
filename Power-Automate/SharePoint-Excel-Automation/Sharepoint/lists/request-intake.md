@@ -168,15 +168,31 @@ The example demonstrates the intended user experience without using real busines
 - [SharePoint Overview](../README.md)
 - [Request Intake Command Bar JSON](../formatting/request-intake-view.json)
 
+
 ## 12. Documentation Status
 
 **Status:** Conceptual list documentation complete.
 
-The following components remain to be documented:
+The following components are documented:
 
+- Request Intake List structure and configuration.
+- Observations field and standard SharePoint attachments.
 - Customized New Item form JSON.
-- Detailed permission configuration.
-- Attachment validation rules, where applicable.
+- Command bar JSON formatting.
+- Request submission process.
+- Integration with Power Automate FL01.
+- General security and permission considerations.
 
-This document is not an automated SharePoint list provisioning template.
+### Implementation Validation
+
+The following aspects require validation or configuration in a target SharePoint environment:
+
+- Native attachment control behavior within the customized JSON form.
+- Effective list-level and item-level permissions.
+- Excel attachment validation rules, including file type and number of attachments.
+- Power Automate connection permissions.
+- End-to-end testing of the request submission and FL01 execution.
+
+The documentation describes a conceptual implementation and does not provide an automated SharePoint list provisioning template.
+
 
