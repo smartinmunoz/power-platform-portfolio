@@ -193,19 +193,50 @@ FL04 writes log entries through an appropriately authorized Power Automate conne
 
 Read-only access for ordinary users does not prevent an authorized automation connection from creating records.
 
+
 ## 9. Permissions Matrix
+
+The following matrix summarizes the conceptual permission model for the Management Subsite.
 
 | Resource | Site Owners | Site Members | Center Groups | External Staff |
 |---|---|---|---|---|
 | Management Subsite | According to role | According to role | Read | No access |
-| Validation Library | Management access | Management access | No access | No access |
-| Processed Validation Files | Read | Read | No access | No access |
+| Validation Library - During Validation | Edit | Edit | No access | No access |
+| Validation Library - After FL02 Protection | Read | Read | No access | No access |
 | Export Library | Read | Read | Read | No access |
-| Processed Records List | According to role | According to role | Assigned records only | No access |
+| Processed Records List | According to security model | According to security model | Assigned records only | No access |
 | Centers Configuration List | Read | Read | Read | No access |
 | Processing Logs List | Read | Read | No access | No access |
 
-Site Collection Administrators retain administrative privileges across these resources.
+### Validation Library Access
+
+During validation, Site Owners and Site Members can edit documents.
+
+When FL02 processes a validated document, it breaks file-level permission inheritance and assigns Read access to Site Owners and Site Members.
+
+Site Collection Administrators retain administrative control.
+
+### Center-Based Access
+
+Center Groups have general Read access to the Management Subsite.
+
+However, access to individual resources depends on their specific permissions.
+
+FL05 assigns item-level permissions to Processed Records List items based on the center-to-group mapping stored in the Centers Configuration List.
+
+Center Groups do not automatically receive access to every processed record.
+
+### Restricted Resources
+
+The Validation Library and Processing Logs List exclude Center Groups and External Staff.
+
+External Staff do not have access to the Management Subsite.
+
+### Permission Validation
+
+The matrix represents the intended security model rather than a verified production configuration.
+
+Effective permissions must be tested in a controlled SharePoint environment, including scenarios involving users who belong to multiple SharePoint groups.
 
 ## 10. Permission Inheritance
 
