@@ -102,18 +102,42 @@ The logging mechanism provides traceability for successful, partially successful
 The exact logging fields can be adapted to the requirements of each implementation.
 
 
+
 ## 5. Logging Workflow
 
 ```mermaid
 flowchart TD
-    A[FL02 Processing Workflow] --> B[Prepare Processing Summary]
-    B --> C[Call FL04]
-    C --> D[Create SharePoint Log Item]
-    D --> E[Return Log Item ID]
-    E --> F[Continue Diagnostic Operations]
+    A[FL02 - Excel Processing]
+    B[Prepare Processing Summary]
+    C[Collect Execution Results and Errors]
+    D[Call FL04 Child Workflow]
+    E[FL04 - Receive Logging Parameters]
+    F[Create Item in Processing Logs List]
+    G[SharePoint Generates Log Item ID]
+    H[FL04 Returns Id_Log]
+    I[FL02 Receives Id_Log]
+    J[Continue Diagnostic Operations]
+
+    A --> B
+    B --> C
+    C --> D
+    D --> E
+    E --> F
+    F --> G
+    G --> H
+    H --> I
+    I --> J
 ```
 
-The diagram represents the conceptual relationship between FL02 and FL04.
+The diagram illustrates the conceptual logging process between FL02 and FL04.
+
+FL02 prepares the processing results and calls FL04 with the required logging information.
+
+FL04 creates a SharePoint item in the Processing Logs List and returns its identifier through the `Id_Log` output parameter.
+
+FL02 receives the identifier and can use it for subsequent diagnostic or tracking operations.
+
+The exact input parameters, output configuration, and error handling are defined in the corresponding Power Automate workflow documentation.
 
 The exact input parameters and actions are documented in the corresponding Power Automate workflow files.
 
