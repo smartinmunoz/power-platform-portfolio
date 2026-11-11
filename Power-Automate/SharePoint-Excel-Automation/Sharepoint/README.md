@@ -287,18 +287,31 @@ Hiding a button does not prevent an operation if the user still has permission t
 
 Actual security must be implemented through SharePoint permissions and appropriate configuration.
 
+
 ## Power Automate Integration
+
+The SharePoint architecture integrates with five conceptual Power Automate workflows.
 
 | Workflow | Responsibility |
 |---|---|
+| FL01 | Retrieves Excel attachments from the Request Intake List, creates document copies in the Derived Documents Library and Validation Library, and applies request item-level permissions. |
+| FL02 | Processes validated Excel files, protects source documents, creates primary and associated records, and generates export workbooks. |
+| FL03 | Removes temporary processing files older than eight hours. |
+| FL04 | Creates processing log entries and returns the `Id_Log` identifier to FL02. |
+| FL05 | Applies center-based item-level permissions to processed records using the Centers Configuration List. |
 
-| FL01 | Receives Excel attachments from the Request Intake List and distributes document copies to the Derived Documents Library and Validation Library, applying the corresponding access permissions. |
-| FL02 | Excel processing, document protection, record creation, and export generation |
-| FL03 | Cleanup of temporary processing files |
-| FL04 | Processing execution logging |
-| FL05 | Center-based permissions for processed records |
+### Workflow Coordination
+
+FL01 handles document intake and distribution between the Main SharePoint Site and the Management Subsite.
+
+FL02 handles the validated document processing lifecycle.
+
+FL04 provides execution logging, while FL05 manages center-specific record permissions.
+
+FL03 performs temporary file cleanup independently according to its configured schedule.
 
 The workflows are documented in the parent project's `flows/` and `docs/` directories.
+
 
 ## Implementation Considerations
 
