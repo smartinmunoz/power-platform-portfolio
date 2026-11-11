@@ -127,7 +127,44 @@ Authorized users, including external staff where applicable, receive read-only a
 
 Document access must be enforced through SharePoint permissions rather than navigation visibility alone.
 
-### 5.3 Library Customization
+
+## 5. Derived Documents Library
+
+### 5.1 Purpose
+
+The Derived Documents Library is located in the Main SharePoint Site.
+
+It stores a copy of each submitted Excel workbook created by FL01 during the document intake process.
+
+This library provides a consultation area for authorized users of the Main SharePoint Site.
+
+### 5.2 Document Creation
+
+FL01 creates the document copy after retrieving the Excel attachment from the Request Intake List.
+
+The workflow uses an appropriately authorized SharePoint connection to create documents in the library.
+
+The original request attachment remains associated with its SharePoint list item.
+
+A separate copy is also created in the Validation Library in the Management Subsite.
+
+### 5.3 Access Model
+
+The Derived Documents Library provides Read access to authorized Main SharePoint Site users.
+
+| User Role | Access |
+|---|---|
+| Site Collection Administrators | Administrative control |
+| Site Owners | Read |
+| Site Members | Read |
+| External Staff | Read |
+| Center Groups | According to Main Site assignment |
+
+Ordinary users do not require Edit permissions to consult the documents.
+
+Document creation and management operations are performed through the authorized automation connection.
+
+### 5.4 Library Customization
 
 The solution includes a demonstration of SharePoint document library command bar formatting.
 
@@ -135,7 +172,14 @@ The corresponding JSON file is available at:
 
 `../formatting/document-library-commandbar.json`
 
-The formatting configuration is intended to be adapted to the permissions and operational requirements of each library.
+Command bar formatting improves the user interface but does not replace SharePoint security permissions.
+
+### 5.5 Related Documentation
+
+The detailed library configuration, document lifecycle, and permission considerations are documented in:
+
+[Derived Documents Library](../libraries/derived-documents.md)
+
 
 ## 6. Integration with Power Automate
 
