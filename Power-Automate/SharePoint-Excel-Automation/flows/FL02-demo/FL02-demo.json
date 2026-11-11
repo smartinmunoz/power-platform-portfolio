@@ -113,7 +113,7 @@
     "Combine SharePoint creation error details"
     ],
     "name": "CalculateFinalDiagnostics"
-  }
+  },
 
     {
       "operation": "Compose JSON",
