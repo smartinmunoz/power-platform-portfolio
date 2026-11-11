@@ -150,22 +150,46 @@ The relationship between centers and SharePoint groups is maintained in the Cent
 
 This separates business data from access control configuration.
 
+
 ## 8. Item-Level Permissions
 
-FL05 applies permissions to individual SharePoint list items according to their associated center.
+The Processed Records List uses item-level permissions to restrict access according to the operational center associated with each record.
 
-The permission workflow:
+FL05 is responsible for applying these permissions dynamically.
 
-1. Identifies the center associated with the processed record.
-2. Retrieves the corresponding SharePoint group ID from the Centers Configuration List.
-3. Applies the required item-level permissions.
-4. Restricts access so center groups can view only records assigned to them.
+### Permission Assignment Process
 
-Site Collection Administrators retain administrative access.
+1. FL02 creates a new item in the Processed Records List.
+2. FL05 receives the information required to identify the record and its associated center.
+3. FL05 looks up the center in the Centers Configuration List.
+4. The configuration list provides the SharePoint Group ID associated with that center.
+5. FL05 breaks permission inheritance for the corresponding list item.
+6. FL05 assigns the required permissions to the authorized center group.
+7. The resulting item permissions restrict access to the corresponding center.
 
-Site Owners and Members retain access according to the configured security model.
+### Permission Model
 
-General read access to the Management Subsite does not automatically grant access to every processed record.
+| Role | Access |
+|---|---|
+| Site Collection Administrators | Administrative control |
+| Site Owners | Access according to the configured security model |
+| Site Members | Access according to the configured security model |
+| Assigned Center Group | Read |
+| Other Center Groups | No access |
+| External Staff | No access |
+
+### Security Considerations
+
+Each center group must only have access to the records assigned to its corresponding center.
+
+General Read access to the Management Subsite does not automatically grant access to all items in the Processed Records List when item-level inheritance is broken and permissions are configured correctly.
+
+The Centers Configuration List provides the relationship between operational centers and SharePoint group identifiers.
+
+FL05 must use an appropriately authorized connection to manage SharePoint item permissions.
+
+Effective permissions must be tested to ensure that users cannot access records from other centers through inherited permissions, additional group memberships, or direct assignments.
+
 
 ## 9. Integration with Power Automate
 
