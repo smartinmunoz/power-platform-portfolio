@@ -67,6 +67,19 @@ This conceptual status model assumes that RecordsWithErrors accurately reflects 
 
 The status logic must be validated against the actual parent flow outputs during implementation.
 
+
+### Error Counting Scope
+
+In the FL02 demonstration, RecordsWithErrors represents only failed SharePoint record creation operations.
+
+FL02 passes the SharePointErrors counter directly to FL04 as RecordsWithErrors.
+
+Excel validation errors, unsupported record types, and workflow-level failures are excluded from this counter.
+
+The No Records status means that no records were created and no SharePoint record creation failures were reported. It does not guarantee that the entire workflow completed successfully.
+
+A production implementation should track workflow-level failures separately to distinguish empty processing results from execution failures.
+
 ## SharePoint Log Structure
 
 Example fictional SharePoint list: `Processing Logs List`
