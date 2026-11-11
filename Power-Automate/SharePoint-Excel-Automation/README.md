@@ -3,11 +3,47 @@
 
 ## Project Overview
 
-An end-to-end automation solution built with Microsoft Power Platform, SharePoint Online and Office Scripts.
+This project demonstrates an end-to-end document processing and automation architecture using Microsoft Power Platform, SharePoint Online, Excel Online, and Office Scripts.
 
-The project demonstrates how to automate the reception, validation, transformation and processing of Excel files while managing document and record-level permissions.
+The solution automates the lifecycle of Excel-based requests, from initial submission and document distribution to validation, data processing, record creation, export generation, and permission management.
 
-This portfolio project is an independent demonstration based on a generic business scenario.
+### How It Works
+
+1. **Request Submission:** Authorized external users submit requests through a SharePoint list, attaching Excel files and providing observations.
+
+2. **Document Distribution:** Power Automate retrieves the Excel attachments and creates copies in two SharePoint document libraries:
+   - Derived Documents Library in the Main SharePoint Site.
+   - Validation Library in the Management Subsite.
+
+3. **Document Validation:** Authorized management users review the submitted documents and validate them for processing.
+
+4. **Excel Processing:** Power Automate and Office Scripts extract and transform the Excel data, creating primary and associated SharePoint records.
+
+5. **Export Generation:** Processed information is used to populate structured Excel export templates.
+
+6. **Permission Management:** SharePoint permissions are applied at document and record level, including center-based access restrictions.
+
+7. **Logging and Maintenance:** The solution records processing activity and performs scheduled cleanup of temporary files.
+
+### Architecture Highlights
+
+- Two-level SharePoint architecture with a Main Site and Management Subsite.
+- Five coordinated Power Automate workflows (FL01-FL05).
+- Office Scripts for structured Excel processing.
+- SharePoint lists and document libraries with differentiated access permissions.
+- Dynamic item-level security based on configurable SharePoint groups.
+- Execution logging and temporary file management.
+
+### Portfolio Scope
+
+This is an independent portfolio demonstration based on a fictional business scenario.
+
+The repository includes conceptual workflow definitions, technical documentation, reusable configuration examples, and independently developed demonstration components.
+
+It is not a fully deployable production solution.
+
+No confidential organizational information, real credentials, or proprietary workflow exports are included.
+
 
 ## Technologies
 
