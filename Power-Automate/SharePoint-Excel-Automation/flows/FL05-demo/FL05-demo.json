@@ -33,11 +33,12 @@
           "name": "BreakPermissionInheritance",
           "type": "SharePoint"
         },
+     
         {
-          "operation": "Grant item permissions",
+           "operation": "Grant item permissions",
           "group": "Configured center group",
-          "permission": "Edit",
-          "name": "GrantCenterGroupPermissions"
+          "permission": "Read",
+          "name": "GrantCenterGroupPermissions",
           "type": "SharePoint"
         },
         {
