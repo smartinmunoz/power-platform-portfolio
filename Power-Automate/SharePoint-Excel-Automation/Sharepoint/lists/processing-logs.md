@@ -49,23 +49,58 @@ These fields illustrate a possible logging structure and do not represent a mand
 
 Additional fields can be introduced when required.
 
+
 ## 4. Integration with FL04
 
-FL04 is responsible for creating processing log entries.
+FL04 is a child Power Automate workflow responsible for creating processing log entries in the Processing Logs List.
 
-It receives information from the parent processing workflow and stores the corresponding results in SharePoint.
+It is called by FL02 after preparing the processing results and diagnostic information.
 
-The integration provides:
+### Information Received from FL02
 
-- Centralized execution history.
-- Processing result summaries.
-- Error traceability.
-- References to processed documents.
-- Information for operational monitoring.
+FL02 sends the information required to document the processing execution.
 
-FL04 returns the created log item identifier to the calling workflow.
+The conceptual logging information includes:
 
-This identifier can be used for subsequent diagnostic or tracking operations.
+- Processing execution identifier.
+- Source document reference.
+- Processing status.
+- Number of successfully created records.
+- Number of SharePoint errors.
+- Error details.
+- Processing summary.
+- Execution date and time.
+
+The demonstration workflow uses eight input parameters. Their exact names and data types are defined in the FL04 workflow documentation.
+
+### Log Creation Process
+
+1. FL02 prepares the processing summary and diagnostic information.
+2. FL02 calls the FL04 child workflow.
+3. FL04 receives the processing information.
+4. FL04 creates a new item in the Processing Logs List.
+5. SharePoint generates a unique item ID for the log entry.
+6. FL04 returns the created item ID to FL02 through the `Id_Log` output parameter.
+7. FL02 can use `Id_Log` for subsequent diagnostic and tracking operations.
+
+### Workflow Responsibilities
+
+| Workflow | Responsibility |
+|---|---|
+| FL02 | Processes Excel data and prepares execution results |
+| FL04 | Creates the SharePoint processing log entry |
+| Processing Logs List | Stores execution history and diagnostic information |
+
+### Important Considerations
+
+FL04 must use an appropriately authorized SharePoint connection to create log entries.
+
+The returned `Id_Log` value identifies the corresponding SharePoint log item.
+
+The logging mechanism provides traceability for successful, partially successful, and failed processing executions, depending on which execution paths invoke FL04.
+
+The exact logging fields can be adapted to the requirements of each implementation.
+
 
 ## 5. Logging Workflow
 
