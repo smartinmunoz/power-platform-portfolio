@@ -239,7 +239,8 @@ The Derived Documents Library follows its own read-only access model and does no
 
 The following implementation details remain configurable:
 
-- Exact document publication mechanism.
+
+- FL01 connection configuration and document-copy execution details.
 - Library metadata columns.
 - Document naming conventions.
 - User and group permissions.
