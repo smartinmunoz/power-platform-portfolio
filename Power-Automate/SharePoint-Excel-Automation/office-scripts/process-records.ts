@@ -22,11 +22,33 @@ function main(workbook: ExcelScript.Workbook): string {
         String(value).trim()
     );
 
-    const records: { [key: string]: string | number | boolean }[] = [];
+    // Validate required columns
+    const requiredHeaders = [
+        "RecordType",
+        "ReferenceCode",
+        "FullName",
+        "Relationship"
+    ];
+
+    const missingHeaders = requiredHeaders.filter(
+        header => !headers.includes(header)
+    );
+
+    if (missingHeaders.length > 0) {
+        throw new Error(
+            `Missing required columns: ${missingHeaders.join(", ")}`
+        );
+    }
+
+    // Extract records
+    const records: {
+        [key: string]: string | number | boolean
+    }[] = [];
 
     for (let i = 1; i < values.length; i++) {
         const row = values[i];
 
+        // Skip completely empty rows
         const isEmpty = row.every(value =>
             value === "" || value === null
         );
@@ -35,7 +57,9 @@ function main(workbook: ExcelScript.Workbook): string {
             continue;
         }
 
-        const record: { [key: string]: string | number | boolean } = {};
+        const record: {
+            [key: string]: string | number | boolean
+        } = {};
 
         for (let j = 0; j < headers.length; j++) {
             if (headers[j] !== "") {
