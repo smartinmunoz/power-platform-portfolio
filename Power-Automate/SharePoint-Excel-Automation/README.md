@@ -285,34 +285,62 @@ Architecture diagrams, implementation notes, and supporting technical documentat
 
 [Explore Documentation](docs/)
 
+
 ### SharePoint Architecture & Configuration
 
-The project includes a documented SharePoint Online architecture with a Main Site and a Management Subsite.
+The project includes a documented SharePoint Online architecture consisting of a Main SharePoint Site and a Management Subsite.
 
-The documentation covers:
+The architecture covers request intake, document validation, Excel processing, record management, permissions, and execution logging.
 
-- SharePoint site hierarchy and security architecture.
-- Four SharePoint lists.
-- Three document libraries.
-- Role-based and item-level permissions.
-- JSON command bar customizations.
-- Request intake form layout.
-- Integration with Power Automate workflows FL01-FL05.
+#### Site Architecture
 
 | Component | Documentation |
 |---|---|
 | SharePoint Overview | [View Documentation](Sharepoint/README.md) |
 | Sites Architecture | [View Architecture](Sharepoint/architecture/sites-architecture.md) |
-| Main Site | [View Main Site](Sharepoint/sites/main-site.md) |
+| Main SharePoint Site | [View Main Site](Sharepoint/sites/main-site.md) |
 | Management Subsite | [View Management Subsite](Sharepoint/sites/management-subsite.md) |
-| SharePoint Lists | [View Lists](Sharepoint/lists/request-intake.md) |
-| Document Libraries | [View Libraries](Sharepoint/libraries/validation-library.md) |
-| Request Form | [View JSON](Sharepoint/forms/request-intake-form.json) |
 
-The documentation demonstrates reusable architecture and configuration patterns, not a fully deployable SharePoint provisioning package.
+#### SharePoint Lists
 
-> All examples use fictional data and independently developed demonstration components. Conceptual JSON files are not directly importable into Power Automate.
+| List | Purpose | Documentation |
+|---|---|---|
+| Request Intake List | Receives requests and Excel attachments from authorized external users | [View](Sharepoint/lists/request-intake.md) |
+| Processed Records List | Stores primary and associated records with center-based permissions | [View](Sharepoint/lists/processed-records.md) |
+| Centers Configuration List | Maintains center-to-SharePoint-group mappings | [View](Sharepoint/lists/centers-configuration.md) |
+| Processing Logs List | Stores processing execution and diagnostic information | [View](Sharepoint/lists/processing-logs.md) |
 
+#### Document Libraries
+
+| Library | Purpose | Documentation |
+|---|---|---|
+| Derived Documents Library | Provides read-only access to document copies in the Main Site | [View](Sharepoint/libraries/derived-documents.md) |
+| Validation Library | Stores Excel files awaiting validation and applies processed document protection | [View](Sharepoint/libraries/validation-library.md) |
+| Export Library | Stores generated Excel export workbooks | [View](Sharepoint/libraries/export-library.md) |
+
+#### JSON Customizations
+
+| Component | Purpose | Example |
+|---|---|---|
+| Request Intake Form | Conceptual form layout for observations and attachments | [View JSON](Sharepoint/forms/request-intake-form.json) |
+| Request Intake Command Bar | Customizes available commands in the request list interface | [View JSON](Sharepoint/formatting/request-intake-view.json) |
+| Document Library Command Bar | Simplifies selected document library commands | [View JSON](Sharepoint/formatting/document-library-commandbar.json) |
+
+#### Security and Implementation Scope
+
+The SharePoint architecture demonstrates:
+
+- Site-level and resource-level permissions.
+- File-level protection of processed documents.
+- Center-based item-level access control.
+- Centralized SharePoint group configuration.
+- Separation of external request intake and internal management resources.
+
+The documentation describes reusable architecture and configuration patterns.
+
+It is not a fully deployable SharePoint provisioning package.
+
+> All examples use fictional data and independently developed demonstration components. Conceptual workflow JSON files are not directly importable into Power Automate.
 
 
 ## Repository Structure
