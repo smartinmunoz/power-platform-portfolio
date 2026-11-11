@@ -15,7 +15,8 @@ flowchart TD
     A["SharePoint: File created or modified"]
     A --> B{"Status = Validated?"}
     B -->|No| Z["End"]
-    B -->|Yes| C["Initialize 4 variables"]
+    B -->|Yes| C["Initialize 5 variables"]
+
 
     C --> D["Break file permission inheritance"]
     D --> E["Grant Read to Members"]
