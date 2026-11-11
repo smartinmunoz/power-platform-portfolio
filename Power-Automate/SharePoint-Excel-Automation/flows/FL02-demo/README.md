@@ -80,16 +80,23 @@ The workflow uses a trigger condition that checks whether the file status is `Va
 
 An additional condition is used before the main processing operations.
 
+
 ## Initialization
 
-The workflow initializes four variables:
+The workflow initializes five variables:
 
 | Variable | Type | Purpose |
 |---|---|---|
-| SharePointErrors | Integer | Counts SharePoint record creation errors |
+| SharePointErrors | Integer | Counts failed SharePoint record creation operations |
+| RecordsWithErrors | Integer | Stores the final number of records whose SharePoint creation failed |
 | LastPrimaryRecordId | Integer | Stores the last successfully created primary record ID |
-| ErrorDetails | Array | Collects processing error details |
-| RecordsCreated | Integer | Counts successfully created records |
+| ErrorDetails | Array | Collects SharePoint record creation error details |
+| RecordsCreated | Integer | Counts successfully created SharePoint records |
+
+In this conceptual demonstration, `RecordsWithErrors` is calculated from `SharePointErrors` during final diagnostics.
+
+Both values represent the number of failed SharePoint record creation operations.
+
 
 ## Document Permission Management
 
