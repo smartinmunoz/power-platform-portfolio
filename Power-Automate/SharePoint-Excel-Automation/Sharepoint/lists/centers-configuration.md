@@ -122,20 +122,43 @@ The Group Management Link is intended for administrative convenience and is not 
 SharePoint group membership and effective access remain controlled by SharePoint security.
 
 
+
 ## 8. Permission Assignment Diagram
 
 ```mermaid
 flowchart TD
-    A[Processed SharePoint Record] --> B[Identify Center]
-    B --> C[Centers Configuration List]
-    C --> D[Retrieve SharePoint Group ID]
-    D --> E[FL05 Applies Item Permissions]
-    E --> F[Authorized Center Group]
+    A[FL05 - Receive Processed Record]
+    B[Identify Operational Center]
+    C[Search Centers Configuration List]
+    D{Valid Unique Mapping Found?}
+    E[Retrieve SharePoint Group ID]
+    F[Break Item Permission Inheritance]
+    G[Assign Read Access to Center Group]
+    H[Verify Restricted Item Access]
+    I[Configuration Error]
+    J[Stop Permission Assignment]
+
+    A --> B
+    B --> C
+    C --> D
+    D -->|Yes| E
+    D -->|No| I
+    E --> F
+    F --> G
+    G --> H
+    I --> J
 ```
 
-The diagram represents the conceptual permission assignment process.
+The diagram illustrates the conceptual permission assignment process performed by FL05.
 
-The exact SharePoint actions and permission levels are documented in the FL05 workflow documentation.
+The workflow resolves the operational center through the Centers Configuration List and retrieves the corresponding SharePoint Group ID.
+
+If the configuration is missing, duplicated, or invalid, permission assignment must not continue with an unintended group.
+
+After applying permissions, effective access should be verified to ensure that only authorized users can access the corresponding record.
+
+The exact SharePoint actions, error handling, and permission levels depend on the implementation.
+
 
 ## 9. Configuration Maintenance
 
