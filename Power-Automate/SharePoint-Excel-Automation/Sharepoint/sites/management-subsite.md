@@ -367,18 +367,35 @@ Permission inheritance and effective access must be validated in a test environm
 - [SharePoint Overview](../README.md)
 - [Document Library Command Bar Formatting](../formatting/document-library-commandbar.json)
 
+
 ## 14. Documentation Status
 
-**Status:** Conceptual subsite architecture documented.
+**Status:** Conceptual Management Subsite documentation complete.
 
-The following components will be documented separately:
+The following components are documented:
 
-- Validation Library configuration.
-- Export Library configuration.
-- Processed Records List schema.
-- Centers Configuration List schema.
-- Processing Logs List schema.
-- Item-level permission implementation.
-- Relevant JSON formatting examples.
+- Management Subsite structure and user roles.
+- Validation Library configuration and document protection lifecycle.
+- Export Library configuration and access model.
+- Processed Records List structure and center-based permissions.
+- Centers Configuration List and SharePoint group mapping.
+- Processing Logs List and execution tracking.
+- Resource-level and item-level permission strategies.
+- Integration with Power Automate workflows FL01 through FL05.
+- Security and governance considerations.
 
-This document is not an automated SharePoint provisioning template.
+### Implementation Validation
+
+The following aspects require validation in a target SharePoint environment:
+
+- Management Subsite configuration and group membership.
+- Effective permissions for Site Owners, Site Members, and Center Groups.
+- Validation Library inheritance and processed document protection.
+- Export Library access permissions.
+- FL05 item-level permission assignments.
+- Centers Configuration List permissions and group mapping.
+- FL04 logging permissions and execution behavior.
+- Power Automate connections and privileged operations.
+- End-to-end processing, monitoring, and security testing.
+
+This document describes a conceptual implementation and is not an automated SharePoint provisioning template.
