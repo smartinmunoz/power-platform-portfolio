@@ -9,10 +9,10 @@
     "type": "SharePoint"
   },
   "sharePoint": {
-    "sourceLibrary": "ValidatedDocumentsDemo",
-    "destinationList": "BusinessRecordsDemo",
-    "temporaryLibrary": "TemporaryFilesDemo",
-    "site": "https://contoso.sharepoint.com/sites/DemoSite"
+  "sourceLibrary": "Validation Library",
+  "destinationList": "Processed Records List",
+  "temporaryLibrary": "TemporaryFilesDemo",
+  "site": "https://contoso.sharepoint.com/sites/DemoSite"
   },
   "variables": [
     {
