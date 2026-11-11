@@ -62,19 +62,41 @@ The exact SharePoint choice values and internal column names must match the targ
 
 The `Validated` status is used by the FL02 trigger condition.
 
+
 ## 5. Library Permissions
 
-The Validation Library uses unique permissions rather than unrestricted inheritance from the Management Subsite.
+The Validation Library uses unique permissions rather than inheriting unrestricted access from the Management Subsite.
+
+### Permissions During Validation
 
 | Role | Access |
 |---|---|
 | Site Collection Administrators | Administrative control |
-| Site Owners | Authorized management access |
-| Site Members | Authorized management access |
+| Site Owners | Edit |
+| Site Members | Edit |
 | Center Groups | No access |
 | External Staff | No access |
 
-Center Groups are excluded even though they have general read access to the Management Subsite.
+Site Owners and Site Members can review and modify documents during the validation stage.
+
+### Permissions After Processing Starts
+
+When FL02 detects a document with status `Validated`, it applies file-level permission changes.
+
+| Role | Access |
+|---|---|
+| Site Collection Administrators | Administrative control |
+| Site Owners | Read |
+| Site Members | Read |
+| Center Groups | No access |
+| External Staff | No access |
+
+FL02 breaks file-level permission inheritance and grants read-only access to Site Owners and Site Members before changing the document status to `Tractat`.
+
+An appropriately authorized automation connection performs the required operations.
+
+The effective permissions must be tested to ensure that users do not retain editing access through other groups or direct permission assignments.
+
 
 ## 6. Processed Document Protection
 
