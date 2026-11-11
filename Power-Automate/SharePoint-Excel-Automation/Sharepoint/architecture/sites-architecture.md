@@ -13,9 +13,7 @@ All names and configurations are fictionalized for portfolio purposes.
 
 > **Disclaimer:** This document describes a conceptual demonstration architecture. It does not contain production URLs, credentials, real group identifiers, or confidential business data.
 
-## 2. Site Hierarchy
 
-```text
 Main SharePoint Site
 |
 |-- Request Intake List
@@ -24,11 +22,12 @@ Main SharePoint Site
 `-- Management Subsite
     |
     |-- Validation Library
+    |-- Temporary Files Library
     |-- Export Library
     |-- Processed Records List
     |-- Centers Configuration List
     `-- Processing Logs List
-```
+
 
 ## 3. Main SharePoint Site
 
@@ -80,15 +79,19 @@ When a document is validated and changes to the `Tractat` (Processed) status:
 
 This protects processed source documents from further editing by ordinary management users.
 
-### 4.3 Export Library
 
-Stores Excel workbooks generated during processing.
+### Temporary Files Library
 
-Read access is granted to:
+Stores temporary Excel workbooks created during FL02 processing.
 
-- Site Owners.
-- Site Members.
-- Center groups.
+The library is located in the Management Subsite and is restricted to authorized management and automation accounts.
+
+FL03 periodically evaluates temporary files and attempts to delete eligible files older than 8 hours.
+
+Files still required by active processing executions must not be deleted.
+
+See [Temporary Files Library](../libraries/temporary-files-library.md) for detailed documentation.
+
 
 ### 4.4 Processed Records List
 
@@ -136,6 +139,7 @@ The following matrix summarizes the conceptual access model across the Main Shar
 | Management Subsite | According to role | According to role | Read | No access |
 | Validation Library - During Validation | Edit | Edit | No access | No access |
 | Validation Library - After FL02 Protection | Read | Read | No access | No access |
+| Temporary Files Library | Administrative access | Authorized access only | No access | No access |
 | Export Library | Read | Read | Read | No access |
 | Processed Records List | According to security model | According to security model | Assigned records only | No access |
 | Centers Configuration List | Read | Read | Read | No access |
@@ -270,7 +274,7 @@ The portfolio includes documentation for:
 - Main SharePoint Site and Management Subsite.
 - Site hierarchy and resource distribution.
 - Four SharePoint lists.
-- Three SharePoint document libraries.
+- Four SharePoint document libraries..
 - Customized JSON form configuration.
 - Command bar JSON formatting.
 - Site-level, library-level, and item-level permission strategies.
