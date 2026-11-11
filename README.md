@@ -26,15 +26,47 @@ I aim to combine technical implementation with business understanding, creating 
 
 This GitHub portfolio showcases independently developed examples, technical documentation, and solution architecture patterns using fictional data.
 
+
 ## Technologies
 
-- Power Apps (Canvas Apps)
-- Power Automate (Cloud Flows)
-- Microsoft Dataverse
-- SharePoint and Microsoft 365
-- Power Platform Governance
-- CoE Starter Kit and DLP Policies
+My technical experience covers Microsoft Power Platform development, business process automation, SharePoint integration, and enterprise platform governance.
 
+### Power Platform Development
+
+| Technology | Focus |
+|---|---|
+| Microsoft Power Apps | Canvas Apps, business applications, forms, and data integration |
+| Microsoft Power Automate | Cloud flows, workflow orchestration, approvals, and process automation |
+| Microsoft Dataverse | Data integration and structured business data management |
+| Office Scripts | TypeScript-based Excel automation and Power Automate integration |
+
+### Microsoft 365 & Integration
+
+| Technology | Focus |
+|---|---|
+| SharePoint Online | Lists, document libraries, permissions, and document management |
+| Microsoft Excel | Structured data processing, templates, and automated exports |
+| Microsoft Teams | Collaboration and Microsoft 365 integration |
+| Microsoft 365 | Business productivity and connected workflows |
+
+### Governance & Administration
+
+- Power Platform environment management.
+- Data Loss Prevention (DLP) policies.
+- Center of Excellence (CoE) Starter Kit.
+- Platform monitoring and governance practices.
+- Security and access management.
+- User adoption, training, and technical support.
+
+### Development & Documentation
+
+- JSON configuration and SharePoint formatting.
+- TypeScript for Office Scripts.
+- GitHub for project documentation and version control.
+- Markdown for technical documentation.
+- Solution architecture and process documentation.
+
+The technologies demonstrated in this portfolio vary by project. Some examples describe conceptual architectures rather than fully deployed implementations.
 
 ## Projects
 
