@@ -128,25 +128,20 @@ Authorized users, including external staff where applicable, receive read-only a
 Document access must be enforced through SharePoint permissions rather than navigation visibility alone.
 
 
+
 ## 5. Derived Documents Library
 
 ### 5.1 Purpose
 
-The Derived Documents Library is located in the Main SharePoint Site.
+The Derived Documents Library stores files produced or derived during the document processing lifecycle.
 
-It stores a copy of each submitted Excel workbook created by FL01 during the document intake process.
+It provides a controlled location for accessing relevant generated documents.
 
-This library provides a consultation area for authorized users of the Main SharePoint Site.
+### 5.2 Access Model
 
-### 5.2 Document Creation
+Authorized users, including external staff where applicable, receive read-only access to the documents they are permitted to view.
 
-FL01 creates the document copy after retrieving the Excel attachment from the Request Intake List.
-
-The workflow uses an appropriately authorized SharePoint connection to create documents in the library.
-
-The original request attachment remains associated with its SharePoint list item.
-
-A separate copy is also created in the Validation Library in the Management Subsite.
+Document access must be enforced through SharePoint permissions rather than navigation visibility alone.
 
 ### 5.3 Access Model
 
