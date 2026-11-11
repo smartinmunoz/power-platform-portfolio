@@ -106,12 +106,21 @@
       ],
       "name": "BuildProcessingSummary"
     },
-    {
-      "operation": "Run child flow",
-      "childFlow": "FL04-Processing-Logs-Demo",
-      "output": "Id_Log",
-      "name": "ExecuteFL04",
-      "inputCount": 8
+  {
+  "operation": "Run child flow",
+  "childFlow": "FL04-Processing-Logs-Demo",
+  "output": "Id_Log",
+  "name": "ExecuteFL04",
+  "inputCount": 8,
+  "inputMappings": {
+    "ProcessingReferenceId": "CurrentProcessingReferenceId",
+    "SourceFileId": "TriggerFileId",
+    "SourceFileName": "TriggerFileName",
+    "RecordsRead": "CalculatedRecordsRead",
+    "RecordsCreated": "RecordsCreated",
+    "RecordsWithErrors": "CalculatedRecordsWithErrors",
+    "ErrorDetails": "ConsolidatedErrorDetails",
+    "ExecutionId": "CurrentFlowExecutionId"
     },
     {
       "operation": "Compose",
