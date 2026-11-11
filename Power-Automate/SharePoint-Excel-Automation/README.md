@@ -54,18 +54,52 @@ No confidential organizational information, real credentials, or proprietary wor
 - JSON
 - SharePoint REST API
 
+
 ## Business Scenario
 
-An organization receives Excel files containing structured records that require manual validation before being processed.
+### The Challenge
 
-Once validated, the system automatically:
+An organization receives structured Excel files from multiple external users and operational centers.
 
-1. Restricts editing permissions on the validated file.
-2. Extracts and transforms Excel data.
-3. Generates output workbooks from predefined templates.
-4. Creates related records in SharePoint.
-5. Applies dynamic permissions to individual records.
-6. Cleans up temporary processing files.
+These documents require validation, data processing, record creation, and controlled distribution of information.
+
+Without automation, this process may involve:
+
+- Manual document collection and organization.
+- Repetitive Excel data extraction and transformation.
+- Manual creation of SharePoint records.
+- Difficulty maintaining relationships between related records.
+- Complex permission management across operational centers.
+- Limited visibility into processing results and errors.
+
+### The Solution
+
+The proposed architecture centralizes document intake through SharePoint and coordinates processing activities using Power Automate and Office Scripts.
+
+The solution provides:
+
+- A standardized request submission process.
+- Automated document distribution between SharePoint locations.
+- A controlled document validation stage.
+- Automated extraction and transformation of Excel data.
+- Sequential creation of primary and associated records.
+- Structured Excel export generation.
+- Center-based access control using SharePoint groups.
+- Centralized processing logs and scheduled temporary file cleanup.
+
+### Business Benefits
+
+The architecture is designed to demonstrate how automation can:
+
+- Reduce repetitive administrative tasks.
+- Improve consistency in document processing.
+- Preserve relationships between related records.
+- Support controlled access to sensitive operational information.
+- Improve traceability of processing activities.
+- Simplify maintenance through centralized configuration.
+- Provide a scalable foundation for future workflow improvements.
+
+These benefits represent the intended design objectives of the demonstration architecture and have not been measured in a production environment.
 
 
 ## Solution Components
