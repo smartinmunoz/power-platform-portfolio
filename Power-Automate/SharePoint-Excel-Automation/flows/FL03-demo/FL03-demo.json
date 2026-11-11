@@ -9,8 +9,8 @@
     "type": "Recurrence"
   },
   "sharePoint": {
-    "site": "https://contoso.sharepoint.com/sites/DemoSite",
-    "library": "TemporaryFilesDemo"
+  "site": "https://contoso.sharepoint.com/sites/DemoSite",
+  "library": "TemporaryFilesDemo"
   },
   "retentionPolicy": {
     "condition": "File age greater than 8 hours",
