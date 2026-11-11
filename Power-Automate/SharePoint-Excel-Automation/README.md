@@ -448,8 +448,58 @@ The purpose of this project is to demonstrate solution architecture, Power Autom
 All examples are intended for learning, demonstration, and professional portfolio purposes.
 
 
+
 ## Security and Confidentiality
 
-This repository contains only fictional data, generic configurations and independently developed demonstration code.
+This repository is an independent demonstration project intended for learning, technical documentation, and professional portfolio purposes.
 
-No corporate exports, credentials, internal URLs, proprietary components or real personal data are included.
+### Data Protection
+
+The examples are designed to use fictional data and generic business scenarios.
+
+The public documentation does not intentionally include:
+
+- Real personal or customer information.
+- Corporate credentials or authentication tokens.
+- Production SharePoint URLs or tenant identifiers.
+- Real SharePoint group IDs or internal administrative links.
+- Proprietary workflow exports or confidential business logic.
+- Internal organizational documents or datasets.
+
+### Independent Demonstration Components
+
+The architecture and examples are presented as independently developed demonstration materials.
+
+Conceptual Power Automate JSON files illustrate workflow design and are not direct exports from an organizational production environment.
+
+Office Scripts and supporting examples are provided for demonstration and may require adaptation before use in another environment.
+
+### SharePoint Security
+
+The documented solution demonstrates:
+
+- Least-privilege access principles.
+- Separation of external and internal resources.
+- Document-level and item-level permission management.
+- Center-based access restrictions.
+- Administrative control through authorized SharePoint roles.
+- Separation of ordinary user access and automation connection privileges.
+
+SharePoint JSON formatting is used for interface customization and is not a security mechanism.
+
+### Implementation Responsibility
+
+Before adapting the solution to a real environment, administrators should:
+
+- Review all SharePoint permissions and group memberships.
+- Validate Power Automate connections and authentication.
+- Replace fictional configuration values with authorized environment-specific settings.
+- Test workflow execution and error handling.
+- Verify data protection and organizational compliance requirements.
+- Validate effective permissions using dedicated test accounts.
+
+### Disclaimer
+
+This repository does not provide a production-ready or fully deployable solution.
+
+All architecture descriptions, workflow definitions, and configuration examples are intended to demonstrate technical concepts and reusable design patterns.
