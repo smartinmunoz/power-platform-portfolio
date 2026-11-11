@@ -104,15 +104,39 @@ These benefits represent the intended design objectives of the demonstration arc
 
 ## Solution Components
 
+The solution combines five Power Automate workflows, Office Scripts, and SharePoint Online resources.
+
+### Power Automate Workflows
+
 | Component | Purpose |
 |---|---|
-| FL01 | File reception and document preparation |
-| FL02 | Excel processing, output generation and SharePoint record creation |
-| FL03 | Scheduled temporary file cleanup |
-| FL04 | Child flow for processing logs, execution tracking and error reporting |
-| FL05 | Dynamic record-level permissions |
-| Office Scripts | Excel data extraction and export generation |
-| SharePoint | Document storage, records, permissions and processing logs |
+| FL01 - Request Intake | Retrieves Excel attachments from SharePoint requests, distributes document copies to two libraries, and manages request-level permissions. |
+| FL02 - Excel Processing | Processes validated Excel documents, protects source files, creates primary and associated SharePoint records, and generates export workbooks. |
+| FL03 - Temporary File Cleanup | Performs scheduled cleanup of temporary processing files older than eight hours. |
+| FL04 - Processing Logs | Creates execution log entries and returns the `Id_Log` identifier to the calling workflow. |
+| FL05 - Dynamic Permissions | Assigns item-level SharePoint permissions based on center-to-group configuration. |
+
+### Supporting Technologies
+
+| Component | Purpose |
+|---|---|
+| SharePoint Online | Provides request intake, document libraries, structured lists, and permission management. |
+| Excel Online | Supports workbook storage and integration with automated processing. |
+| Office Scripts | Performs structured Excel data processing and populates export templates. |
+| SharePoint REST API | Supports advanced SharePoint operations, including permission inheritance and role assignments. |
+| JSON | Supports data exchange, conceptual workflow definitions, and SharePoint interface customizations. |
+
+### Component Coordination
+
+FL01 manages request intake and document distribution.
+
+FL02 performs validated document processing and coordinates record creation and export generation.
+
+FL04 supports execution logging, while FL05 applies center-based permissions to processed records.
+
+FL03 independently performs scheduled cleanup of temporary processing files.
+
+Together, these components demonstrate a modular architecture that separates document intake, processing, security, logging, and maintenance responsibilities.
 
 
 ## Technical Highlights
