@@ -104,15 +104,17 @@
       ],
       "operation": "Apply to each"
     },
-    {
-      "operation": "Compose",
-      "details": [
-        "Count imported records",
-        "Count Excel errors",
-        "Combine error details"
-      ],
-      "name": "CalculateFinalDiagnostics"
-    },
+  {
+  "operation": "Compose",
+  "details": [
+    "Count records extracted from Excel",
+    "Count failed SharePoint record creation operations",
+    "Set RecordsWithErrors equal to SharePointErrors",
+    "Combine SharePoint creation error details"
+    ],
+    "name": "CalculateFinalDiagnostics"
+  }
+
     {
       "operation": "Compose JSON",
       "properties": [
