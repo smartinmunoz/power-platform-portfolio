@@ -74,12 +74,13 @@
           "permission": "Edit",
           "type": "SharePoint"
         },
-        {
-          "operation": "Log configuration error",
-          "name": "LogMissingCenter",
-          "message": "No matching center was found in Centers Configuration List. Center permissions were not granted.",
-          "type": "Diagnostic"
-        }
+{
+  "operation": "Log configuration error",
+  "name": "LogInvalidCenterMapping",
+  "message": "Center configuration validation failed. No unique matching center was found in Centers Configuration List (missing or duplicate configuration). Center permissions were not granted.",
+  "type": "Diagnostic"
+}
+
       ]
     }
   ],
