@@ -296,6 +296,19 @@ Center Groups have general Read access to the subsite, but this does not automat
 - FL02 assigns Read access to Site Owners and Site Members.
 - Site Collection Administrators retain administrative control.
 
+### Temporary Files Library
+
+- Library-level permission inheritance is interrupted to restrict access to temporary processing workbooks.
+- Site Owners retain Full Control.
+- Authorized Management Members receive only the permissions required for administration.
+- Power Automate processing and cleanup connections receive the permissions necessary to create, modify, read, and delete temporary files.
+- Center Groups and External Staff have no access.
+- FL02 creates temporary Excel workbooks during processing.
+- FL03 attempts to delete temporary files older than eight hours.
+- Deletion failures are handled diagnostically without interrupting the remaining cleanup operations.
+- Effective permissions must be verified in the target SharePoint environment.
+
+
 ### Export Library
 
 - Site Owners, Site Members, and Center Groups receive Read access.
