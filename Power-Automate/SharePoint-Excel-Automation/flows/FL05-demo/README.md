@@ -81,16 +81,33 @@ Example using fictional values:
 | REGION-B | Center-Group-B |
 | REGION-C | Center-Group-C |
 
+
 ## Permission Matrix
 
-| Group | Permission Level |
-|---|---|
-| Configured center group | Read |
-| Owners | Edit |
-| Members | Edit |
+The workflow applies different permissions depending on whether the center configuration is found.
 
+| Group | Center Found | Center Not Found |
+|---|---|---|
+| Configured center group | Read | No access granted |
+| Owners | Edit | Edit |
+| Members | Edit | No access granted |
+| Other center groups | No access granted | No access granted |
 
-The configured center group receives Read access only to records assigned to its center. Owners and Members retain Edit permissions across all records. Other center groups must not have access to records outside their assigned center.
+### Permission Rules
+
+- Center groups receive Read access only to records assigned to their center.
+- Owners receive Edit access in both scenarios.
+- Members receive Edit access only when the center configuration is found.
+- No permissions are granted to unrelated center groups.
+- Missing center configurations are recorded as diagnostic errors.
+
+### Implementation Considerations
+
+This matrix describes the intended permissions of the conceptual workflow.
+
+Effective permissions must be verified in SharePoint, including site collection administrators, the flow execution identity, and any access retained after breaking inheritance.
+
+The implementation must not assume that breaking inheritance automatically removes every form of administrative access.
 
 
 ## Technical Highlights
