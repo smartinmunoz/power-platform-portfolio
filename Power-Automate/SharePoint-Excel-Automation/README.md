@@ -316,6 +316,7 @@ The architecture covers request intake, document validation, Excel processing, r
 |---|---|---|
 | Derived Documents Library | Provides read-only access to document copies in the Main Site | [View](Sharepoint/libraries/derived-documents.md) |
 | Validation Library | Stores Excel files awaiting validation and applies processed document protection | [View](Sharepoint/libraries/validation-library.md) |
+| Temporary Files Library | Stores temporary Excel workbooks used during processing and cleaned up by FL03 after eight hours | [View](Sharepoint/libraries/temporary-files-library.md) |
 | Export Library | Stores generated Excel export workbooks | [View](Sharepoint/libraries/export-library.md) |
 
 #### JSON Customizations
@@ -416,7 +417,7 @@ This portfolio project demonstrates an integrated Microsoft Power Platform and S
 - Two independently developed Office Scripts.
 - Fictional Excel input data and export templates.
 - Main SharePoint Site and Management Subsite architecture.
-- Four SharePoint lists and three document libraries.
+- Four SharePoint lists and four document libraries.
 - SharePoint JSON formatting and request form examples.
 - Document-level and item-level permission strategies.
 - Center-based access configuration.
