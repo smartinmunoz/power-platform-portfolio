@@ -76,11 +76,23 @@
     }
   ],
   
-  "statusLogic": {
-  "success": "RecordsCreated > 0 AND RecordsWithErrors = 0",
-  "partialSuccess": "RecordsCreated > 0 AND RecordsWithErrors > 0",
-  "error": "RecordsCreated = 0 AND RecordsWithErrors > 0",
-  "noRecords": "RecordsCreated = 0 AND RecordsWithErrors = 0"
+"statusLogic": {
+  "success": {
+    "condition": "RecordsCreated > 0 AND RecordsWithErrors = 0",
+    "statusValue": "Success"
   },
+  "partialSuccess": {
+    "condition": "RecordsCreated > 0 AND RecordsWithErrors > 0",
+    "statusValue": "Partial Success"
+  },
+  "error": {
+    "condition": "RecordsCreated = 0 AND RecordsWithErrors > 0",
+    "statusValue": "Error"
+  },
+  "noRecords": {
+    "condition": "RecordsCreated = 0 AND RecordsWithErrors = 0",
+    "statusValue": "No Records"
+  }
+},
   "implementationStatus": "Conceptual demonstration - Not an importable Power Automate flow"
 }
