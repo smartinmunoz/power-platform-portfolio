@@ -52,14 +52,18 @@ flowchart TD
         AC -->|Yes| AD["Increment RecordsCreated"]
         AC -->|No| AE["Increment SharePointErrors"]
         AE --> AF["Append error to ErrorDetails"]
-        Y -->|No| AG["Skip unsupported record"]
+        
+Y -->|No| AG["Unexpected record type: validation error"]
+
     end
 
     V --> AH["Next record"]
     X --> AH
     AD --> AH
     AF --> AH
-    AG --> AH
+    
+AG --> AP["Stop processing and report validation error"]
+
     AH -->|More records| P
 
     AH -->|All records processed| AI["Calculate final diagnostics"]
