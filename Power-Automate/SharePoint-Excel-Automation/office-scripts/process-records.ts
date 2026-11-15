@@ -105,6 +105,18 @@ function main(workbook: ExcelScript.Workbook): string {
             );
         }
 
+        // Validate supported record types
+        const recordType = String(record["RecordType"]).trim();
+
+        if (recordType !== "T" && recordType !== "B") {
+            throw new Error(
+                `Row ${i + 1}: Unsupported RecordType '${recordType}'. Expected 'T' or 'B'.`
+            );
+        }
+
+        // Normalize the record type
+        record["RecordType"] = recordType;
+
         records.push(record);
     }
 
