@@ -238,7 +238,7 @@ Records are processed sequentially, with concurrency limited to one iteration at
 
 This preserves the source order and allows associated records to reference the correct primary record.
 
-
+### Record Relationship Diagram
 ```mermaid
 flowchart TD
     A["Process next Excel record"] --> B["Find matching center"]
@@ -279,20 +279,53 @@ flowchart TD
     V --> W
 ```
 
+
 ## Composite Family Identifier
 
-The workflow constructs a family identifier by combining the source SharePoint file ID and the family identifier from Excel.
+The workflow constructs a family identifier by combining the source SharePoint file ID and the `ReferenceCode` extracted from Excel.
 
 Example:
 
 ```text
 SourceFileId = 125
-FamilyId = FAM003
+ReferenceCode = FAM003
 CompositeFamilyId = 125-FAM003
 ```
 
 This helps distinguish records originating from different source files.
 
+## Record Ordering and Relationship Validation
+
+FL02 processes Excel records sequentially, with concurrency set to one.
+
+The current conceptual implementation assumes that each primary record (`T`) appears before its associated records (`B`).
+
+For an associated record to be created:
+
+1. `LastPrimaryRecordId` must be greater than zero.
+2. Its `ReferenceCode` must match `LastPrimaryReferenceCode`.
+
+If either condition fails, the associated record is skipped and a diagnostic entry is added.
+
+Skipped records do not increment `SharePointErrors`, because no SharePoint creation operation was attempted.
+
+### Example
+
+| Order | Type | ReferenceCode | Expected Behavior |
+|---|---|---|---|
+| 1 | T | FAM001 | Create primary record and save its ID |
+| 2 | B | FAM001 | Associate with FAM001 primary record |
+| 3 | B | FAM002 | Skip because the reference does not match |
+| 4 | T | FAM002 | Create new primary record |
+| 5 | B | FAM002 | Associate with FAM002 primary record |
+
+### Known Limitation
+
+The current design does not support associated records appearing before their corresponding primary records.
+
+It also does not search previously created primary records by `ReferenceCode`.
+
+A future implementation could maintain a mapping between `ReferenceCode` and SharePoint item IDs to support records in any order.
 
 ## Error Tracking
 
