@@ -59,12 +59,14 @@
       "group": "Owners",
       "name": "GrantOwnersReadAccess"
     },
-    {
-      "operation": "Update SharePoint file properties",
-      "status": "Processed",
-      "note": "Status is updated before processing completes",
-      "name": "MarkFileAsProcessing"
-    },
+ 
+{
+  "operation": "Update SharePoint file properties",
+  "name": "MarkFileAsProcessing",
+  "status": "Processing",
+  "previousStatus": "Validated",
+  "note": "Set the source file status to Processing before starting Excel operations. This prevents the Validated trigger condition from matching subsequent file modifications."
+},
     {
       "operation": "Condition",
       "ifFalse": [],
