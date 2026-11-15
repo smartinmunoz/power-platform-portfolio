@@ -48,15 +48,31 @@ When a matching center is found:
 5. Grant Edit permissions to the Members group.
 6. Complete the permission assignment process.
 
-### Center Not Found
 
-When no matching center is found:
+### Invalid Center Configuration
 
-1. Break item permission inheritance without copying existing permissions.
-2. Grant Edit permissions to the Owners group.
-3. Do not grant permissions to any center group.
-4. Log a configuration error indicating that the center was not found.
-5. Complete the workflow with the missing-center condition documented.
+FL05 requires exactly one matching center configuration.
+
+The conceptual condition is:
+
+```text
+length(matchingRecords) = 1
+```
+
+If no matching center is found, or multiple configurations match the same center, the workflow follows the restrictive branch.
+
+The workflow:
+
+1. Breaks item-level permission inheritance without copying existing permissions.
+2. Grants Edit permissions to the Owners group.
+3. Does not grant permissions to the Members group or any center group.
+4. Logs a configuration error through `LogInvalidCenterMapping`.
+5. Completes with the invalid center configuration documented.
+
+This prevents ambiguous or missing center mappings from granting access to an unintended SharePoint group.
+
+The conceptual JSON does not yet explicitly validate whether the configured SharePoint Group ID is valid and usable. This must be verified during implementation.
+
 
 ### Security Considerations
 
