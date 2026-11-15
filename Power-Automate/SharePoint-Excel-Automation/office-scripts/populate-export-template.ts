@@ -37,6 +37,21 @@ function main(
         return 0;
     }
 
+    // Validate each record structure
+    for (let i = 0; i < records.length; i++) {
+        const record = records[i];
+
+        if (
+            record === null ||
+            typeof record !== "object" ||
+            Array.isArray(record)
+        ) {
+            throw new Error(
+                `Invalid record at position ${i + 1}: expected an object.`
+            );
+        }
+    }
+
     const rows: string[][] = records.map(record => [
         String(record.RecordType ?? ""),
         String(record.ReferenceCode ?? ""),
