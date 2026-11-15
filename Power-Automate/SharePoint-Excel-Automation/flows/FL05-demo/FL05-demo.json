@@ -21,7 +21,28 @@
     },
     {
       "expression": "length(matchingRecords) > 0",
-      "ifFalse": [],
+
+"ifFalse": [
+  {
+    "operation": "Break item permission inheritance",
+    "name": "BreakInheritanceWhenCenterMissing",
+    "copyExistingPermissions": false,
+    "type": "SharePoint"
+  },
+  {
+    "operation": "Grant item permissions",
+    "name": "GrantOwnersWhenCenterMissing",
+    "group": "Owners",
+    "permission": "Edit",
+    "type": "SharePoint"
+  },
+  {
+    "operation": "Log configuration error",
+    "name": "LogMissingCenter",
+    "message": "No matching center was found in Centers Configuration List. Center permissions were not granted.",
+    "type": "Diagnostic"
+  }
+],
       "ifTrue": [
         {
           "operation": "Compose",
