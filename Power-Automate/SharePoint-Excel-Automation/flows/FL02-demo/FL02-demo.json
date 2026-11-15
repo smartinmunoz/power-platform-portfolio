@@ -95,13 +95,17 @@
       },
       "concurrency": 1,
       "name": "ProcessExcelRecords",
-      "primaryRecord": [
-        "Reset last primary record ID",
-        "Create primary SharePoint item",
-        "Increment created records count on success",
-        "Save created primary item ID",
-        "Track and record creation errors"
-      ],
+   
+"primaryRecord": [
+  "Reset LastPrimaryRecordId to 0",
+  "Reset LastPrimaryReferenceCode to an empty string",
+  "Create primary SharePoint item",
+  "If creation succeeds, increment RecordsCreated",
+  "If creation succeeds, save the created item ID in LastPrimaryRecordId",
+  "If creation succeeds, save the current record ReferenceCode in LastPrimaryReferenceCode",
+  "If creation fails, increment SharePointErrors and append creation error details"
+],
+
       
 "familyIdentifier": "concat(SourceFileId, '-', ReferenceCode)",
 
