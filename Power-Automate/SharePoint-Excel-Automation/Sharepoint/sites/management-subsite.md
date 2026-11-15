@@ -234,6 +234,7 @@ The following matrix summarizes the conceptual permission model for the Manageme
 | Validation Library - During Validation | Edit | Edit | No access | No access |
 | Validation Library - After FL02 Protection | Read | Read | No access | No access |
 | Export Library | Read | Read | Read | No access |
+| Temporary Files Library | Full Control | Restricted to authorized management members | No access | No access |
 | Processed Records List | According to security model | According to security model | Assigned records only | No access |
 | Centers Configuration List | Read | Read | Read | No access |
 | Processing Logs List | Read | Read | No access | No access |
