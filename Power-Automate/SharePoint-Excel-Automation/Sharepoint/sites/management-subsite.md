@@ -106,15 +106,15 @@ The eight-hour threshold determines cleanup eligibility, not an exact deletion t
 For implementation details, see [Temporary Files Library](../libraries/temporary-files-library.md).
 
 
-## 5. Export Library
+## 6. Export Library
 
-### 5.1 Purpose
+### 6.1 Purpose
 
 The Export Library stores Excel workbooks generated during the processing workflow.
 
 These files provide structured outputs for authorized users.
 
-### 5.2 Permissions
+### 6.2 Permissions
 
 | Role | Permission |
 |---|---|
@@ -128,9 +128,9 @@ The library may use customized SharePoint command bar formatting.
 
 JSON formatting is used for presentation and usability, not as a replacement for access control.
 
-## 6. Processed Records List
+## 7. Processed Records List
 
-### 6.1 Purpose
+### 7.1 Purpose
 
 The Processed Records List stores information extracted from validated Excel workbooks.
 
@@ -138,7 +138,7 @@ The processing workflow creates primary records and associated records.
 
 Associated records reference their corresponding primary record.
 
-### 6.2 Center-Based Access
+### 7.2 Center-Based Access
 
 Access is controlled through item-level permissions.
 
@@ -148,7 +148,7 @@ This allows center groups to access only the records assigned to them.
 
 General read access to the subsite does not automatically grant access to every record in this list.
 
-### 6.3 Relationship with FL02 and FL05
+### 7.3 Relationship with FL02 and FL05
 
 FL02 creates the processed records.
 
@@ -156,13 +156,13 @@ FL05 applies the required SharePoint permissions to individual list items.
 
 The center-to-group mapping is retrieved from the Centers Configuration List.
 
-## 7. Centers Configuration List
+## 8. Centers Configuration List
 
-### 7.1 Purpose
+### 8.1 Purpose
 
 A single SharePoint list maintains the relationship between operational centers and their corresponding SharePoint groups.
 
-### 7.2 Configuration Fields
+### 8.2 Configuration Fields
 
 | Field | Description |
 |---|---|
@@ -172,7 +172,7 @@ A single SharePoint list maintains the relationship between operational centers 
 
 The list is readable by all users who have access to the management subsite.
 
-### 7.3 Group Management
+### 8.3 Group Management
 
 Group management links are available for reference.
 
@@ -180,21 +180,21 @@ However, access to a link does not grant permission to modify group membership.
 
 Only users with the appropriate SharePoint group management privileges can administer those groups.
 
-### 7.4 Integration with FL05
+### 8.4 Integration with FL05
 
 FL05 uses the center configuration to identify the relevant SharePoint group and assign item-level permissions to processed records.
 
 The public portfolio does not include real SharePoint group identifiers or administrative URLs.
 
-## 8. Processing Logs List
+## 9. Processing Logs List
 
-### 8.1 Purpose
+### 9.1 Purpose
 
 The Processing Logs List provides traceability for automated document processing.
 
 FL04 creates log entries containing execution and processing information.
 
-### 8.2 Example Information
+### 9.2 Example Information
 
 Depending on the workflow configuration, a log entry may contain:
 
@@ -207,7 +207,7 @@ Depending on the workflow configuration, a log entry may contain:
 
 The exact column schema will be documented separately.
 
-### 8.3 Permissions
+### 9.3 Permissions
 
 | Role | Permission |
 |---|---|
@@ -224,7 +224,7 @@ FL04 writes log entries through an appropriately authorized Power Automate conne
 Read-only access for ordinary users does not prevent an authorized automation connection from creating records.
 
 
-## 9. Permissions Matrix
+## 10. Permissions Matrix
 
 The following matrix summarizes the conceptual permission model for the Management Subsite.
 
@@ -269,7 +269,7 @@ The matrix represents the intended security model rather than a verified product
 Effective permissions must be tested in a controlled SharePoint environment, including scenarios involving users who belong to multiple SharePoint groups.
 
 
-## 10. Permission Inheritance
+## 11. Permission Inheritance
 
 The Management Subsite combines general subsite-level access with resource-specific and item-level permission restrictions.
 
@@ -319,13 +319,13 @@ All permission inheritance changes and automated assignments must be tested in a
 Effective permissions must be verified for users belonging to multiple SharePoint groups and for automation connections performing privileged operations.
 
 
-## 11. Power Automate Integration
+## 12. Power Automate Integration
 
 The Management Subsite supports document validation, Excel processing, record creation, export generation, execution logging, and center-based permission management.
 
 The solution uses five conceptual Power Automate workflows.
 
-### 11.1 Workflow Responsibilities
+### 12.1 Workflow Responsibilities
 
 | Workflow | Management Subsite Responsibility | Main Resources |
 |---|---|---|
@@ -336,7 +336,7 @@ The solution uses five conceptual Power Automate workflows.
 | FL05 | Applies center-based item-level permissions using the configured SharePoint Group ID | Processed Records List, Centers Configuration List |
 
 
-### 11.2 Document Validation and Processing
+### 12.2 Document Validation and Processing
 
 1. FL01 creates an Excel document copy in the Validation Library.
 2. Authorized Site Owners or Site Members review and validate the document.
@@ -353,7 +353,7 @@ The `Processing` status indicates that the document is protected and processing 
 The final status distinguishes successful processing (`Processed`) from processing or logging failures (`Error`).
 
 
-### 11.3 Logging and Permissions
+### 12.3 Logging and Permissions
 
 FL02 calls FL04 to register processing information.
 
@@ -361,13 +361,13 @@ FL04 creates an entry in the Processing Logs List and returns its SharePoint ite
 
 FL05 retrieves the center-to-group mapping from the Centers Configuration List and assigns item-level permissions to the corresponding processed records.
 
-### 11.4 Temporary File Cleanup
+### 12.4 Temporary File Cleanup
 
 FL03 removes temporary processing files older than eight hours according to the conceptual cleanup configuration.
 
 The cleanup process must target temporary files and must not remove source documents, validated records, or generated exports.
 
-### 11.5 Security Considerations
+### 12.5 Security Considerations
 
 The workflows use appropriately authorized SharePoint connections.
 
@@ -378,7 +378,7 @@ External Staff do not receive access to the Management Subsite through the intak
 The detailed workflow definitions and implementation considerations are documented in the Power Automate section of the portfolio.
 
 
-## 12. Security and Governance
+## 13. Security and Governance
 
 The solution follows these principles:
 
@@ -396,7 +396,7 @@ SharePoint JSON formatting is not used as a security mechanism.
 
 Permission inheritance and effective access must be validated in a test environment before deployment.
 
-## 13. Related Documentation
+## 14. Related Documentation
 
 - [SharePoint Sites Architecture](../architecture/sites-architecture.md)
 - [Main SharePoint Site](main-site.md)
@@ -404,7 +404,7 @@ Permission inheritance and effective access must be validated in a test environm
 - [Document Library Command Bar Formatting](../formatting/document-library-commandbar.json)
 
 
-## 14. Documentation Status
+## 15. Documentation Status
 
 **Status:** Conceptual Management Subsite documentation complete.
 
