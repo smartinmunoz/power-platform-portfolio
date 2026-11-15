@@ -79,9 +79,9 @@ Site Collection Administrators retain administrative control under the documente
 
 **Important:** The `Processing` status indicates that the document is being processed. It does not guarantee successful completion. The final status distinguishes successful processing (`Processed`) from processing or logging failures (`Error`).
 
-## Temporary Files Library
+## 5. Temporary Files Library
 
-### Purpose
+### 5.1 Purpose
 
 The Temporary Files Library provides a dedicated workspace for Excel files generated during automated processing.
 
@@ -89,7 +89,7 @@ FL02 creates temporary working copies of validated documents, keeping original f
 
 FL03 periodically removes temporary files older than eight hours.
 
-### Permissions
+### 5.2 Permissions
 
 | Role | Access |
 |---|---|
