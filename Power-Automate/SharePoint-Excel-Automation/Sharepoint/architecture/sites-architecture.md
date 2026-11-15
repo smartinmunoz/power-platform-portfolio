@@ -92,17 +92,23 @@ Effective permissions must be validated to ensure that ordinary management users
 
 
 
+
 ### Temporary Files Library
 
 Stores temporary Excel workbooks created during FL02 processing.
 
 The library is located in the Management Subsite and is restricted to authorized management and automation accounts.
 
-FL03 periodically evaluates temporary files and attempts to delete eligible files older than 8 hours.
+FL03 periodically attempts to delete temporary files older than eight hours.
 
-Files still required by active processing executions must not be deleted.
+The workflow does not explicitly check whether a file is still required by an active processing operation.
+
+Deletion failures, including those caused by active Excel file locks, are handled diagnostically without interrupting the remaining cleanup operations.
+
+The eight-hour retention threshold should be reviewed against expected processing durations before production deployment.
 
 See [Temporary Files Library](../libraries/temporary-files-library.md) for detailed documentation.
+
 
 
 ### 4.4 Processed Records List
