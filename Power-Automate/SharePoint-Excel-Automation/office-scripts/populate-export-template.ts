@@ -84,17 +84,7 @@ function main(
     }
 
 
-        record.RecordType = recordType;
-
-        if (missingFields.length > 0) {
-            throw new Error(
-                `Invalid record at position ${i + 1}: missing required fields: ${missingFields.join(", ")}`
-            );
-        }
-    }
-
-
-    const rows: string[][] = records.map(record => [
+   const rows: string[][] = records.map(record => [
         String(record.RecordType ?? ""),
         String(record.ReferenceCode ?? ""),
         String(record.FullName ?? ""),
