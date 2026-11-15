@@ -30,18 +30,44 @@ flowchart TD
 ```
 
 
+
 ## Workflow Steps
 
-1. Trigger when a new SharePoint list item is created.
-2. Search a separate configuration list for the matching center.
-3. Check whether the search returned at least one result.
-4. Retrieve the configured center group identifier.
-5. Break permission inheritance for the new item.
-6. Grant Read permissions to the configured center group.
-7. Grant Edit permissions to the Owners group.
-8. Grant Edit permissions to the Members group.
+1. Trigger when a new item is created in the Processed Records List.
+2. Search the Centers Configuration List for the matching center.
+3. Check whether a matching center configuration exists.
 
-If no matching center is found, the conditional branch performs no additional actions.
+### Center Found
+
+When a matching center is found:
+
+1. Retrieve the configured SharePoint group identifier.
+2. Break permission inheritance on the new item.
+3. Grant Read permissions to the configured center group.
+4. Grant Edit permissions to the Owners group.
+5. Grant Edit permissions to the Members group.
+6. Complete the permission assignment process.
+
+### Center Not Found
+
+When no matching center is found:
+
+1. Break item permission inheritance without copying existing permissions.
+2. Grant Edit permissions to the Owners group.
+3. Do not grant permissions to any center group.
+4. Log a configuration error indicating that the center was not found.
+5. Complete the workflow with the missing-center condition documented.
+
+### Security Considerations
+
+The missing-center branch follows a restrictive access model to avoid exposing records to unrelated center groups.
+
+In a production implementation, permission inheritance changes must be performed using an account with sufficient privileges.
+
+The implementation must ensure that the flow execution identity and authorized administrators retain the access necessary to complete permission assignment.
+
+Permission changes and error handling should be tested before deployment to prevent accidental loss of access.
+s.
 
 ## Configuration-Driven Permissions
 
