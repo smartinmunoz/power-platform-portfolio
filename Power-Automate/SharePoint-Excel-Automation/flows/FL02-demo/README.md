@@ -258,6 +258,8 @@ This preserves the source order and allows associated records to reference the c
 ### Record Relationship Diagram
 ```mermaid
 flowchart TD
+
+flowchart TD
     A["Process next Excel record"] --> B["Find matching center"]
     B --> C{"Record type = T?"}
 
@@ -274,7 +276,7 @@ flowchart TD
     K --> L["Append creation error details"]
 
     C -->|No| M{"Record type = B?"}
-    M -->|No| N["Skip unsupported record"]
+    M -->|No| N["Unexpected record type: validation error"]
     M -->|Yes| O{"LastPrimaryRecordId > 0?"}
 
     O -->|No| P["Skip associated record and add diagnostic"]
@@ -290,10 +292,12 @@ flowchart TD
 
     J --> W["Continue to next record"]
     L --> W
-    N --> W
     P --> W
     T --> W
     V --> W
+
+    N --> X["Stop processing and report validation error"]
+
 ```
 
 
