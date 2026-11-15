@@ -212,19 +212,26 @@ A processing execution may create some records successfully while also reporting
 
 Therefore, the log should distinguish between successful, partially successful, and failed processing outcomes when supported by the workflow.
 
+
 ## 7. Example Log Entries
 
-The following examples use fictional information.
+The following examples use fictional information and follow the FL04 processing status model.
 
-| Execution ID | Processing Status | Records Created | SharePoint Errors |
+| Execution ID | Processing Status | Records Created | Records With Errors |
 |---|---|---|---|
-| DEMO-001 | Completed | 25 | 0 |
-| DEMO-002 | Completed with Errors | 18 | 2 |
-| DEMO-003 | Failed | 0 | 1 |
+| DEMO-001 | Success | 25 | 0 |
+| DEMO-002 | Partial Success | 18 | 2 |
+| DEMO-003 | Error | 0 | 1 |
+| DEMO-004 | No Records | 0 | 0 |
 
-The example statuses and values are illustrative.
+The `Processing Status` column corresponds to the SharePoint internal field `Status`.
 
-They do not define a mandatory set of SharePoint choice values.
+The `Records With Errors` column corresponds to the internal field `RecordsWithErrors`.
+
+In this demonstration, errors count only failed SharePoint record creation operations.
+
+These examples illustrate the four status values defined in FL04.
+
 
 ## 8. Permissions
 
