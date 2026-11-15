@@ -188,7 +188,7 @@
   "documentMetadata": {
     "SourceRequestId": "SharePoint Request Intake List item ID",
     "OriginalFileName": "Original Excel attachment filename",
-    "ValidationStatus": "Pending",
+    "ValidationStatus": "Pending Validation",
     "ReceivedDate": "Request creation date",
     "Source": "Request Intake List"
   },
