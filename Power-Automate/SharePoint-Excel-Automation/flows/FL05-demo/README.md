@@ -10,18 +10,25 @@ The workflow uses a separate configuration list to identify the security group a
 
 ### Workflow Diagram
 
+
 ```mermaid
 flowchart TD
     A["SharePoint: Item created"] --> B["Find matching center"]
     B --> C{"Center found?"}
+
     C -->|Yes| D["Get center group ID"]
     D --> E["Break permission inheritance"]
     E --> F["Grant Read to center group"]
     F --> G["Grant Edit to Owners"]
     G --> H["Grant Edit to Members"]
     H --> I["Finish"]
-    C -->|No| J["No additional actions"]
+
+    C -->|No| J["Break inheritance without copying permissions"]
+    J --> K["Grant Edit to Owners"]
+    K --> L["Log missing center configuration"]
+    L --> I
 ```
+
 
 ## Workflow Steps
 
