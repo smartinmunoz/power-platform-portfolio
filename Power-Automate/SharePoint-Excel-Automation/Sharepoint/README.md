@@ -196,7 +196,11 @@ Located in the Management Subsite.
 
 Stores temporary Excel workbooks generated during FL02 processing.
 
-FL03 periodically removes eligible temporary files older than 8 hours, provided they are no longer required by active processing operations.
+
+FL03 periodically attempts to delete temporary files older than eight hours.
+
+Deletion failures, including those caused by active Excel file locks, are handled diagnostically. The workflow does not explicitly verify whether a file is still required by an active processing operation.
+
 
 Access is restricted to authorized management and automation accounts.
 
