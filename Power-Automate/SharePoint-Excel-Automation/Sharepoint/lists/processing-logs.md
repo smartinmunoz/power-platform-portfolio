@@ -160,17 +160,17 @@ The exact logging fields can be adapted to the requirements of each implementati
 ## 5. Logging Workflow
 
 ```mermaid
+
 flowchart TD
-    A[FL02 - Excel Processing]
-    B[Prepare Processing Summary]
-    C[Collect Execution Results and Errors]
-    D[Call FL04 Child Workflow]
-    E[FL04 - Receive Logging Parameters]
-    F[Create Item in Processing Logs List]
-    G[SharePoint Generates Log Item ID]
-    H[FL04 Returns Id_Log]
-    I[FL02 Receives Id_Log]
-    J[Continue Diagnostic Operations]
+    A["FL02 - Excel Processing"]
+    B["Calculate final diagnostics"]
+    C["Prepare FL04 input parameters"]
+    D["Call FL04 child flow"]
+    E["FL04 - Receive 8 parameters"]
+    F["Calculate processing status"]
+    G["Create item in Processing Logs List"]
+    H["SharePoint generates log item ID"]
+    I["Return Id_Log to FL02"]
 
     A --> B
     B --> C
@@ -180,7 +180,7 @@ flowchart TD
     F --> G
     G --> H
     H --> I
-    I --> J
+
 ```
 
 The diagram illustrates the conceptual logging process between FL02 and FL04.
