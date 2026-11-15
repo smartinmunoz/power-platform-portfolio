@@ -260,3 +260,127 @@ CompositeFamilyId = 125-FAM003
 
 This helps distinguish records originating from different source files.
 
+
+## Error Tracking
+
+The workflow maintains:
+
+- A counter for SharePoint record creation errors.
+- An array containing error details.
+- A counter for successfully created records.
+- A processing summary containing the reference ID, created records, errors, and error details.
+
+Separate branches track successful and failed record creation operations.
+
+### Error Counting Model
+
+The workflow counts errors occurring during SharePoint record creation.
+
+| Metric | Definition |
+|---|---|
+| SharePointErrors | Number of failed record creation operations in the Processed Records List |
+| RecordsWithErrors | Number of records whose creation in SharePoint failed |
+| ErrorDetails | Diagnostic information describing SharePoint record creation failures |
+| RecordsCreated | Number of successfully created SharePoint records |
+
+In this demonstration, each failed record creation operation corresponds to one failed record.
+
+Therefore:
+
+`RecordsWithErrors = SharePointErrors`
+
+Excel validation errors, unsupported record types, and general workflow failures are not included in RecordsWithErrors.
+
+FL02 passes the SharePointErrors counter directly to FL04 as RecordsWithErrors.
+
+FL04 uses this value together with RecordsCreated to determine the processing status.
+
+### Document-Level Error Handling
+
+The source document status is managed independently from the FL04 processing status.
+
+If SharePoint record creation errors occur, the source document is marked as `Error`, even when some records were created successfully.
+
+Failures in Excel processing or FL04 logging must also be handled by the document-level error branch.
+
+These failures are not automatically included in the `RecordsWithErrors` counter.
+
+## Integration with FL04
+
+FL02 invokes FL04 as a child flow and passes eight input parameters:
+
+| Parameter | Purpose |
+|---|---|
+| ProcessingReferenceId | Identifies the processing operation |
+| SourceFileId | Identifies the source file |
+| SourceFileName | Identifies the processed workbook |
+| RecordsRead | Number of records read |
+| RecordsCreated | Number of records created |
+| RecordsWithErrors | Number of SharePoint record creation errors |
+| ErrorDetails | Processing error details |
+| ExecutionId | Flow execution identifier |
+
+FL04 creates a SharePoint log entry and returns its ID as `Id_Log`.
+
+### FL04 Child Flow Input Contract
+
+The conceptual workflow defines eight input mappings:
+
+| Parameter | FL02 Source |
+|---|---|
+| ProcessingReferenceId | CurrentProcessingReferenceId |
+| SourceFileId | TriggerFileId |
+| SourceFileName | TriggerFileName |
+| RecordsRead | CalculatedRecordsRead |
+| RecordsCreated | RecordsCreated |
+| RecordsWithErrors | SharePointErrors |
+| ErrorDetails | ConsolidatedErrorDetails |
+| ExecutionId | CurrentFlowExecutionId |
+
+### Error Counting and Status
+
+In this demonstration, `RecordsWithErrors` represents the number of failed SharePoint record creation operations.
+
+Each failed operation corresponds to one failed record.
+
+Therefore:
+
+`RecordsWithErrors = SharePointErrors`
+
+Excel validation errors, unsupported record types, and general workflow failures are excluded from this counter.
+
+FL04 determines the processing status using `RecordsCreated` and `RecordsWithErrors`:
+
+| Status | Condition |
+|---|---|
+| Success | RecordsCreated > 0 AND RecordsWithErrors = 0 |
+| Partial Success | RecordsCreated > 0 AND RecordsWithErrors > 0 |
+| Error | RecordsCreated = 0 AND RecordsWithErrors > 0 |
+| No Records | RecordsCreated = 0 AND RecordsWithErrors = 0 |
+
+These statuses describe SharePoint record creation outcomes and do not replace the source document lifecycle status.
+
+### Child Flow Output
+
+FL04 creates a record in the `Processing Logs List` and returns its SharePoint item ID as `Id_Log`.
+
+### Implementation Note
+
+All eight input mappings are explicitly documented in `FL02-demo.json`.
+
+The JSON describes the conceptual integration between FL02 and FL04. It is not an importable or executable Power Automate flow definition.
+
+A production implementation would need to implement these mappings using actual Power Automate actions and expressions, including validation of the required values before invoking FL04.
+
+Error handling must also account for failures that prevent FL04 from executing.
+
+## Related Workflows
+
+| Flow | Relationship |
+|---|---|
+| FL01 | Prepares documents for validation |
+| FL03 | Cleans up temporary files older than 8 hours |
+| FL04 | Receives processing results and creates execution logs |
+| FL05 | Applies dynamic permissions to newly created SharePoint records |
+
+FL03 operates independently on a schedule, while FL04 is directly invoked by FL02.
