@@ -135,15 +135,18 @@ The effective permissions must be validated to ensure that no additional group m
 
 ```mermaid
 flowchart TD
-    A[Excel Document in Validation Library]
-    B{Status Validated?}
-    C[FL02 Starts]
-    D[Break File Permission Inheritance]
-    E[Grant Read to Owners and Members]
-    F[Update Status to Tractat]
-    G[Process Excel Data]
-    H[Create Records and Export Workbook]
-    I[Write Processing Log]
+    A["Excel Document in Validation Library"]
+    B{"Status Validated?"}
+    C["FL02 Starts"]
+    D["Break File Permission Inheritance"]
+    E["Grant Read to Owners and Members"]
+    F["Update Status to Processing"]
+    G["Process Excel Data"]
+    H["Create Records and Export Workbook"]
+    I["Execute FL04 Processing Log"]
+    J{"Processing and Logging Successful?"}
+    K["Update Status to Processed"]
+    L["Update Status to Error"]
 
     A --> B
     B -->|Yes| C
@@ -153,21 +156,29 @@ flowchart TD
     F --> G
     G --> H
     H --> I
+    I --> J
+    J -->|Yes| K
+    J -->|No| L
+
 ```
 
 This diagram summarizes the conceptual processing sequence.
 
 The complete workflow, including error handling and record relationships, is documented separately in FL02.
 
+
 ## 8. Important Processing Consideration
 
-The document is marked as `Tractat` before all downstream processing operations necessarily finish.
+The `Processing` status indicates that the document has entered the protected processing stage.
 
-Therefore, this status indicates that the document has entered the protected processing stage.
+It does not guarantee that all downstream operations have completed successfully.
 
-It does not independently guarantee that all Excel records were successfully created.
+The document is marked as `Processed` only when the processing workflow and required logging complete successfully.
 
-The Processing Logs List provides additional execution and error information through FL04.
+If processing fails, SharePoint record creation errors occur, or required logging fails, the document is marked as `Error`.
+
+The Processing Logs List provides execution details and diagnostic information through FL04.
+
 
 ## 9. Integration with Power Automate
 
