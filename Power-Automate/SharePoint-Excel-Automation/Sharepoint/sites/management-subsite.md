@@ -62,21 +62,22 @@ The library uses unique permissions rather than unrestricted inheritance from th
 
 ### 4.3 Processed Document Protection
 
-When a document is validated and changes to the `Tractat` (Processed) status, FL02 applies file-level permissions.
+When a document is validated, FL02 starts processing and applies file-level permission changes to protect the source workbook.
 
 The workflow:
 
 1. Breaks permission inheritance on the document.
 2. Assigns Read permissions to the Site Owners group.
 3. Assigns Read permissions to the Site Members group.
-4. Updates the document status to `Tractat`.
+4. Updates the document status from `Validated` to `Processing`.
 5. Continues the Excel processing workflow.
+6. Updates the document status to `Processed` when processing and required logging complete successfully, or to `Error` if processing cannot complete successfully.
 
-After this change, ordinary Site Owners and Members have read-only access to the processed document.
+After the permission changes, ordinary Site Owners and Members have read-only access to the protected document.
 
-Only Site Collection Administrators retain the ability to modify the protected file under the documented permission model.
+Site Collection Administrators retain administrative control under the documented permission model.
 
-**Important:** The document status and permission changes occur before all subsequent processing operations have necessarily completed. Therefore, `Tractat` should not be interpreted as an unconditional guarantee of successful end-to-end processing.
+**Important:** The `Processing` status indicates that the document is being processed. It does not guarantee successful completion. The final status distinguishes successful processing (`Processed`) from processing or logging failures (`Error`).
 
 ## 5. Export Library
 
