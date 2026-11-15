@@ -183,7 +183,10 @@ Located in the Management Subsite.
 
 Stores Excel documents awaiting validation and processing.
 
-FL02 protects validated documents by breaking file-level permission inheritance, assigning read-only permissions to Owners and Members, and updating the status to Tractat.
+
+FL02 processes documents with the `Validated` status, updates them to `Processing` during execution, and marks them as `Processed` upon successful completion or `Error` if processing fails.
+
+The workflow also protects source documents by breaking file-level permission inheritance and assigning read-only permissions to Owners and Members.
 
 ### Temporary Files Library
 
