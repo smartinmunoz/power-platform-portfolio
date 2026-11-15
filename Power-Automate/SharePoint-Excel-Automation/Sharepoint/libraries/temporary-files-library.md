@@ -131,9 +131,16 @@ Temporary files left behind after failed processing runs remain eligible for sch
 
 ### Retention Safety
 
-The cleanup process should verify that files are no longer actively required before deleting them.
 
-File age alone does not guarantee that a workbook is safe to delete.
+### Retention Safety
+
+FL03 selects temporary files for deletion based on an age threshold of more than eight hours.
+
+The workflow does not explicitly check whether a file is still required by an active processing operation.
+
+Deletion failures, including those caused by active Excel file locks, are handled through diagnostic messages.
+
+The eight-hour threshold should be reviewed against expected processing durations before deploying the workflow in a production environment.
 
 ## 9. Related Components
 
