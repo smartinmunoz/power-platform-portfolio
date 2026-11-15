@@ -87,6 +87,24 @@ function main(workbook: ExcelScript.Workbook): string {
             }
         }
 
+
+        // Validate required values for each record
+        const requiredFields = [
+            "RecordType",
+            "ReferenceCode",
+            "FullName"
+        ];
+
+        const missingFields = requiredFields.filter(field =>
+            String(record[field] ?? "").trim() === ""
+        );
+
+        if (missingFields.length > 0) {
+            throw new Error(
+                `Row ${i + 1}: Missing required values: ${missingFields.join(", ")}`
+            );
+        }
+
         records.push(record);
     }
 
