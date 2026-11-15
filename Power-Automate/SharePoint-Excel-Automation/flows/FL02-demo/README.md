@@ -157,4 +157,106 @@ The trigger condition only accepts files with status `Validated`, helping preven
 
 After completing the main processing operations, FL02 prepares the execution diagnostics and invokes FL04.
 
-If processing and logging complete successfully and no SharePoint record creation errors are reported, FL02 updates the source
+
+If processing and logging complete successfully and no SharePoint record creation errors are reported, FL02 updates the source document status to `Processed`.
+
+The `Processed` status indicates successful completion of the main processing workflow and the FL04 logging operation.
+
+### Error Handling
+
+If the main processing workflow fails, SharePoint record creation errors are detected, or FL04 logging fails, the source document is marked as `Error`.
+
+The error status helps identify documents that require investigation or corrective action.
+
+Partial record creation is considered an error at the document level, even when some SharePoint records were successfully created.
+
+### Relationship with FL04 Status
+
+The source document status and the FL04 execution status serve different purposes.
+
+| Source Document Status | FL04 Processing Status | Scenario |
+|---|---|---|
+| Processed | Success | Processing completed successfully with records created and no SharePoint creation errors |
+| Processed | No Records | Processing completed successfully but no records were created |
+| Error | Partial Success | Some records were created and others failed |
+| Error | Error | No records were created and SharePoint creation errors occurred |
+| Error | Not available | Processing or logging failed before a log entry could be created |
+
+A `No Records` log status does not automatically guarantee successful completion. The main workflow must also complete successfully.
+
+### Implementation Considerations
+
+The conceptual JSON defines `MarkFileAsProcessing`, `MarkFileAsProcessed`, and `MarkFileAsError`.
+
+In a production implementation, Power Automate should use appropriate `Scope` actions, conditions, and `Configure run after` settings to manage success, failure, skipped, and timeout scenarios.
+
+The error handling branch must be able to execute even when an earlier processing action fails.
+
+Status updates should be designed to avoid unnecessary trigger executions and ensure that documents do not remain indefinitely in `Processing`.
+
+## Excel Processing
+
+The workflow performs the following operations:
+
+1. Retrieve the validated source workbook.
+2. Create a temporary working copy.
+3. Execute `process-records.ts` to extract Excel records.
+4. Check the Office Script result.
+5. Retrieve the predefined export template.
+6. Create a new Excel export workbook.
+7. Execute `populate-export-template.ts` to populate the template.
+8. Continue with SharePoint record creation.
+
+The export script writes data into the predefined template starting at row 15.
+
+## Sequential Record Processing
+
+The workflow distinguishes two types of records:
+
+| Record Type | Description |
+|---|---|
+| T | Primary record |
+| B | Associated record |
+
+Records are processed sequentially, with concurrency limited to one iteration at a time.
+
+This preserves the source order and allows associated records to reference the correct primary record.
+
+### Record Relationship Diagram
+
+```mermaid
+flowchart TD
+    A["Process next Excel record"] --> B["Find matching center"]
+    B --> C{"Is primary record T?"}
+
+    C -->|Yes| D["Reset LastPrimaryRecordId"]
+    D --> E["Create primary SharePoint item"]
+    E -->|Success| F["Increment RecordsCreated"]
+    F --> G["Save LastPrimaryRecordId"]
+    E -->|Failure| H["Increment SharePointErrors"]
+    H --> I["Append primary record error"]
+
+    C -->|No| J{"Valid associated record B?"}
+    J -->|Yes| K["Create associated SharePoint item"]
+    K -->|Success| L["Increment RecordsCreated"]
+    K -->|Failure| M["Increment SharePointErrors"]
+    M --> N["Append associated record error"]
+    J -->|No| O["Skip record"]
+
+    G -.->|"Used by subsequent associated records"| K
+```
+
+## Composite Family Identifier
+
+The workflow constructs a family identifier by combining the source SharePoint file ID and the family identifier from Excel.
+
+Example:
+
+```text
+SourceFileId = 125
+FamilyId = FAM003
+CompositeFamilyId = 125-FAM003
+```
+
+This helps distinguish records originating from different source files.
+
