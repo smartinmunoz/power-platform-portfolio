@@ -308,17 +308,23 @@ The solution uses five conceptual Power Automate workflows.
 | FL04 | Creates execution logs and returns the `Id_Log` identifier | Processing Logs List |
 | FL05 | Applies center-based item-level permissions using the configured SharePoint Group ID | Processed Records List, Centers Configuration List |
 
+
 ### 11.2 Document Validation and Processing
 
 1. FL01 creates an Excel document copy in the Validation Library.
 2. Authorized Site Owners or Site Members review and validate the document.
-3. FL02 starts when the document is validated.
+3. The document status changes to `Validated`, triggering FL02.
 4. FL02 breaks file-level permission inheritance and assigns Read access to Site Owners and Site Members.
-5. FL02 updates the document status to `Tractat`.
+5. FL02 updates the document status from `Validated` to `Processing`.
 6. FL02 processes the Excel data and creates primary and associated records.
 7. FL02 generates the corresponding export workbook.
+8. FL02 calls FL04 to register processing results and diagnostic information.
+9. FL02 updates the document status to `Processed` when processing and required logging complete successfully, or to `Error` if processing cannot complete successfully.
 
-The `Tractat` status is applied before all subsequent processing operations have necessarily completed and does not independently guarantee successful end-to-end processing.
+The `Processing` status indicates that the document is protected and processing is underway. It does not guarantee successful completion.
+
+The final status distinguishes successful processing (`Processed`) from processing or logging failures (`Error`).
+
 
 ### 11.3 Logging and Permissions
 
