@@ -124,21 +124,31 @@ The `ParentRecordId` field stores the SharePoint item ID of the corresponding pr
 The exact relationship strategy can be adapted if the source Excel structure requires a different processing order.
 
 
+
 ## 6. Family Identification
 
-The solution can use a composite family identifier to distinguish groups of related records.
+The solution uses a composite family identifier to distinguish groups of related records originating from different Excel files.
 
-A demonstration expression is:
+The identifier is generated using the following expression:
 
 ```text
-concat(SourceFileId, '-', FamilyId)
+concat(SourceFileId, '-', ReferenceCode)
 ```
 
-This combines the source document identifier with the family identifier.
+The `SourceFileId` identifies the source Excel document, while `ReferenceCode` identifies the family or group of related records within that document.
 
-The composite value helps distinguish records originating from different Excel files.
+This combination helps prevent identifier collisions between records originating from different source files.
 
-The exact field names and identifier strategy can be adapted to the implementation.
+During sequential processing, FL02 stores the `ReferenceCode` of the last successfully created primary record (T) in the `LastPrimaryReferenceCode` variable.
+
+An associated record (B) can be created only when:
+
+1. `LastPrimaryRecordId` is greater than zero.
+2. Its `ReferenceCode` matches `LastPrimaryReferenceCode`.
+
+If either condition is not satisfied, FL02 skips the associated record creation and appends a diagnostic entry.
+
+This prevents associated records from being linked to an unrelated or unsuccessfully created primary record.
 
 ## 7. Center-Based Classification
 
