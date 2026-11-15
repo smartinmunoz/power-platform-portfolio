@@ -17,11 +17,13 @@ The solution integrates SharePoint Online with Power Automate workflows FL01-FL0
 Management Subsite
 |
 |-- Validation Library
+|-- Temporary Files Library
 |-- Export Library
 |
 |-- Processed Records List
 |-- Centers Configuration List
 `-- Processing Logs List
+
 ```
 
 ## 3. User Roles
