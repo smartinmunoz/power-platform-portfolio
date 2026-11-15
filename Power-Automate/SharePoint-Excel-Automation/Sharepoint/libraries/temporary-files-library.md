@@ -129,8 +129,6 @@ Temporary filenames should be unique to avoid collisions between simultaneous wo
 
 Temporary files left behind after failed processing runs remain eligible for scheduled cleanup.
 
-### Retention Safety
-
 
 ### Retention Safety
 
