@@ -80,23 +80,50 @@ The No Records status means that no records were created and no SharePoint recor
 
 A production implementation should track workflow-level failures separately to distinguish empty processing results from execution failures.
 
+
 ## SharePoint Log Structure
 
-Example fictional SharePoint list: `Processing Logs List`
+FL04 creates log entries in the `Processing Logs List`, located in the Management Subsite.
 
-| Column | Purpose |
-|---|---|
-| ProcessingReferenceId | Processing reference |
-| SourceFileId | Source file identifier |
-| ExecutionDate | Execution timestamp |
-| RecordsRead | Total records read |
-| RecordsCreated | Successfully created records |
-| RecordsWithErrors | Records with errors |
-| Status | Calculated processing result |
-| ErrorDetails | Error information |
-| ExecutionId | Flow execution reference |
+The following schema is aligned with the documented SharePoint list configuration.
 
-The source file name is received as an input parameter but is not included in the demonstrated SharePoint field mapping.
+| Display Name | Internal Name | Type | FL04 Value |
+|---|---|---|---|
+| Processing Reference ID | ProcessingReferenceId | Number | inputs.ProcessingReferenceId |
+| Source File ID | SourceFileId | Number | inputs.SourceFileId |
+| Execution ID | ExecutionId | Single line of text | inputs.ExecutionId |
+| Execution Date | ExecutionDate | Date and time | utcNow() |
+| Records Read | RecordsRead | Number | inputs.RecordsRead |
+| Records Created | RecordsCreated | Number | inputs.RecordsCreated |
+| Records With Errors | RecordsWithErrors | Number | inputs.RecordsWithErrors |
+| Processing Status | Status | Choice | CalculatedProcessingStatus |
+| Error Details | ErrorDetails | Multiple lines of text | inputs.ErrorDetails |
+
+### Processing Status Values
+
+The `Status` field supports four conceptual values:
+
+- `Success`
+- `Partial Success`
+- `Error`
+- `No Records`
+
+These values are calculated using `RecordsCreated` and `RecordsWithErrors`.
+
+### Additional Considerations
+
+The `SourceFileName` input is received by FL04 but is not currently stored in the demonstrated SharePoint list.
+
+The SharePoint item ID is generated automatically when the log entry is created.
+
+FL04 returns this identifier to FL02 through the `Id_Log` output parameter.
+
+The standard SharePoint `Title` field must be configured appropriately if it remains required.
+
+This schema is conceptual and does not represent an automatically provisioned SharePoint list.
+
+For the complete list configuration, see [Processing Logs List](../../Sharepoint/lists/processing-logs.md).
+
 
 ## Output
 
