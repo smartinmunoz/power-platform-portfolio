@@ -37,7 +37,7 @@ function main(
         return 0;
     }
 
-    // Validate each record structure
+
 
     // Validate each record structure
     for (let i = 0; i < records.length; i++) {
@@ -63,6 +63,17 @@ function main(
         const missingFields = requiredFields.filter(field =>
             String(record[field] ?? "").trim() === ""
         );
+
+        // Validate supported record types
+        const recordType = String(record.RecordType).trim();
+
+        if (recordType !== "T" && recordType !== "B") {
+            throw new Error(
+                `Invalid record at position ${i + 1}: unsupported RecordType '${recordType}'. Expected 'T' or 'B'.`
+            );
+        }
+
+        record.RecordType = recordType;
 
         if (missingFields.length > 0) {
             throw new Error(
