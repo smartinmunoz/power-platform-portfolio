@@ -235,7 +235,7 @@ The following matrix summarizes the conceptual permission model for the Manageme
 | Validation Library - After FL02 Protection | Read | Read | No access | No access |
 | Export Library | Read | Read | Read | No access |
 | Temporary Files Library | Full Control | Restricted to authorized management members | No access | No access |
-| Processed Records List | According to security model | According to security model | Assigned records only | No access |
+| Processed Records List | Edit | Edit | Assigned records only | No access |
 | Centers Configuration List | Read | Read | Read | No access |
 | Processing Logs List | Read | Read | No access | No access |
 
@@ -322,6 +322,8 @@ Center Groups have general Read access to the subsite, but this does not automat
 - FL05 retrieves the relevant SharePoint Group ID from the Centers Configuration List.
 - Center Groups receive access only to records explicitly assigned to their group.
 - General subsite Read access does not automatically grant access to all processed records.
+- Site Owners receive Edit access to processed records.
+- Site Members receive Edit access to processed records.
 
 ### Centers Configuration List
 
