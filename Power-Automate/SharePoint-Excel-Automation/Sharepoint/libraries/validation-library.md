@@ -101,30 +101,35 @@ When FL02 detects a document with status `Validated`, it applies file-level perm
 | Center Groups | No access |
 | External Staff | No access |
 
-FL02 breaks file-level permission inheritance and grants read-only access to Site Owners and Site Members before changing the document status to `Tractat`.
+
+FL02 breaks file-level permission inheritance and grants read-only access to Site Owners and Site Members before changing the document status from `Validated` to `Processing`.
+
 
 An appropriately authorized automation connection performs the required operations.
 
 The effective permissions must be tested to ensure that users do not retain editing access through other groups or direct permission assignments.
 
 
+
 ## 6. Processed Document Protection
 
-FL02 modifies file-level permissions when a document is validated and transitions to `Tractat`.
+FL02 modifies file-level permissions when a validated document enters the processing stage.
 
 The workflow performs the following operations:
 
 1. Breaks permission inheritance on the file.
 2. Grants Read permission to the Site Owners group.
 3. Grants Read permission to the Site Members group.
-4. Updates the document status to `Tractat`.
+4. Updates the document status from `Validated` to `Processing`.
 5. Continues the main Excel processing operations.
+6. Updates the document status to `Processed` upon successful completion or to `Error` if processing cannot complete successfully.
 
 Under this security model, ordinary Site Owners and Members cannot modify the protected document.
 
 Site Collection Administrators retain administrative privileges.
 
 The effective permissions must be validated to ensure that no additional group memberships or direct grants provide unintended editing access.
+
 
 ## 7. Processing Workflow
 
