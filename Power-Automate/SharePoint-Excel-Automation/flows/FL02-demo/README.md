@@ -146,7 +146,10 @@ This restricts editing during processing.
 
 ## Document Status
 
-FL02 manages the source document lifecycle using four conceptual SharePoint status values.
+
+The Validation Library defines five conceptual document statuses: Pending Validation, Validated, Processing, Processed, and Error.
+
+FL02 operates on the four statuses relevant to its processing stage: Validated, Processing, Processed, and Error. The Pending Validation status belongs to the preceding document validation stage.
 
 ### Status Definitions
 
@@ -490,7 +493,7 @@ FL03 operates independently on a schedule, while FL04 is directly invoked by FL0
 
 - Metadata-driven automation.
 - Document lifecycle and permission management.
-- Four-state document lifecycle: Validated, Processing, Processed, Error.
+- Four processing-stage statuses within the five-state document lifecycle: Validated, Processing, Processed, Error.
 - Office Scripts orchestration.
 - Excel export generation.
 - Sequential processing and parent-child record relationships.
