@@ -53,6 +53,7 @@ function main(
             );
         }
 
+       
         // Validate required export fields
         const requiredFields: (keyof ExportRecord)[] = [
             "RecordType",
@@ -64,6 +65,12 @@ function main(
             String(record[field] ?? "").trim() === ""
         );
 
+        if (missingFields.length > 0) {
+            throw new Error(
+                `Invalid record at position ${i + 1}: missing required fields: ${missingFields.join(", ")}`
+            );
+        }
+
         // Validate supported record types
         const recordType = String(record.RecordType).trim();
 
@@ -72,6 +79,10 @@ function main(
                 `Invalid record at position ${i + 1}: unsupported RecordType '${recordType}'. Expected 'T' or 'B'.`
             );
         }
+
+        record.RecordType = recordType;
+    }
+
 
         record.RecordType = recordType;
 
