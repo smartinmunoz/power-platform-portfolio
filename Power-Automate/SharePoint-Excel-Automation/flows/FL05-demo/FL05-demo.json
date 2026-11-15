@@ -23,12 +23,14 @@
       "expression": "length(matchingRecords) > 0",
 
 "ifFalse": [
-  {
-    "operation": "Break item permission inheritance",
-    "name": "BreakInheritanceWhenCenterMissing",
-    "copyExistingPermissions": false,
-    "type": "SharePoint"
-  },
+
+{
+  "operation": "Break item permission inheritance",
+  "name": "BreakPermissionInheritance",
+  "copyExistingPermissions": false,
+  "type": "SharePoint"
+}
+,
   {
     "operation": "Grant item permissions",
     "name": "GrantOwnersWhenCenterMissing",
