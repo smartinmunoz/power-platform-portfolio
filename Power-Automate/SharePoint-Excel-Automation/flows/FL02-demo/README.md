@@ -16,7 +16,7 @@ flowchart TD
     A["SharePoint: File created or modified"]
     A --> B{"Status = Validated?"}
     B -->|No| Z["End"]
-    B -->|Yes| C["Initialize 5 variables"]
+    B -->|Yes| C["Initialize 6 variables"]
 
     C --> D["Break file permission inheritance"]
     D --> E["Grant Read to Members"]
@@ -98,17 +98,33 @@ An additional condition is used before the main processing operations.
 
 Changing the file status to `Processing` prevents subsequent file modifications from satisfying the `Validated` trigger condition.
 
+
 ## Initialization
 
-The workflow initializes five variables:
+The workflow initializes six variables:
 
 | Variable | Type | Purpose |
 |---|---|---|
 | SharePointErrors | Integer | Counts failed SharePoint record creation operations |
 | RecordsWithErrors | Integer | Stores the final number of records whose SharePoint creation failed |
 | LastPrimaryRecordId | Integer | Stores the last successfully created primary record ID |
+| LastPrimaryReferenceCode | String | Stores the ReferenceCode of the last successfully created primary record |
 | ErrorDetails | Array | Collects SharePoint record creation error details |
 | RecordsCreated | Integer | Counts successfully created SharePoint records |
+
+### Primary Record Tracking
+
+When a new primary record (`T`) is processed:
+
+1. Reset `LastPrimaryRecordId` to `0`.
+2. Reset `LastPrimaryReferenceCode` to an empty string.
+3. Attempt to create the primary SharePoint record.
+4. If creation succeeds, save the new item ID and its `ReferenceCode`.
+5. If creation fails, keep both tracking variables reset.
+
+These variables allow associated records (`B`) to be linked only to a successfully created primary record with a matching `ReferenceCode`.
+
+### Error Counter Initialization
 
 In this conceptual demonstration, `RecordsWithErrors` is calculated from `SharePointErrors` during final diagnostics.
 
