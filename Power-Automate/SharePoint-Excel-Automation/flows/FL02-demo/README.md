@@ -238,28 +238,45 @@ Records are processed sequentially, with concurrency limited to one iteration at
 
 This preserves the source order and allows associated records to reference the correct primary record.
 
-### Record Relationship Diagram
 
 ```mermaid
 flowchart TD
     A["Process next Excel record"] --> B["Find matching center"]
-    B --> C{"Is primary record T?"}
+    B --> C{"Record type = T?"}
 
-    C -->|Yes| D["Reset LastPrimaryRecordId"]
-    D --> E["Create primary SharePoint item"]
-    E -->|Success| F["Increment RecordsCreated"]
-    F --> G["Save LastPrimaryRecordId"]
-    E -->|Failure| H["Increment SharePointErrors"]
-    H --> I["Append primary record error"]
+    C -->|Yes| D["Reset LastPrimaryRecordId to 0"]
+    D --> E["Reset LastPrimaryReferenceCode"]
+    E --> F["Create primary SharePoint item"]
+    F --> G{"Creation successful?"}
 
-    C -->|No| J{"Valid associated record B?"}
-    J -->|Yes| K["Create associated SharePoint item"]
-    K -->|Success| L["Increment RecordsCreated"]
-    K -->|Failure| M["Increment SharePointErrors"]
-    M --> N["Append associated record error"]
-    J -->|No| O["Skip record"]
+    G -->|Yes| H["Increment RecordsCreated"]
+    H --> I["Save LastPrimaryRecordId"]
+    I --> J["Save LastPrimaryReferenceCode"]
 
-    G -.->|"Used by subsequent associated records"| K
+    G -->|No| K["Increment SharePointErrors"]
+    K --> L["Append creation error details"]
+
+    C -->|No| M{"Record type = B?"}
+    M -->|No| N["Skip unsupported record"]
+    M -->|Yes| O{"LastPrimaryRecordId > 0?"}
+
+    O -->|No| P["Skip associated record and add diagnostic"]
+    O -->|Yes| Q{"ReferenceCode matches LastPrimaryReferenceCode?"}
+
+    Q -->|No| P
+    Q -->|Yes| R["Create associated item with ParentRecordId"]
+    R --> S{"Creation successful?"}
+
+    S -->|Yes| T["Increment RecordsCreated"]
+    S -->|No| U["Increment SharePointErrors"]
+    U --> V["Append creation error details"]
+
+    J --> W["Continue to next record"]
+    L --> W
+    N --> W
+    P --> W
+    T --> W
+    V --> W
 ```
 
 ## Composite Family Identifier
