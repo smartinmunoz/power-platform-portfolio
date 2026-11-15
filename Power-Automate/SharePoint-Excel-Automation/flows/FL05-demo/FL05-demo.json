@@ -23,7 +23,9 @@
     {
       "name": "CenterFound",
       "type": "Condition",
-      "expression": "length(matchingRecords) > 0",
+      
+"expression": "length(matchingRecords) = 1",
+
       "ifTrue": [
         {
           "operation": "Compose",
