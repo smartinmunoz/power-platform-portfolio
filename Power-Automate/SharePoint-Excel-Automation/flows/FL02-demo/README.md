@@ -227,6 +227,23 @@ The export script writes data into the predefined template starting at row 15.
 
 ## Sequential Record Processing
 
+### Source Record Type Validation
+
+Before FL02 processes individual records, the `process-records.ts` Office Script validates the source Excel data.
+
+Only two record types are supported:
+
+- `T`: Primary record.
+- `B`: Associated record.
+
+If a record contains an unsupported `RecordType`, the Office Script throws an error identifying the affected row.
+
+The Excel extraction fails, and FL02 must handle this as a document-level processing error.
+
+Unsupported record types are therefore not silently skipped during normal processing.
+
+This validation error does not increment `SharePointErrors` or `RecordsWithErrors`, because no SharePoint record creation was attempted.
+
 The workflow distinguishes two types of records:
 
 | Record Type | Description |
