@@ -49,6 +49,24 @@ function main(
             throw new Error(
                 `Invalid record at position ${i + 1}: expected an object.`
             );
+          
+        // Validate required export fields
+        const requiredFields: (keyof ExportRecord)[] = [
+            "RecordType",
+            "ReferenceCode",
+            "FullName"
+        ];
+
+        const missingFields = requiredFields.filter(field =>
+            String(record[field] ?? "").trim() === ""
+        );
+
+        if (missingFields.length > 0) {
+            throw new Error(
+                `Invalid record at position ${i + 1}: missing required fields: ${missingFields.join(", ")}`
+            );
+        }
+  
         }
     }
 
