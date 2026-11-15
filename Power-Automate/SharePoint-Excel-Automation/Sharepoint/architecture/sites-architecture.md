@@ -70,14 +70,26 @@ Stores Excel files awaiting validation and subsequent processing.
 
 The library uses unique permissions to prevent center groups from accessing it.
 
-When a document is validated and changes to the `Tractat` (Processed) status:
 
-1. FL02 breaks permission inheritance on the file.
-2. Read permissions are assigned to the site Owners group.
-3. Read permissions are assigned to the site Members group.
-4. Only site collection administrators retain the ability to modify the processed file.
+When a document changes to the `Validated` status, FL02 starts the processing workflow and applies file-level protection.
 
-This protects processed source documents from further editing by ordinary management users.
+The workflow performs the following operations:
+
+1. Breaks permission inheritance on the source document.
+2. Grants Read access to the Site Owners group.
+3. Grants Read access to the Site Members group.
+4. Updates the document status from `Validated` to `Processing`.
+5. Processes the Excel data, creates SharePoint records, generates the export workbook, and invokes FL04 for execution logging.
+6. Updates the document status to `Processed` when processing and logging complete successfully, or to `Error` if processing cannot complete successfully.
+
+The `Processing` status indicates that the document has entered the protected processing stage. It does not guarantee successful completion.
+
+The `Processed` status confirms successful completion, while `Error` identifies processing or logging failures.
+
+Site Collection Administrators retain administrative control. Appropriately authorized automation connections must retain the permissions required to complete processing and update document metadata.
+
+Effective permissions must be validated to ensure that ordinary management users cannot modify protected source documents through other group memberships or direct permission assignments.
+
 
 
 ### Temporary Files Library
