@@ -43,7 +43,10 @@ The document lifecycle is:
 
 The Validation Library is restricted to authorized management users. External Staff and Center Groups cannot access its documents.
 
-The `Tractat` status indicates that the document has entered the protected processing stage, not necessarily that every downstream operation completed successfully.
+
+The `Processing` status indicates that the document has entered the protected processing stage. It does not guarantee successful completion of downstream operations.
+
+The `Processed` status indicates successful completion, while `Error` identifies processing or logging failures.
 
 
 ## 4. Document Status
