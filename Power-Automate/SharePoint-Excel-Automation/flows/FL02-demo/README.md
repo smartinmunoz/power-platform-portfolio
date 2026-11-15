@@ -258,8 +258,6 @@ This preserves the source order and allows associated records to reference the c
 ### Record Relationship Diagram
 ```mermaid
 flowchart TD
-
-flowchart TD
     A["Process next Excel record"] --> B["Find matching center"]
     B --> C{"Record type = T?"}
 
