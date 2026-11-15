@@ -110,15 +110,17 @@
 "familyIdentifier": "concat(SourceFileId, '-', ReferenceCode)",
 
      
+
 "associatedRecord": [
   "Validate associated record",
   "Verify that LastPrimaryRecordId is greater than 0",
-  "If no valid primary record exists, skip associated record creation and append a diagnostic entry",
-  "If a valid primary record exists, create associated SharePoint item with ParentRecordId set to LastPrimaryRecordId",
-  "Increment created records count on success",
-  "Track and append SharePoint creation errors"
-
+  "Verify that the current record ReferenceCode matches LastPrimaryReferenceCode",
+  "If no valid primary record exists or ReferenceCode does not match, skip associated record creation and append a diagnostic entry",
+  "If both validations succeed, create associated SharePoint item with ParentRecordId set to LastPrimaryRecordId",
+  "Increment RecordsCreated if SharePoint item creation succeeds",
+  "Increment SharePointErrors and append creation error details if SharePoint item creation fails"
 ],
+
       "operation": "Apply to each"
     },
   {
