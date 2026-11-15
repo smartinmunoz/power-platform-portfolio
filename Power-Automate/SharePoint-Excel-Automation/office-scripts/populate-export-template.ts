@@ -16,7 +16,18 @@ function main(
         throw new Error("Worksheet 'Export' not found.");
     }
 
-    const records = JSON.parse(recordsJSON) as ExportRecord[];
+    
+    // Parse and validate the JSON input
+    let records: ExportRecord[];
+
+    try {
+        records = JSON.parse(recordsJSON) as ExportRecord[];
+    } catch {
+        throw new Error(
+            "Invalid recordsJSON: the input must contain valid JSON."
+        );
+    }
+
 
     if (!Array.isArray(records)) {
         throw new Error("Expected an array of records.");
