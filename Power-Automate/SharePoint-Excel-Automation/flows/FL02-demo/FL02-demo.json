@@ -156,9 +156,26 @@
         ]
       },
       "condition": "Main processing completed successfully AND SharePointErrors = 0",
+
       "note": "Mark the source document as Processed only after successful completion of the processing workflow and FL04 logging."
+    },
+    {
+      "operation": "Update SharePoint file properties",
+      "name": "MarkFileAsError",
+      "status": "Error",
+      "previousStatus": "Processing",
+      "runAfter": {
+        "MarkFileAsProcessed": [
+          "Skipped",
+          "Failed",
+          "TimedOut"
+        ]
+      },
+      "condition": "Main processing failed OR SharePointErrors > 0 OR FL04 logging failed",
+      "note": "Mark the source document as Error when processing cannot complete successfully, when SharePoint record creation errors are detected, or when execution logging fails. The error branch must also handle failures that prevent FL04 from running."
     }
   ],
+
 
   "officeScripts": [
     "process-records.ts",
