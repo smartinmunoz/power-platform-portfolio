@@ -38,6 +38,8 @@ function main(
     }
 
     // Validate each record structure
+
+    // Validate each record structure
     for (let i = 0; i < records.length; i++) {
         const record = records[i];
 
@@ -49,7 +51,8 @@ function main(
             throw new Error(
                 `Invalid record at position ${i + 1}: expected an object.`
             );
-          
+        }
+
         // Validate required export fields
         const requiredFields: (keyof ExportRecord)[] = [
             "RecordType",
@@ -66,9 +69,8 @@ function main(
                 `Invalid record at position ${i + 1}: missing required fields: ${missingFields.join(", ")}`
             );
         }
-  
-        }
     }
+
 
     const rows: string[][] = records.map(record => [
         String(record.RecordType ?? ""),
