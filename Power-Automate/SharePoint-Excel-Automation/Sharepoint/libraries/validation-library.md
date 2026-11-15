@@ -38,8 +38,10 @@ The document lifecycle is:
 5. Authorized Site Owners and Site Members review and validate the document.
 6. The document status changes to `Validated`, triggering FL02.
 7. FL02 breaks file-level permission inheritance and grants Read access to Site Owners and Site Members.
-8. FL02 updates the document status to `Tractat` before continuing with Excel processing.
+8. FL02 updates the document status from `Validated` to `Processing`.
 9. FL02 processes the Excel data, creates SharePoint records, generates the export workbook, and records processing results through FL04.
+10. FL02 updates the document status to `Processed` when processing and logging complete successfully, or to `Error` if processing cannot complete successfully.
+
 
 The Validation Library is restricted to authorized management users. External Staff and Center Groups cannot access its documents.
 
