@@ -96,7 +96,9 @@
         "Save created primary item ID",
         "Track and record creation errors"
       ],
-      "familyIdentifier": "concat(SourceFileId, '-', FamilyId)",
+      
+"familyIdentifier": "concat(SourceFileId, '-', ReferenceCode)",
+
      
 "associatedRecord": [
   "Validate associated record",
