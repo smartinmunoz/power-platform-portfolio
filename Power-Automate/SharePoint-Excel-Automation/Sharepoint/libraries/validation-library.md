@@ -48,19 +48,24 @@ The `Tractat` status indicates that the document has entered the protected proce
 
 ## 4. Document Status
 
-The processing workflow uses document metadata to identify files ready for processing.
-
-The demonstration uses the following conceptual statuses:
+The processing workflow uses document metadata to track the lifecycle of each Excel file.
 
 | Status | Purpose |
 |---|---|
 | Pending Validation | Document awaiting review |
-| Validated | Document approved for processing |
-| Tractat (Processed) | Document marked as processed and protected |
+| Validated | Document approved for processing; triggers FL02 |
+| Processing | FL02 is executing and the source document is protected |
+| Processed | Processing completed successfully |
+| Error | Processing failed or could not complete successfully |
+
+The `Validated` status is used by the FL02 trigger condition.
+
+FL02 changes the status to `Processing` during execution.
+
+The final status is `Processed` when processing and logging complete successfully, or `Error` when processing fails, SharePoint record creation errors occur, or required logging fails.
 
 The exact SharePoint choice values and internal column names must match the target implementation.
 
-The `Validated` status is used by the FL02 trigger condition.
 
 
 ## 5. Library Permissions
