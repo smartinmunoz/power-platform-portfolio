@@ -142,9 +142,24 @@
         "RecordsWithErrors": "SharePointErrors",
         "ErrorDetails": "ConsolidatedErrorDetails",
         "ExecutionId": "CurrentFlowExecutionId"
+
       }
+    },
+    {
+      "operation": "Update SharePoint file properties",
+      "name": "MarkFileAsProcessed",
+      "status": "Processed",
+      "previousStatus": "Processing",
+      "runAfter": {
+        "ExecuteFL04": [
+          "Succeeded"
+        ]
+      },
+      "condition": "Main processing completed successfully AND SharePointErrors = 0",
+      "note": "Mark the source document as Processed only after successful completion of the processing workflow and FL04 logging."
     }
   ],
+
   "officeScripts": [
     "process-records.ts",
     "populate-export-template.ts"
