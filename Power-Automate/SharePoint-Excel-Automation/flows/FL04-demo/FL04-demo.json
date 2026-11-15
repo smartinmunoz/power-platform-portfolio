@@ -53,7 +53,7 @@
       "name": "CreateProcessingLog",
       "type": "SharePoint",
       "fields": {
-        "Status": "CalculatedProcessingStatus",
+        "Status": "statusLogic.statusValue",
         "ExecutionId": "inputs.ExecutionId",
         "ExecutionDate": "utcNow()",
         "RecordsWithErrors": "inputs.RecordsWithErrors",
