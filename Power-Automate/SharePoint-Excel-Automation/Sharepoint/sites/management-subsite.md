@@ -79,6 +79,33 @@ Site Collection Administrators retain administrative control under the documente
 
 **Important:** The `Processing` status indicates that the document is being processed. It does not guarantee successful completion. The final status distinguishes successful processing (`Processed`) from processing or logging failures (`Error`).
 
+## Temporary Files Library
+
+### Purpose
+
+The Temporary Files Library provides a dedicated workspace for Excel files generated during automated processing.
+
+FL02 creates temporary working copies of validated documents, keeping original files separate from intermediate processing operations.
+
+FL03 periodically removes temporary files older than eight hours.
+
+### Permissions
+
+| Role | Access |
+|---|---|
+| Site Owners | Full Control |
+| Authorized Management Members | As required for administration |
+| Power Automate Processing Connection | Read / Write / Delete |
+| Center Groups | No access |
+| External Staff | No access |
+
+The library uses restricted permissions to prevent unauthorized access to temporary processing files.
+
+The eight-hour threshold determines cleanup eligibility, not an exact deletion time.
+
+For implementation details, see [Temporary Files Library](../libraries/temporary-files-library.md).
+
+
 ## 5. Export Library
 
 ### 5.1 Purpose
