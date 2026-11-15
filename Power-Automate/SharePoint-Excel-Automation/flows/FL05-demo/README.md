@@ -67,7 +67,7 @@ In a production implementation, permission inheritance changes must be performed
 The implementation must ensure that the flow execution identity and authorized administrators retain the access necessary to complete permission assignment.
 
 Permission changes and error handling should be tested before deployment to prevent accidental loss of access.
-s.
+
 
 ## Configuration-Driven Permissions
 
