@@ -128,6 +128,25 @@ The solution demonstrates how Power Automate, SharePoint Online, and Office Scri
 
 ---
 
+### 02. Service Expiration Alerts
+
+**Category:** Power Automate | SharePoint Online | Office 365 Outlook
+
+**Status:** Original flow tested and operational; published definitions are anonymized reference examples.
+
+A scheduled cloud flow checks service expiration dates, compares the days remaining with configured reminder periods, and sends one notification email to the assigned recipients when a reminder is due.
+
+- Daily execution at 09:00 (Madrid time).
+- SharePoint status and expiration-date filtering.
+- Multi-select reminder-period matching and grouped recipient notification.
+- English email template, Mermaid workflow diagram, and reference JSON.
+
+**[Explore Service Expiration Alerts](Power-Automate/Service-Expiration-Alerts/)** · [Versión en español](https://github.com/smartinmunoz/power-platform-portfolio-es/tree/main/Power-Automate/Service-Expiration-Alerts)
+
+> **Implementation note:** The published workflow JSON is a reference definition, not a directly importable solution package; connection and SharePoint configuration is required.
+
+---
+
 ### Future Projects
 
 Additional Power Platform examples may include:
