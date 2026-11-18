@@ -36,15 +36,17 @@ processing executions.
 1. Trigger the workflow only when the SharePoint file status is "Validated", using a trigger condition.
 2. Initialize error-tracking variables and the last primary record identifier.
 3. Break permission inheritance and change validators' permissions from Edit/Contribute to Read.
-4. Update the file status to "Processed" before starting the main data processing operations.
+4. Update the file status to `Processing` before starting the main data processing operations.
 5. Perform an additional validation-status check to prevent unintended processing during testing.
 6. If the condition is met, retrieve the validated Excel file and create a temporary working copy.
 7. Execute Office Scripts to extract the Excel records and check the script result.
 8. Generate the required output Excel files, including the file prepared for import into an external application.
 9. Process the extracted records in Power Automate, distinguishing primary (T) and associated (B) records and managing their relationships.
 10. Create the corresponding records in the target SharePoint list.
+11. Build final processing diagnostics and invoke FL04 to log the execution.
+12. Set status to `Processed` only if processing and FL04 logging succeed with `SharePointErrors = 0`; otherwise set `Error`.
 
-**Note:** In the current implementation, the "Processed" status is assigned before the main processing operations. It does not confirm successful completion.
+**Note:** `Processing` indicates that processing has started, not successful completion. `Processed` is reserved for successful processing and required FL04 logging.
   
 
 ## Record Processing
@@ -78,14 +80,17 @@ This prevents those users from editing the file during processing.
 
 ## Processing Status
 
-- **Validated (Validat):** The file has been manually reviewed and approved for processing.
-- **Processed (Tractat):** The file has entered the automated processing stage.
+The Validation Library has five conceptual document statuses: `Pending Validation`, `Validated`, `Processing`, `Processed`, and `Error`.
 
-The workflow changes the file status to "Processed" before executing the main data processing operations.
+- **Pending Validation:** Awaiting manual review.
+- **Validated:** Approved for processing.
+- **Processing:** FL02 has started processing; the original document is protected.
+- **Processed:** Processing and FL04 logging have completed successfully, with `SharePointErrors = 0`.
+- **Error:** Processing failed, SharePoint record creation errors occurred, or FL04 logging failed.
 
-This status does not guarantee that processing has completed successfully.
+FL02 follows `Validated` → `Processing` → `Processed` or `Error`. FL04 execution-log statuses are separate from document statuses.
 
-Processing errors are tracked separately within the workflow.
+The original trigger example uses `Validat`; verify the actual SharePoint choice value and its mapping to the conceptual `Validated` state in the target environment.
 
 ## Temporary Files
 
