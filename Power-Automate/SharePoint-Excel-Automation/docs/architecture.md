@@ -11,26 +11,24 @@ The solution combines manual validation, automated data transformation, SharePoi
 
 ```mermaid
 flowchart TD
-    A["SharePoint: New Request with Excel Attachment"]
-    B["FL01: File Reception"]
-    C["Protected Document Library"]
-    D["Validation Document Library"]
-    E["Manual Excel Review"]
+    A["SharePoint: New request with Excel attachment"]
+    B["FL01: Receive and distribute attachments"]
+    C["Main Site: Derived Documents Library"]
+    D["Management Subsite: Validation Library"]
+    E["Manual review"]
     F{"Status = Validated?"}
-    G["FL02: Excel Processing"]
-    H["Restrict Validator Permissions to Read"]
-    I["Set Status to Processed"]
-    J["Create Temporary Excel Copy"]
-    K["Office Script 1: Extract Records"]
-    L["Power Automate: Create Workbook from Template"]
-    M["Office Script 2: Populate Export Workbook"]
-    N["Sequential Record Processing"]
-    O["Create SharePoint Records"]
-    P["FL05: Apply Dynamic Record Permissions"]
-    Q["Permissions Configuration List"]
-    R["FL03: Scheduled Temporary File Cleanup"]
-    T["FL04: Processing Logs and Error Tracking"]
-    U["SharePoint: Processing Logs List"]
+    G["FL02: Restrict source-file editing and set Processing"]
+    H["Create temporary Excel copy"]
+    I["Office Script 1: Extract records"]
+    J["Create export workbook and run Office Script 2"]
+    K["Sequentially create primary and associated records"]
+    L["FL05: Apply dynamic record permissions"]
+    M["Center / group configuration list"]
+    N["FL04: Log execution and errors"]
+    O{"Processing and logging successful; SharePointErrors = 0?"}
+    P["Set source status to Processed"]
+    Q["Set source status to Error"]
+    R["FL03: Scheduled temporary-file cleanup"]
 
     A --> B
     B --> C
@@ -43,16 +41,13 @@ flowchart TD
     I --> J
     J --> K
     K --> L
-    L --> M
-    M --> N
+    M --> L
+    G -.->|Call child flow after processing| N
+    K --> N
     N --> O
-    O --> P
-    Q --> P
-    G -.->|"Child flow invocation"| T
-    T --> U
-    S["Scheduled: Daily"]
-    S --> R
-
+    O -->|Yes| P
+    O -->|No| Q
+    S["Daily schedule"] --> R
 ```
 
 ## Main Components
@@ -61,16 +56,16 @@ flowchart TD
 
 Receives requests containing Excel attachments and creates copies in two SharePoint document libraries:
 
-- Protected library for administrative access.
-- Validation library for authorized reviewers.
+- Derived Documents Library in the Main Site for read-only access by authorized users.
+- Validation Library in the Management Subsite for restricted internal review and processing.
 
 ### FL02: Excel Processing
 
 Triggered when a file is marked as validated.
 
-The workflow restricts editing permissions, updates the processing status, extracts Excel data, generates output files and creates related SharePoint records.
+The workflow restricts editing permissions on the source document and sets its status to `Processing`. It then extracts Excel data, generates output files, creates related SharePoint records, and invokes FL04 to log the execution. Once processing and logging are evaluated, it sets the source status to `Processed` on success with `SharePointErrors = 0`, or `Error` on failure.
 
-Primary and associated records are processed sequentially to preserve their relationships.
+Primary and associated records are processed sequentially to preserve their relationships. This diagram summarizes conceptual responsibilities rather than an executable flow package; detailed error paths and action order are described in [FL02 documentation](../flows/FL02-demo/README.md).
 
 ### FL03: Temporary File Cleanup
 
