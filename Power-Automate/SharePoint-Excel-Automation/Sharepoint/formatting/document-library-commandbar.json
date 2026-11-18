@@ -5,7 +5,7 @@
       {
         "key": "editInGridView",
         "hide": false,
-        "text": "Editar en cuadrícula",
+        "text": "Edit in grid view",
         "iconName": "EditTable",
         "primary": true,
         "position": 0,
@@ -14,7 +14,7 @@
       {
         "key": "open",
         "hide": false,
-        "text": "Abrir",
+        "text": "Open",
         "iconName": "OpenFile",
         "position": 1,
         "sectionType": "Primary"
@@ -22,7 +22,7 @@
       {
         "key": "openInOfficeClient",
         "hide": false,
-        "text": "Abrir en aplicación",
+        "text": "Open in desktop app",
         "iconName": "OpenInNewWindow",
         "position": 2,
         "sectionType": "Primary"
