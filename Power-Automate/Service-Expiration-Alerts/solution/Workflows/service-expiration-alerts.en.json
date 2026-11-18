@@ -1,0 +1,155 @@
+{
+  "properties": {
+    "connectionReferences": {
+      "shared_sharepointonline-1": {
+        "api": {
+          "name": "shared_sharepointonline"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "cre_sharedsharepointonline_e2f4d"
+        },
+        "runtimeSource": "embedded"
+      },
+      "shared_office365": {
+        "api": {
+          "name": "shared_office365"
+        },
+        "connection": {
+          "connectionReferenceLogicalName": "new_sharedoffice365_59d29"
+        },
+        "runtimeSource": "embedded"
+      }
+    },
+    "definition": {
+      "$schema": "https://schema.management.azure.com/providers/Microsoft.Logic/schemas/2016-06-01/workflowdefinition.json#",
+      "contentVersion": "1.0.0.0",
+      "parameters": {
+        "$authentication": {
+          "defaultValue": {},
+          "type": "SecureObject"
+        },
+        "$connections": {
+          "defaultValue": {},
+          "type": "Object"
+        }
+      },
+      "triggers": {
+        "Periodicidad": {
+          "type": "Recurrence",
+          "recurrence": {
+            "interval": 1,
+            "frequency": "Day",
+            "timeZone": "Romance Standard Time",
+            "schedule": {
+              "hours": [
+                "9"
+              ],
+              "minutes": [
+                0
+              ]
+            }
+          }
+        }
+      },
+      "actions": {
+        "Obtener_elementos": {
+          "type": "OpenApiConnection",
+          "inputs": {
+            "parameters": {
+              "dataset": "https://contoso.sharepoint.com/sites/ServiceManagement",
+              "table": "00000000-0000-0000-0000-000000000001",
+              "$filter": "Estado ne '90-Cancelado' and Estado ne '40-Finalizado' and Fechadevencimiento ne null\n"
+            },
+            "host": {
+              "apiId": "/providers/Microsoft.PowerApps/apis/shared_sharepointonline",
+              "operationId": "GetItems",
+              "connectionName": "shared_sharepointonline-1"
+            }
+          },
+          "runAfter": {}
+        },
+        "Recorrer_servicios": {
+          "type": "Foreach",
+          "foreach": "@outputs('Obtener_elementos')?['body/value']",
+          "actions": {
+            "Dias_restantes": {
+              "type": "Compose",
+              "inputs": "@\r\ndiv(\r\n  sub(\r\n    ticks(\r\n      formatDateTime(\r\n        items('Recorrer_servicios')?['Fechadevencimiento'],\r\n        'yyyy-MM-dd'\r\n      )\r\n    ),\r\n    ticks(\r\n      convertTimeZone(\r\n        utcNow(),\r\n        'UTC',\r\n        'Romance Standard Time',\r\n        'yyyy-MM-dd'\r\n      )\r\n    )\r\n  ),\r\n  864000000000\r\n)\r\n  "
+            },
+            "Comprobar_periodo_aviso": {
+              "type": "If",
+              "expression": {
+                "and": [
+                  {
+                    "equals": [
+                      "@\r\ncontains(\r\n  string(items('Recorrer_servicios')?['Periododeaviso']),\r\n  concat('\"Value\":\"', string(outputs('Dias_restantes')), '\"')\r\n)\r\n",
+                      true
+                    ]
+                  }
+                ]
+              },
+              "actions": {
+                "Seleccionar_correos": {
+                  "type": "Select",
+                  "inputs": {
+                    "from": "@items('Recorrer_servicios')?['Comunicara']\r\n",
+                    "select": "@item()?['Email']\r\n"
+                  }
+                },
+                "Combinación": {
+                  "type": "Join",
+                  "inputs": {
+                    "from": "@body('Seleccionar_correos')",
+                    "joinWith": ";"
+                  },
+                  "runAfter": {
+                    "Seleccionar_correos": [
+                      "Succeeded"
+                    ]
+                  }
+                },
+                "Enviar_correo_electrónico_(V2)": {
+                  "type": "OpenApiConnection",
+                  "inputs": {
+                    "parameters": {
+                      "emailMessage/To": "@\r\nbody('Combinación')\r\n",
+                      "emailMessage/Subject": "Expiration notice - @{items('Recorrer_servicios')?['Title']} - @{outputs('Dias_restantes')} days",
+                      "emailMessage/Body": "<p style=\"margin:0 0 20px 0;\">\nGood morning,\n</p>\n\n<p style=\"margin:0 0 25px 0;\">\nThe following contract is approaching its expiration date.\n</p>\n\n<table cellpadding=\"0\" cellspacing=\"0\" border=\"0\" style=\"font-family:'Montserrat','Segoe UI',Arial,sans-serif; margin-bottom:25px;\">\n    <tbody><tr>\n        <td style=\"padding:2px 0;\">\n            <strong>Service:</strong>\n        </td>\n    </tr>\n    <tr>\n        <td style=\"padding:0 0 12px 0;\">\n@{items('Recorrer_servicios')?['Title'] }      </td>\n    </tr>\n\n    <tr>\n        <td style=\"padding:2px 0;\">\n            <strong>Expiration date:</strong>\n        </td>\n    </tr>\n    <tr>\n        <td style=\"padding:0 0 12px 0;\">\n@{formatDateTime(items('Recorrer_servicios')?['Fechadevencimiento'],'dd/MM/yyyy')}\n        </td>\n    </tr>\n\n    <tr>\n        <td style=\"padding:2px 0;\">\n            <strong>Days remaining:</strong>\n        </td>\n    </tr>\n    <tr>\n        <td>\n            @{outputs('Dias_restantes')}\n\n        </td>\n    </tr>\n</tbody></table>\n\n<p style=\"margin:0 0 25px 0;\">\nPlease review whether the service should be renewed or cancelled before its expiration date.\n</p>\n\n<p style=\"font-style:italic; color:#666666; margin:0 0 25px 0;\">\nThis message was generated automatically by Power Automate.\n</p>\n\n<!-- SIGNATURE -->\n<p style=\"font-family:Arial,sans-serif; font-size:13px; color:#333333; margin-top:20px;\">\nBest regards,<br/>\n<strong>Service Management Team</strong><br/>\nContoso\n</p>",
+                      "emailMessage/Importance": "Normal"
+                    },
+                    "host": {
+                      "apiId": "/providers/Microsoft.PowerApps/apis/shared_office365",
+                      "operationId": "SendEmailV2",
+                      "connectionName": "shared_office365"
+                    }
+                  },
+                  "runAfter": {
+                    "Combinación": [
+                      "Succeeded"
+                    ]
+                  }
+                }
+              },
+              "else": {
+                "actions": {}
+              },
+              "runAfter": {
+                "Dias_restantes": [
+                  "Succeeded"
+                ]
+              }
+            }
+          },
+          "runAfter": {
+            "Obtener_elementos": [
+              "Succeeded"
+            ]
+          }
+        }
+      },
+      "outputs": {}
+    },
+    "templateName": null
+  },
+  "schemaVersion": "1.0.0.0"
+}
